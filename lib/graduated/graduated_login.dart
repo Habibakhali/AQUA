@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/graduated/Otp_form.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
 import '../type_of_textfeild/text_field.dart';
@@ -60,10 +61,13 @@ class _GraduatedLogInState extends State<GraduatedLogIn> {
                 ),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, otpForm.routeName);
+                  },
                   child: Text(
                     'Forget My Password?',
                     style: TextStyle(color: Colors.black),
+
                   )),
               TextButton(
                 onPressed: () {
