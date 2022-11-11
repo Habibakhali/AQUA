@@ -19,12 +19,14 @@ class SeleBtn extends StatelessWidget {
             margin: EdgeInsets.all(20),
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, GraduatedLogIn.routeName);
+                  Navigator.pushNamed(context, routeName);
                 },
                 child: Text(text))),
         Container(
             margin: EdgeInsets.all(20),
-            child: ElevatedButton(onPressed: () {}, child: Text(text0))),
+            child: ElevatedButton(onPressed: () {
+              Navigator.pushNamed(context, routeName0);
+            }, child: Text(text0))),
       ],
     );
   }

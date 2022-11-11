@@ -41,10 +41,8 @@ class SelectionPart extends StatelessWidget {
           Image.asset(
             'images/Logo.jpg',
           ),
-          SeleBtn('Student', 'Doctor', StudentLogin.routeName,
-              DoctorLogin.routeName),
-          SeleBtn('Graduated', 'Assistant', GraduatedLogIn.routeName,
-              AssistantLogin.routeName),
+          SeleBtn('Student', 'Doctor', StudentLogin.routeName,DoctorLogin.routeName),
+          SeleBtn('Graduated', 'Assistant', GraduatedLogIn.routeName,AssistantLogin.routeName),
         ],
       ),
     );
