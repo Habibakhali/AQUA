@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/graduated/Otp_form.dart';
+import 'package:project/graduated/acadimec%20regsteration.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
 import '../type_of_textfeild/text_field.dart';
@@ -57,7 +58,9 @@ class _GraduatedLogInState extends State<GraduatedLogIn> {
                     'Log In',
                     style: TextStyle(fontSize: 20),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, AcadimecRegsteration.routeName);
+                  },
                 ),
               ),
               TextButton(
