@@ -5,6 +5,8 @@ import 'package:project/type_of_textfeild/text_field.dart';
 
 class SignUpGraduated extends StatefulWidget {
   static const String routeName = 'signup';
+  String routelogin;
+  SignUpGraduated(this.routelogin);
 
   @override
   State<SignUpGraduated> createState() => _SignUpGraduatedState();
@@ -47,11 +49,11 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                TextFeilf('Enter Your Email', 'User name', TextInputType.name),
+                TextFeilf('Enter Your name', 'User name', TextInputType.name,Icon(Icons.person)),
                 TextFeilf('Enter Your Email', 'University Email',
-                    TextInputType.emailAddress),
+                    TextInputType.emailAddress,Icon(Icons.email_outlined)),
                 TextFeilf('Enter Your Phone Number', 'Phone Number',
-                    TextInputType.number),
+                    TextInputType.number,Icon(Icons.phone)),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   width: double.infinity,
@@ -74,13 +76,12 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                   ),
                 ),
                 PasswordTextField('Password', 'Enter your password',''),
-                PasswordTextField(
-                    'Confirm Password', 'Enter your the same password',''),
+                PasswordTextField('Confirm Password', 'Enter your the same password',''),
                 Container(
                   width: 250,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, GraduatedLogIn.routeName);
+                        Navigator.pushNamed(context, widget.routelogin);
                       },
                       child: Text(
                         'Sign Up',

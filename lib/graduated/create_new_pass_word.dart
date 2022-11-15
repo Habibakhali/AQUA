@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
-class PassWordReset extends StatefulWidget {
+class PasswordResetGra extends StatelessWidget {
   //const PassWordReset({Key? key}) : super(key: key);
   static const String routeName = 'newPassWord';
-
-  @override
-  State<PassWordReset> createState() => _PassWordResetState();
-}
-
-class _PassWordResetState extends State<PassWordReset> {
-  bool visubility = true;
+  String backToligin;
+  PasswordResetGra(this.backToligin);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +42,7 @@ class _PassWordResetState extends State<PassWordReset> {
               ),
               ElevatedButton(
                   onPressed: () {
-
+                      Navigator.pushNamed(context, backToligin);
                   },
                   child: Text(
                     'Reset password',

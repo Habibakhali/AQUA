@@ -16,11 +16,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.only(top: 20,right: 20,left: 20),
       child: TextField(
         keyboardType: TextInputType.visiblePassword,
         obscureText: visubility,
         decoration: InputDecoration(
+          prefixIcon: Icon(Icons.lock_outline),
             suffixIcon: IconButton(onPressed: (){
               visubility =!visubility;
               setState((){});

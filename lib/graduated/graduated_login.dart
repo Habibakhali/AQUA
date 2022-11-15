@@ -3,12 +3,13 @@ import 'package:project/graduated/Otp_form.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
 import '../type_of_textfeild/text_field.dart';
-import 'signup.dart';
+import 'signupGr.dart';
 
 class GraduatedLogIn extends StatelessWidget {
   static const String routeName = 'Login_Gradutated';
   String signUpRouteName;
-  GraduatedLogIn(this.signUpRouteName);
+  String otpformGraduated;
+  GraduatedLogIn(this.signUpRouteName,this.otpformGraduated);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +45,7 @@ class GraduatedLogIn extends StatelessWidget {
                 'images/Logo.jpg',
               ),
               TextFeilf(
-                  'Enter your Email', 'Email', TextInputType.emailAddress),
+                  'Enter your Email', 'Email', TextInputType.emailAddress,Icon(Icons.email_outlined)),
               PasswordTextField('Password', 'Enter your Password',''),
               Container(
                 width: 250,
@@ -61,7 +62,7 @@ class GraduatedLogIn extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, otpForm.routeName);
+                    Navigator.pushNamed(context, otpformGraduated);
                   },
                   child: Text(
                     'Forget My Password?',

@@ -5,10 +5,10 @@ class SeleBtn extends StatelessWidget {
   String text;
 
   String routeName;
-  String signUpRouting;
 
 
-  SeleBtn(this.text, this.routeName,this.signUpRouting);
+
+  SeleBtn(this.text, this.routeName);
 
   @override
   Widget build(BuildContext context) {

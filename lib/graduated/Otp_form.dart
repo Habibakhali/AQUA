@@ -1,18 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'create_new_pass_word.dart';
 
-class otpForm extends StatefulWidget {
+class OtpFormGraduated extends StatefulWidget {
   //const otpForm({Key? key}) : super(key: key);
   static const String routeName = 'otpForm';
+  String resetpassword;
+  OtpFormGraduated(this.resetpassword);
 
   @override
-  State<otpForm> createState() => _otpFormState();
+  State<OtpFormGraduated> createState() => _OtpFormGraduatedState();
 }
 
-class _otpFormState extends State<otpForm> {
+class _OtpFormGraduatedState extends State<OtpFormGraduated> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,7 +188,7 @@ class _otpFormState extends State<otpForm> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, PassWordReset.routeName);
+                      Navigator.pushNamed(context, widget.resetpassword);
                     },
                     style: ButtonStyle(
                       foregroundColor:
