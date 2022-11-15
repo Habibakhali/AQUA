@@ -3,17 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:project/selection_button.dart';
 
 
-class OtpFormGraduated extends StatefulWidget {
+class OtpFormEmailGraduated extends StatefulWidget {
   //const otpForm({Key? key}) : super(key: key);
-  static const String routeName = 'otpForm';
-  String resetpassword;
-  OtpFormGraduated(this.resetpassword);
+  static const String routeName = 'otpFormEmail';
+  String backtologin;
+  OtpFormEmailGraduated(this.backtologin);
 
   @override
-  State<OtpFormGraduated> createState() => _OtpFormGraduatedState();
+  State<OtpFormEmailGraduated> createState() => _OtpFormEmailGraduatedState();
 }
 
-class _OtpFormGraduatedState extends State<OtpFormGraduated> {
+class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,7 +185,7 @@ class _OtpFormGraduatedState extends State<OtpFormGraduated> {
         Row(mainAxisAlignment: MainAxisAlignment.center,
                  children: [
             Container(width: 200,
-            child:SeleBtn('Verify' , widget.resetpassword),
+            child:SeleBtn('Verify' , widget.backtologin),
             ) ],
              ),
 
