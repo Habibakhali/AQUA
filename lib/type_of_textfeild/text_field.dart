@@ -11,7 +11,7 @@ class TextFeilf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(20),
+        margin: EdgeInsets.only(top: 20,left: 20,right: 20),
         child: TextField(
           keyboardType: keyboard_type,
           decoration: InputDecoration(

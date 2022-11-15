@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
+
 class PasswordResetGra extends StatelessWidget {
   //const PassWordReset({Key? key}) : super(key: key);
   static const String routeName = 'newPassWord';
@@ -36,8 +37,10 @@ class PasswordResetGra extends StatelessWidget {
                 "Your password must be different from previous used password.",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
+              SizedBox(height: 20,),
               PasswordTextField('Password', '', 'Must be at least characters'),
-              PasswordTextField('Conferm', '', 'Both passwords must match'),
+              SizedBox(height: 20,),
+              PasswordTextField('Confirm', '', 'Both passwords must match'),
             SeleBtn('Reset password', backToligin),
             ],
           )),
