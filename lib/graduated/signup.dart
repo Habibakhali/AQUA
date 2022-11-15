@@ -3,14 +3,14 @@ import 'package:project/graduated/graduated_login.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 import 'package:project/type_of_textfeild/text_field.dart';
 
-class SignUp extends StatefulWidget {
+class SignUpGraduated extends StatefulWidget {
   static const String routeName = 'signup';
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUpGraduated> createState() => _SignUpGraduatedState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpGraduatedState extends State<SignUpGraduated> {
   List<String> items = ['1', '2', '3', '4'];
   String? selectedItem = '1';
 
@@ -73,9 +73,9 @@ class _SignUpState extends State<SignUp> {
                     onChanged: (item) => setState(() => selectedItem = item),
                   ),
                 ),
-                PasswordTextField('Password', 'Enter your password'),
+                PasswordTextField('Password', 'Enter your password',''),
                 PasswordTextField(
-                    'Confirm Password', 'Enter your the same password'),
+                    'Confirm Password', 'Enter your the same password',''),
                 Container(
                   width: 250,
                   child: ElevatedButton(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/assistant/assistant_Login.dart';
 import 'package:project/doctor/doctor_login.dart';
 import 'package:project/graduated/graduated_login.dart';
+import 'package:project/graduated/signup.dart';
 import 'package:project/student/student_login.dart';
 
 import 'selection_button.dart';
@@ -41,8 +42,13 @@ class SelectionPart extends StatelessWidget {
           Image.asset(
             'images/Logo.jpg',
           ),
-          SeleBtn('Student', 'Doctor', StudentLogin.routeName,DoctorLogin.routeName),
-          SeleBtn('Graduated', 'Assistant', GraduatedLogIn.routeName,AssistantLogin.routeName),
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SeleBtn('Graduated',GraduatedLogIn.routeName,SignUpGraduated.routeName)
+              ]
+          )
         ],
       ),
     );

@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
       initialRoute: SelectionPart.routename,
       routes: {
         SelectionPart.routename: (_) => SelectionPart(),
-        GraduatedLogIn.routeName: (_) => GraduatedLogIn(),
+        GraduatedLogIn.routeName: (_) => GraduatedLogIn(SignUpGraduated.routeName),
         StudentLogin.routeName: (_) => StudentLogin(),
         DoctorLogin.routeName: (_) => DoctorLogin(),
         AssistantLogin.routeName: (_) => AssistantLogin(),
-        SignUp.routeName: (_) => SignUp(),
+        SignUpGraduated.routeName: (_) => SignUpGraduated(),
         otpForm.routeName:(_)=>otpForm(),
     PassWordReset.routeName:(_) => PassWordReset(),
       },

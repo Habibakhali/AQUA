@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class PasswordTextField extends StatefulWidget {
   String hint;
   String label;
-  PasswordTextField(this.label,this.hint);
+  String help;
+  PasswordTextField(this.label,this.hint,this.help);
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -30,6 +31,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             label: Text(widget.label),
             labelStyle: TextStyle(fontWeight: FontWeight.bold),
             hintText: widget.hint,
+            helperText: widget.help,
             hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.5)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
