@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/graduated/Otp_form.dart';
+import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
 import '../type_of_textfeild/text_field.dart';
@@ -47,19 +48,7 @@ class GraduatedLogIn extends StatelessWidget {
               TextFeilf(
                   'Enter your Email', 'Email', TextInputType.emailAddress,Icon(Icons.email_outlined)),
               PasswordTextField('Password', 'Enter your Password',''),
-              Container(
-                width: 250,
-                child: ElevatedButton(
-                  child: Text(
-                    'Log In',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {
-
-
-                  },
-                ),
-              ),
+             Container(width:200,child: SeleBtn('Login', '')),
               TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, otpformGraduated);

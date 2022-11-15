@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project/selection_button.dart';
 
 import 'create_new_pass_word.dart';
 
@@ -181,36 +182,14 @@ class _OtpFormGraduatedState extends State<OtpFormGraduated> {
                   )
                 ],
               ),
-              SizedBox(
-                height: 100,
-              ),
-              SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, widget.resetpassword);
-                    },
-                    style: ButtonStyle(
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                        padding: EdgeInsets.all(14),
-                        child: Text(
-                          'verify',
-                          style: TextStyle(fontSize: 16),
-                        )),
-                  )),
-              SizedBox(
-                height: 70,
-              ),
+
+        Row(mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+            Container(width: 200,
+            child:SeleBtn('Verify' , widget.resetpassword),
+            ) ],
+             ),
+
               Text(
                 "Didn't you recieve any code?",
                 style: TextStyle(

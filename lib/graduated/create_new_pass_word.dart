@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
 class PasswordResetGra extends StatelessWidget {
@@ -37,19 +38,7 @@ class PasswordResetGra extends StatelessWidget {
               ),
               PasswordTextField('Password', '', 'Must be at least characters'),
               PasswordTextField('Conferm', '', 'Both passwords must match'),
-              SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                      Navigator.pushNamed(context, backToligin);
-                  },
-                  child: Text(
-                    'Reset password',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ))
+            SeleBtn('Reset password', backToligin),
             ],
           )),
     );

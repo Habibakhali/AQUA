@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/graduated/graduated_login.dart';
+import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 import 'package:project/type_of_textfeild/text_field.dart';
 
@@ -77,17 +78,7 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                 ),
                 PasswordTextField('Password', 'Enter your password',''),
                 PasswordTextField('Confirm Password', 'Enter your the same password',''),
-                Container(
-                  width: 250,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, widget.routelogin);
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(fontSize: 20),
-                      )),
-                ),
+                SeleBtn('Sign Up', widget.routelogin)
               ],
             ),
           ),

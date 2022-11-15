@@ -14,11 +14,17 @@ class SeleBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return
         Container(
-            margin: EdgeInsets.all(20),
+            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
             child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)
+                ))
+              ),
                 onPressed: () {
                   Navigator.pushNamed(context, routeName);
                 },
-                child: Text(text)));
+                child: Text(text,style: TextStyle(fontSize: 19),)));
   }
 }
