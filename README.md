@@ -1,16 +1,48 @@
-# project
 
-A new Flutter project.
+# AQUA Improved
+## Students Module
+- Authentication ✔
+    - login ✔
+    - Register ✔
+    - Email verification ✔
+    - Reset password ✔
+- Manage academic registry for each semester ✔
+- Manage registration form for each semester 
+- Manage student activities and internships 
+- Manage courses list 
+- Possibility to make a questionnaire for each course 🔒
+- Access to previous exams and their answers 🔒
 
-## Getting Started
+## Graduated students Module
+- Authentication ✔
+    - login ✔
+    - Register ✔
+- Manage 
+    - academic record 
+    - graduation certificate
+- Manage 
+    - Personal info
+    - Company info
+- Possibility of polling the opinion of community parties
+   <br/> to obtain the necessary inquiries from the results
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Timeline
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Sprint #1
+
+- Authentication Student
+    - login
+    - Register
+    - Email verification
+    - Reset password
+- Acadimic Registration 
+    
+- Authentication Graduated
+    - login
+    - Register
+    - Email verification
+    - Reset password
+
+
