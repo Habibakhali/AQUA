@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AcadimecRegsteration extends StatefulWidget {
-  //const AcadimecRegsteration({Key? key}) : super(key: key);
   static const String routeName = 'AcadimecRegsteration';
 
   @override

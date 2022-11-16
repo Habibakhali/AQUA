@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/graduated/acadimec%20regsteration.dart';
+import 'package:project/student/acadimec%20regsteration.dart';
 import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 
@@ -9,9 +9,10 @@ import 'signupGr.dart';
 
 class GraduatedLogIn extends StatelessWidget {
   static const String routeName = 'Login_Gradutated';
+  String loginroutename;
   String signUpRouteName;
   String otpGrouteName;
-  GraduatedLogIn(this.signUpRouteName,this.otpGrouteName);
+  GraduatedLogIn(this.signUpRouteName,this.otpGrouteName,this.loginroutename);
   @override
   Widget build(BuildContext context) {
   return Scaffold(
@@ -26,7 +27,7 @@ class GraduatedLogIn extends StatelessWidget {
   'Enter your Email', 'Email', TextInputType.emailAddress,Icon(Icons.email_outlined)),
   SizedBox(height: 20,),
   PasswordTextField('Password', 'Enter your Password',''),
-  SeleBtn('  Log in  ', AcadimecRegsteration.routeName),
+  SeleBtn('  Log in  ', loginroutename),
     TextButton(
         onPressed: () {
           Navigator.pushNamed(context, OtpFormGraduated.routeName);

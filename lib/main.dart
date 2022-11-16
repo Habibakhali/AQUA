@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/doctor/doctor_login.dart';
 import 'package:project/graduated/Otp_form.dart';
-import 'package:project/graduated/acadimec%20regsteration.dart';
+import 'package:project/student/acadimec%20regsteration.dart';
 import 'package:project/graduated/create_new_pass_word.dart';
 import 'package:project/graduated/graduated_login.dart';
 import 'package:project/home_page.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           AcadimecRegsteration.routeName:(_)=>AcadimecRegsteration(),
         OtpFormEmailGraduated.routeName:(_)=>OtpFormEmailGraduated(GraduatedLogIn.routeName),
         SelectionPart.routename: (_) => SelectionPart(),
-        GraduatedLogIn.routeName: (_) => GraduatedLogIn(SignUpGraduated.routeName,OtpFormGraduated.routeName),
+        GraduatedLogIn.routeName: (_) => GraduatedLogIn(SignUpGraduated.routeName,OtpFormGraduated.routeName,'Not published Now'),
         StudentLogin.routeName: (_) => StudentLogin(),
         DoctorLogin.routeName: (_) => DoctorLogin(),
         SignUpGraduated.routeName: (_) => SignUpGraduated(GraduatedLogIn.routeName),
