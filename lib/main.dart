@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:project/doctor/doctor_login.dart';
 import 'package:project/graduated/Otp_form.dart';
+import 'package:project/programs.dart';
 import 'package:project/student/acadimec%20regsteration.dart';
 import 'package:project/graduated/create_new_pass_word.dart';
 import 'package:project/graduated/graduated_login.dart';
 import 'package:project/home_page.dart';
 import 'package:project/qa/qa_Login.dart';
 import 'package:project/student/OtpStudent.dart';
+import 'package:project/student/courses.dart';
+import 'package:project/student/homeScreen.dart';
+import 'package:project/student/registration_form.dart';
 import 'package:project/student/resetpaas_student.dart';
+import 'package:project/student/setting.dart';
 import 'package:project/student/signup_student.dart';
 import 'package:project/student/student_login.dart';
 import 'graduated/Otp_form_email.dart';
@@ -23,9 +28,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: HomePage.routeName,
+        initialRoute: Programs.routeName,
         routes: {
-          HomePage.routeName:(_)=>HomePage(),
+          Setting.routeName:(_)=>Setting(),
+          Courses.routeName:(_)=>Courses(),
+          RegistrationForm.routeName:(_)=>RegistrationForm(),
+          HomeScreenStudent.routeName:(_)=>HomeScreenStudent(),
+          Programs.routeName:(_)=>Programs(),
           AcadimecRegsteration.routeName:(_)=>AcadimecRegsteration(),
         OtpFormEmailGraduated.routeName:(_)=>OtpFormEmailGraduated(GraduatedLogIn.routeName),
         SelectionPart.routename: (_) => SelectionPart(),
