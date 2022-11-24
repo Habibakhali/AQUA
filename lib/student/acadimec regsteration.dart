@@ -13,9 +13,9 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   File? imageFile;
   String status='';
   startUpload(){}
-   chooseImage() async{
-    XFile? pickedFile= await ImagePicker().pickImage(source: ImageSource.gallery,
-    maxHeight: 1080,maxWidth: 1080,);
+  chooseImage(ImageSource source) async{
+    XFile? pickedFile= await ImagePicker().pickImage(source: source,
+      maxHeight: 1080,maxWidth: 1080,);
     setState(() {
       imageFile=File(pickedFile!.path);
     });
@@ -23,16 +23,15 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   }
 
 
-Widget showImage(){
+  Widget showImage(){
     return Flexible(
-      child:
+        child:
         imageFile !=null ?
-            Container(
-              child: Image.file(imageFile!),
-            ) : Text('No image selected',textAlign: TextAlign.center,)
-
+        Container(
+          child: Image.file(imageFile!),
+        ) : Text('No image selected',textAlign: TextAlign.center,)
     );
-}
+  }
 
 
   @override
@@ -48,24 +47,33 @@ Widget showImage(){
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              OutlinedButton(onPressed: chooseImage, child: Text('Choose Image'),),
-              SizedBox(height: 20.0,),
-              /*ElevatedButton.icon(
-                onPressed: chooseImage,
+             /* OutlinedButton(onPressed: (){chooseImage(ImageSource.camera);}, child: Text('Choose Image'),),
+              SizedBox(height: 20.0,),*/
+              ElevatedButton.icon(
+                onPressed: (){chooseImage(ImageSource.camera);},
                 icon: Icon( // <-- Icon
-                  Icons.image,
+                  Icons.camera_alt_outlined,
                   size: 24.0,
                 ),
-                label: Text('Browse Gallary'), // <-- Text
+                label: Text('choose image from camera'), // <-- Text
               ),
-              //Text('OR'),*/
+              Text('OR'),
+        ElevatedButton.icon(
+          onPressed: (){chooseImage(ImageSource.gallery);},
+          icon: Icon( // <-- Icon
+            Icons.image,
+            size: 24.0,
+          ),
+          label: Text('choose image from galary'),),
+
+
               showImage(),
               SizedBox(height: 20.0,),
               OutlinedButton(onPressed: startUpload, child: Text('upload Image'),),
               SizedBox(height: 20.0,),
               Text(status,textAlign: TextAlign.center,
-              style: TextStyle(color:Colors.green,
-              fontSize: 20.0,fontWeight: FontWeight.w500)
+                style: TextStyle(color:Colors.green,
+                    fontSize: 20.0,fontWeight: FontWeight.w500)
                 ,),
 
 
