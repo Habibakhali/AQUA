@@ -39,7 +39,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Upload acadimec regsteration"),
+        title: Text("Acadimec Regsteration"),
       ),
       body:Container(
         padding: EdgeInsets.all(30.0),

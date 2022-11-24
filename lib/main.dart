@@ -5,7 +5,6 @@ import 'package:project/programs.dart';
 import 'package:project/student/acadimec%20regsteration.dart';
 import 'package:project/graduated/create_new_pass_word.dart';
 import 'package:project/graduated/graduated_login.dart';
-import 'package:project/home_page.dart';
 import 'package:project/qa/qa_Login.dart';
 import 'package:project/student/OtpStudent.dart';
 import 'package:project/student/courses.dart';

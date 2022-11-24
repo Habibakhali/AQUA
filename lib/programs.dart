@@ -81,12 +81,14 @@ Computer Science''', '',
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Quality assurance Unit'),
+                      Text('Quality assurance Unit',style: TextStyle(color: Color.fromRGBO(
+                          0, 22, 65, 0.7019607843137254)),),
                     ],
                   ),Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Ain Shams University'),
+                      Text('Ain Shams University',style: TextStyle(color: Color.fromRGBO(
+                          0, 22, 65, 0.7019607843137254)),),
                     ],
                   ),        ]),
 
