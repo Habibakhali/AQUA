@@ -15,11 +15,9 @@ Partment(this.text,this.routeName,this.image);
         },
         child: Column(
           children: [
-            SizedBox(height: 20,),
-            Image.asset(image,),
-            SizedBox(height: 20,),
-            Text(text,textAlign: TextAlign.center,),
-            SizedBox(height: 20,),
+            
+            Expanded(flex:2,child: Image.asset(image,)),
+            Expanded(child: Text(text,textAlign: TextAlign.center,)),
           ],
         ));
   }

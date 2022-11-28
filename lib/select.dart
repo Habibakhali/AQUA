@@ -18,25 +18,31 @@ class SelectionPart extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 30,),
-              Image.asset(
-                'assets/images/logo_blue.png',
+              Expanded(
+                child: Image.asset(
+                  'assets/images/logo_blue.png',
+                ),
               ),
               SizedBox(height: 30,)
-              ,Row(
-                  children: [
-                    Expanded(child: Partment('Student',StudentLogin.routeName,'assets/images/student.png')),
-                    SizedBox(width: 8,),
-                    Expanded(child: Partment('Quality Assurance',QALogin.routeName,'assets/images/qa.png')),
-                  ]
+              ,Expanded(
+                child: Row(
+                    children: [
+                      Expanded(child: Partment('Student',StudentLogin.routeName,'assets/images/student.png')),
+                      SizedBox(width: 8,),
+                      Expanded(child: Partment('Quality Assurance',QALogin.routeName,'assets/images/qa.png')),
+                    ]
+                ),
               ),
               SizedBox(height: 8,),
-              Row(
+              Expanded(
+                child: Row(
 
-                  children: [
-                    Expanded(child: Partment('Doctor & Assistant',DoctorLogin.routeName,'assets/images/doctor.png')),
-                    SizedBox(width: 8,),
-                    Expanded(child: Partment('Graduated',GraduatedLogIn.routeName,'assets/images/graduat.png')),
-                  ]
+                    children: [
+                      Expanded(child: Partment('Doctor & Assistant',DoctorLogin.routeName,'assets/images/doctor.png')),
+                      SizedBox(width: 8,),
+                      Expanded(child: Partment('Graduated',GraduatedLogIn.routeName,'assets/images/graduat.png')),
+                    ]
+                ),
               ),
               Expanded(
                 flex: 2,
