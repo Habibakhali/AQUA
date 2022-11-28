@@ -15,7 +15,7 @@ class SeleBtn extends StatelessWidget {
     return
         Container(
             margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(5),
             child: ElevatedButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -25,6 +25,6 @@ class SeleBtn extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, routeName);
                 },
-                child: Text(text,style: TextStyle(fontSize: 19),)));
+                child: Text(text,style: TextStyle(fontSize: 18),)));
   }
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project/select.dart';
 
 class Partment extends StatelessWidget {
-String value;
+String text;
 String routeName;
 String image;
-Partment(this.value,this.routeName,this.image);
+Partment(this.text,this.routeName,this.image);
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -15,11 +15,11 @@ Partment(this.value,this.routeName,this.image);
         },
         child: Column(
           children: [
-            SizedBox(height: 22,),
+            SizedBox(height: 20,),
             Image.asset(image,),
-            SizedBox(height: 22,),
-            Text(value,textAlign: TextAlign.center,),
-            SizedBox(height: 22,),
+            SizedBox(height: 20,),
+            Text(text,textAlign: TextAlign.center,),
+            SizedBox(height: 20,),
           ],
         ));
   }

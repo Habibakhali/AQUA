@@ -4,94 +4,69 @@ import 'package:project/select.dart';
 
 class Programs extends StatefulWidget {
   static const String routeName = 'select_programs';
+
   @override
   State<Programs> createState() => _ProgramsState();
 }
 
 class _ProgramsState extends State<Programs> {
-  List<String> values = [
-    'Computer Sciences ',
+  List<String> programName = [
+    'Computer Science',
     'Pure Math',
     'Statistic',
-    'Statistic and Math',
-    'Statistic and Computer Sciences',
-    'Math and Computer Science',
+    'Statistic&Math',
+    'Statistic&Computuer Science',
+    'Math&Computer Science'
+  ];
+  List<String> programImage = [
+    'assets/images/computer-science.png',
+    'assets/images/math.png',
+    'assets/images/static.png',
+    'assets/images/static&math.png',
+    'assets/images/static&cs.png',
+    'assets/images/math&cs.png'
+  ];
+  List<String> routeNames = [
+    SelectionPart.routename,
+    Programs.routeName,
+    Programs.routeName,
+    Programs.routeName,
+    Programs.routeName,
+    Programs.routeName,
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 10,),
-                  Image.asset('assets/images/logo_blue.png'),
-                  SizedBox(height: 30,),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Partment('Computer Science', SelectionPart.routename,
-                            'assets/images/computer-science.png'),
-                      ),
-                      SizedBox(width: 8,),
-                      Expanded(
-                        child: Partment('Pure Math', '',
-                            'assets/images/math.png'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Partment('Statistic', '',
-                            'assets/images/static.png'),
-                      ),
-                      SizedBox(width: 8,),
-                      Expanded(
-                        child: Partment('Statistic&Math', '',
-                            'assets/images/static&math.png'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Partment('''Statistic &
-Computer Science''', '',
-                            'assets/images/static&cs.png'),
-                      ),
-                      SizedBox(width: 8,),
-                      Expanded(
-                        child: Partment('''Math &
- Computer Science''', '',
-                            'assets/images/math&cs.png'),
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: 20,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Quality assurance Unit',style: TextStyle(color: Color.fromRGBO(
-                          0, 22, 65, 0.7019607843137254)),),
-                    ],
-                  ),Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Ain Shams University',style: TextStyle(color: Color.fromRGBO(
-                          0, 22, 65, 0.7019607843137254)),),
-                    ],
-                  ),        ]),
-
-        ));
+      backgroundColor: Colors.white,
+        body: SafeArea(
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Image.asset('assets/images/img.png'),
+          Expanded(
+            child: GridView.builder(
+                itemCount: programName.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (_, index) {
+                  return
+                    Partment(programName[index], routeNames[index], programImage[index]);
+                }),
+          ),
+          Text(
+            'Quality assurance Unit\nAin Shams University',
+            style: TextStyle(
+              color: Color.fromRGBO(0, 22, 65, 0.7019607843137254),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ]),
+      ),
+    ));
   }
 }

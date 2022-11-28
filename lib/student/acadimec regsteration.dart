@@ -36,16 +36,10 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("Acadimec Regsteration"),
-      ),
-      body:Container(
+    return Container(
         padding: EdgeInsets.all(30.0),
         child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
              /* OutlinedButton(onPressed: (){chooseImage(ImageSource.camera);}, child: Text('Choose Image'),),
               SizedBox(height: 20.0,),*/
@@ -55,7 +49,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
                   Icons.camera_alt_outlined,
                   size: 24.0,
                 ),
-                label: Text('choose image from camera'), // <-- Text
+                label: Text('Choose Image From Camera'), // <-- Text
               ),
               Text('OR'),
         ElevatedButton.icon(
@@ -64,7 +58,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
             Icons.image,
             size: 24.0,
           ),
-          label: Text('choose image from galary'),),
+          label: Text('Choose Image From Gallery'),),
 
 
               showImage(),
@@ -82,7 +76,6 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
             ],
           ),
         ),
-      ) ,
-    );
+      ) ;
   }
 }
