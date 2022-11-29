@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../type_of_textfeild/text_field.dart';
 import 'Otp_form.dart';
 
@@ -13,39 +13,39 @@ class GraduatedLogIn extends StatelessWidget {
   GraduatedLogIn(this.signUpRouteName,this.otpGrouteName,this.loginroutename);
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Colors.white,
-  body: SafeArea(
-    child: SingleChildScrollView(
-    child: Container(
-    child: Column(
-    children: [
-    Image.asset(
-    'assets/images/logo_blue.png',
-    ),
-    TextFeilf(
-    'Enter your Email', 'Email', TextInputType.emailAddress,Icon(Icons.email_outlined)),
-    SizedBox(height: 20,),
-    PasswordTextField('Password', 'Enter your Password',''),
-    SeleBtn('  Log in  ', loginroutename),
-      TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, OtpFormGraduated.routeName);
-          },
-          child: Text(
-            'Forget My Password?',
-            style: TextStyle(color: Colors.black),
-          )),
-      TextButton(
-    onPressed: () {
-    Navigator.pushNamed(context, signUpRouteName);
-    },
-    child: Text('Create New Account'),
-    ),
-    ],
-    ),
-    ),
-    ),
-  ),
-  );
+    return Scaffold(
+      backgroundColor: Colors.white,
+        body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/logo_blue.png',
+                ),
+                TextFeilf(
+                    AppLocalizations.of(context)!.email_hint,AppLocalizations.of(context)!.email_label, TextInputType.emailAddress,Icon(Icons.email_outlined)),
+                SizedBox(height: 20,),
+                PasswordTextField(AppLocalizations.of(context)!.password_label,AppLocalizations.of(context)!.password_hint,''),
+                SeleBtn(AppLocalizations.of(context)!.login, loginroutename),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, OtpFormGraduated.routeName);
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.forget_password,
+                      style: TextStyle(color: Colors.black),
+                    )),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, signUpRouteName);
+                  },
+                  child: Text(AppLocalizations.of(context)!.new_account),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }}

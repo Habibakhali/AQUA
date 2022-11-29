@@ -3,6 +3,8 @@ import 'package:project/student/acadimec%20regsteration.dart';
 import 'package:project/student/courses.dart';
 import 'package:project/student/registration_form.dart';
 import 'package:project/student/setting.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class HomeScreenStudent extends StatefulWidget {
   static const String routeName='homeScreenStudent';
@@ -20,7 +22,7 @@ List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),Setting()]
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('AQUA+'),
+        title: Text(AppLocalizations.of(context)!.app_title),
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value){
@@ -40,10 +42,10 @@ List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),Setting()]
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         items: [
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: 'Academic Register'),
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: 'Registration Form'),
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: 'Courses'),
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/setting.png'),),label: 'Setting'),
+          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
+          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: AppLocalizations.of(context)!.registration_form),
+          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: AppLocalizations.of(context)!.courses_title),
+          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/setting.png'),),label: AppLocalizations.of(context)!.setting),
         ],
       ),
       body: tabs[index],

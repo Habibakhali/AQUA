@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 class PasswordResetGra extends StatelessWidget {
-  //const PassWordReset({Key? key}) : super(key: key);
   static const String routeName = 'newPassWord';
   String backToligin;
   PasswordResetGra(this.backToligin);
@@ -14,7 +15,7 @@ class PasswordResetGra extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Back',
+         AppLocalizations.of(context)!.back,
           style: TextStyle(color: Colors.white),
         ),
         leadingWidth: 30,
@@ -27,21 +28,21 @@ class PasswordResetGra extends StatelessWidget {
                 height: 16,
               ),
               Text(
-                "create new password",
+                AppLocalizations.of(context)!.new_password,
                 style: Theme.of(context).textTheme.headline4,
               ),
               SizedBox(
                 height: 16,
               ),
               Text(
-                "Your password must be different from previous used password.",
+                AppLocalizations.of(context)!.note_new_password,
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               SizedBox(height: 20,),
-              PasswordTextField('Password', '', 'Must be at least characters'),
+              PasswordTextField(AppLocalizations.of(context)!.password_label, '', AppLocalizations.of(context)!.password_letter),
               SizedBox(height: 20,),
-              PasswordTextField('Confirm', '', 'Both passwords must match'),
-            SeleBtn('Reset password', backToligin),
+              PasswordTextField(AppLocalizations.of(context)!.confirm_label, '', AppLocalizations.of(context)!.password_lettertwo),
+            SeleBtn(AppLocalizations.of(context)!.reset_password, backToligin),
             ],
           )),
     );

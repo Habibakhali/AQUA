@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AcadimecRegsteration extends StatefulWidget {
   static const String routeName = 'AcadimecRegsteration';
@@ -29,7 +31,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
         imageFile !=null ?
         Container(
           child: Image.file(imageFile!),
-        ) : Text('No image selected',textAlign: TextAlign.center,)
+        ) : Text(AppLocalizations.of(context)!.no_img,textAlign: TextAlign.center,)
     );
   }
 
@@ -49,21 +51,21 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
                   Icons.camera_alt_outlined,
                   size: 24.0,
                 ),
-                label: Text('Choose Image From Camera'), // <-- Text
+                label: Text(AppLocalizations.of(context)!.capture_img), // <-- Text
               ),
-              Text('OR'),
+              Text(AppLocalizations.of(context)!.or),
         ElevatedButton.icon(
           onPressed: (){chooseImage(ImageSource.gallery);},
           icon: Icon( // <-- Icon
             Icons.image,
             size: 24.0,
           ),
-          label: Text('Choose Image From Gallery'),),
+          label: Text(AppLocalizations.of(context)!.gallery_img),),
 
 
               showImage(),
               SizedBox(height: 20.0,),
-              OutlinedButton(onPressed: startUpload, child: Text('upload Image'),),
+              OutlinedButton(onPressed: startUpload, child: Text(AppLocalizations.of(context)!.upload_img),),
               SizedBox(height: 20.0,),
               Text(status,textAlign: TextAlign.center,
                 style: TextStyle(color:Colors.green,

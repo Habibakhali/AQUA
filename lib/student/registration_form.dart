@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -45,7 +46,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               },
           )
       )
-    ):Text('No image selected',textAlign: TextAlign.center,);
+    ):Text(AppLocalizations.of(context)!.no_img,textAlign: TextAlign.center,);
   }
 
   @override
@@ -63,9 +64,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 Icons.camera_alt_outlined,
                 size: 24.0,
               ),
-              label: Text('Choose Image From Camera'), // <-- Text
+              label: Text(AppLocalizations.of(context)!.capture_img), // <-- Text
             ),
-            Text('OR'),
+            Text(AppLocalizations.of(context)!.or),
             ElevatedButton.icon(
               onPressed: () {
                 chooseImage(ImageSource.gallery);
@@ -74,7 +75,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 Icons.image,
                 size: 24.0,
               ),
-              label: Text('Choose Image From Gallery'),),
+              label: Text(AppLocalizations.of(context)!.gallery_img),),
 
 
             showImage(),

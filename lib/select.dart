@@ -4,6 +4,8 @@ import 'package:project/graduated/graduated_login.dart';
 import 'package:project/partement.dart';
 import 'package:project/qa/qa_Login.dart';
 import 'package:project/student/student_login.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SelectionPart extends StatelessWidget {
   static const String routename = 'selection';
@@ -24,12 +26,16 @@ class SelectionPart extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30,)
-              ,Expanded(
+              , Expanded(
                 child: Row(
                     children: [
-                      Expanded(child: Partment('Student',StudentLogin.routeName,'assets/images/student.png')),
+                      Expanded(child: Partment(
+                          AppLocalizations.of(context)!.student_login,
+                          StudentLogin.routeName, 'assets/images/student.png')),
                       SizedBox(width: 8,),
-                      Expanded(child: Partment('Quality Assurance',QALogin.routeName,'assets/images/qa.png')),
+                      Expanded(child: Partment(
+                          AppLocalizations.of(context)!.qa_login,
+                          QALogin.routeName, 'assets/images/qa.png')),
                     ]
                 ),
               ),
@@ -38,20 +44,25 @@ class SelectionPart extends StatelessWidget {
                 child: Row(
 
                     children: [
-                      Expanded(child: Partment('Doctor & Assistant',DoctorLogin.routeName,'assets/images/doctor.png')),
+                      Expanded(child: Partment(
+                          AppLocalizations.of(context)!.doctor_login,
+                          DoctorLogin.routeName, 'assets/images/doctor.png')),
                       SizedBox(width: 8,),
-                      Expanded(child: Partment('Graduated',GraduatedLogIn.routeName,'assets/images/graduat.png')),
+                      Expanded(child: Partment(
+                          AppLocalizations.of(context)!.graduated_login,
+                          GraduatedLogIn.routeName,
+                          'assets/images/graduat.png')),
                     ]
                 ),
               ),
               Expanded(
                 flex: 2,
-                child: TextButton(onPressed: (){}, child:  Text(
-                  'Quality assurance Unit\nAin Shams University',
+                child: TextButton(onPressed: () {}, child: Text(
+                  AppLocalizations.of(context)!.qa,
                   style: TextStyle(
                       color: Color.fromRGBO(0, 22, 65, 0.7019607843137254)),
                 ),),
-              )
+              ),
             ],
           ),
         ),

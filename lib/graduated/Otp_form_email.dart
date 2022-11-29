@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project/selection_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 class OtpFormEmailGraduated extends StatefulWidget {
-  //const otpForm({Key? key}) : super(key: key);
   static const String routeName = 'otpFormEmail';
   String backtologin;
   OtpFormEmailGraduated(this.backtologin);
@@ -21,21 +22,21 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
       resizeToAvoidBottomInset: false,
       body: Container(
           padding: EdgeInsets.all(28),
-          /*decoration: BoxDecoration(
+          decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-          ),*/
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20,),
-              Text( 'Verification code' , 
+              Text(AppLocalizations.of(context)!.verification_code,
                   textAlign: TextAlign.right,
                   style:TextStyle( fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
               SizedBox(height: 20,),
-              Text( 'We have send the code verification to' ,
+              Text( AppLocalizations.of(context)!.sending_to_email ,
                   textAlign: TextAlign.right,
                   style:TextStyle( fontSize: 12,
                   color: Colors.black38)),
@@ -185,12 +186,12 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
         Row(mainAxisAlignment: MainAxisAlignment.center,
                  children: [
             Container(width: 200,
-            child:SeleBtn('Verify' , widget.backtologin),
+            child:SeleBtn(AppLocalizations.of(context)!.verify, widget.backtologin),
             ) ],
              ),
 
               Text(
-                "Didn't you recieve any code?",
+               AppLocalizations.of(context)!.didnt_recirve,
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -199,8 +200,7 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
               SizedBox(
                 height: 18,
               ),
-              Text(
-                "Resend new code",
+              Text(AppLocalizations.of(context)!.resend_code,
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
