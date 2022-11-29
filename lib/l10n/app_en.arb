@@ -54,6 +54,16 @@
   "capture_img": "Choose Image From Camera",
   "or": "OR",
   "gallery_img": "Choose Image From Gallery",
-  "upload_img": "Upload image"
+  "upload_img": "Upload image",
+  "hi": "Hi,",
+  "welcome": "Welcome",
+  "find_your_course": "Find your course..",
+  "choose_course": "choose your course",
+  "parallel": "Parallel",
+  "image_process": "Image Processing",
+  "ai": "Artificial Intelligence",
+  "project_a": "Project A",
+  "security": "Cyber Security",
+  "geomety": "Computational Geometric"
 
 }

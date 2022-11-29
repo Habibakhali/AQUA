@@ -33,7 +33,7 @@ static const String routeName='Setting';
 
                 ),
                 child: Text(AppLocalizations.of(context)!.currentLang)),
-          )
+          ),
         ],
       ),
     );
