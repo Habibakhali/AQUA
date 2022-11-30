@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/doctor/doctor_login.dart';
 import 'package:project/graduated/Otp_form.dart';
+import 'package:project/mytheme.dart';
 import 'package:project/programs.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:project/student/acadimec%20regsteration.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
   @override  Widget build(BuildContext context) {
      var pro=Provider.of<SettingProvider>(context);
     return MaterialApp(
+      theme: MyTheme.lightMode,
+        darkTheme: MyTheme.darkMode,
+        themeMode: pro.currTheme,
         debugShowCheckedModeBanner: false,
           localizationsDelegates: [
          AppLocalizations.delegate, // Add this line

@@ -15,9 +15,10 @@ Partment(this.text,this.routeName,this.image);
         },
         child: Column(
           children: [
-            
+
             Expanded(flex:2,child: Image.asset(image,)),
-            Expanded(child: Text(text,textAlign: TextAlign.center,)),
+            Expanded(child: Text(text,textAlign: TextAlign.center
+              ,)),
           ],
         ));
   }

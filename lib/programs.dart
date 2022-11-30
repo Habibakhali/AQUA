@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/partement.dart';
+import 'package:project/providers/setting_provider.dart';
 import 'package:project/select.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 
 class Programs extends StatefulWidget {
@@ -12,9 +14,9 @@ class Programs extends StatefulWidget {
 }
 
 class _ProgramsState extends State<Programs> {
-
   @override
   Widget build(BuildContext context) {
+    var pro=Provider.of<SettingProvider>(context);
     List<String> programName = [
       AppLocalizations.of(context)!.cs_title,
       AppLocalizations.of(context)!.math_title,
@@ -41,13 +43,13 @@ class _ProgramsState extends State<Programs> {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
         body: SafeArea(
       child: Container(
         padding: EdgeInsets.all(20.0),
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Image.asset('assets/images/img.png'),
+          Image.asset(
+             pro.currTheme==ThemeMode.light? 'assets/images/logo_blue.png':'assets/images/white.png'),
           Expanded(
             child: GridView.builder(
                 itemCount: programName.length,
@@ -62,10 +64,8 @@ class _ProgramsState extends State<Programs> {
                 }),
           ),
           Text(
-            'Quality assurance Unit\nAin Shams University',
-            style: TextStyle(
-              color: Color.fromRGBO(0, 22, 65, 0.7019607843137254),
-            ),
+            AppLocalizations.of(context)!.qa,
+            style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
         ]),

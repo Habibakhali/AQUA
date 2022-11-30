@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/mytheme.dart';
 
 class TextFeilf extends StatelessWidget {
   TextInputType keyboard_type;
@@ -18,10 +19,13 @@ class TextFeilf extends StatelessWidget {
           decoration: InputDecoration(
             prefixIcon: icon,
               label: Text(label),
-              labelStyle: TextStyle(fontWeight: FontWeight.bold),
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
               hintText: hint,
-              hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.5)),
-              border: OutlineInputBorder(
+              hintStyle: Theme.of(context).textTheme.bodySmall,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).canvasColor
+                ),
                 borderRadius: BorderRadius.circular(10),
               )),
         ));
