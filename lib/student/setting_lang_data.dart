@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project/mytheme.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SettingData extends StatelessWidget {
+
+class LangData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +18,14 @@ class SettingData extends StatelessWidget {
               onTap: (){
                 pro.changeLAnguage('en');
               },
-              child: pro.currentLang=='en'?selectedIte('English'):unselectedIte('English')
+              child: pro.currentLang=='en'?selectedIte(AppLocalizations.of(context)!.englishLang):unselectedIte(AppLocalizations.of(context)!.englishLang)
           ),
          SizedBox(height: 12,),
           InkWell(
               onTap: (){
                 pro.changeLAnguage('ar');
               },
-              child: pro.currentLang=='ar'?selectedIte('العربية'):unselectedIte('العربية')
+              child: pro.currentLang=='ar'?selectedIte(AppLocalizations.of(context)!.arabicLang):unselectedIte(AppLocalizations.of(context)!.arabicLang)
           ),
         ],
       ),
@@ -33,8 +35,8 @@ class SettingData extends StatelessWidget {
     return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(text,style: TextStyle(color: MyTheme.colorBlue),),
-        Icon(Icons.check,color: MyTheme.colorBlue,)
+        Text(text,style: TextStyle(color: MyTheme.light_primaryColor),),
+        Icon(Icons.check,color: MyTheme.light_primaryColor,)
       ],
     );
   }

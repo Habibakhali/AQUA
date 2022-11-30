@@ -21,20 +21,23 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         keyboardType: TextInputType.visiblePassword,
         obscureText: visubility,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.lock_outline),
+          prefixIcon: Icon(Icons.lock_outline,color: Theme.of(context).canvasColor,),
             suffixIcon: IconButton(onPressed: (){
               visubility =!visubility;
               setState((){});
 
             },
-                icon: Icon(visubility?Icons.visibility:Icons.visibility_off)
+                icon: Icon(visubility?Icons.visibility:Icons.visibility_off,color: Theme.of(context).canvasColor,)
             ),
             label: Text(widget.label),
-            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            labelStyle: Theme.of(context).textTheme.bodyMedium,
             hintText: widget.hint,
             helperText: widget.help,
-            hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.5)),
-            border: OutlineInputBorder(
+            hintStyle: Theme.of(context).textTheme.bodySmall,
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).canvasColor
+              ),
               borderRadius: BorderRadius.circular(10),
             )),
       ),

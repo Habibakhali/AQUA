@@ -1,46 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:project/student/setting_data.dart';
+import 'package:project/providers/setting_provider.dart';
+import 'package:project/student/setting_lang_data.dart';
+import 'package:project/student/setting_theme_data.dart';
+import 'package:provider/provider.dart';
 
 import '../mytheme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class Setting extends StatelessWidget {
-static const String routeName='Setting';
+  static const String routeName = 'Setting';
+
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<SettingProvider>(context);
     return Container(
       padding: EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(AppLocalizations.of(context)!.language,
-          style: Theme.of(context).textTheme.bodyText1,),
-          SizedBox(height: 4,),
+          Text(
+            AppLocalizations.of(context)!.language,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          SizedBox(
+            height: 4,
+          ),
           InkWell(
-            onTap: (){
-              ShowBottomSheet(context);
+            onTap: () {
+              ShowBottomSheetLang(context);
             },
             child: Container(
-              padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     color: Color.fromRGBO(229, 225, 225, 1.0),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    width: 1,
-                    color:MyTheme.colorBlue,
-                  )
-
-                ),
-                child: Text(AppLocalizations.of(context)!.currentLang)),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      width: 1,
+                      color: MyTheme.light_primaryColor,
+                    )),
+                child: Text(
+                  pro.currentLang == 'ar'
+                      ? AppLocalizations.of(context)!.arabicLang
+                      : AppLocalizations.of(context)!.englishLang,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Color.fromRGBO(0, 0, 0, 0.9)
+                  ),
+                )),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Text(
+            AppLocalizations.of(context)!.theme,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          InkWell(
+            onTap: () {
+              ShowBottomSheetTheme(context);
+            },
+            child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(229, 225, 225, 1.0),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      width: 1,
+                      color: MyTheme.light_primaryColor,
+                    )),
+                child: Text(pro.currTheme == ThemeMode.light
+                    ? AppLocalizations.of(context)!.lightMode
+                    : AppLocalizations.of(context)!.dartMode,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+    color: Color.fromRGBO(0, 0, 0, 0.9)),
+                )),
           ),
         ],
       ),
     );
   }
-  void ShowBottomSheet(BuildContext context){
-    showModalBottomSheet(context: context, builder:(context){
-      return SettingData();
-    } );
+
+  void ShowBottomSheetLang(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return LangData();
+        });
+  }
+
+  void ShowBottomSheetTheme(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return ThemData();
+        });
   }
 }

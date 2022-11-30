@@ -46,11 +46,8 @@ class Courses extends StatelessWidget {
                             )),
                         TextSpan(
                             text: "Sara",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                            )),
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ]),
                     ),
                     SizedBox(

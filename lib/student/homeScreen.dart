@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/mytheme.dart';
 import 'package:project/student/acadimec%20regsteration.dart';
 import 'package:project/student/courses.dart';
 import 'package:project/student/registration_form.dart';
@@ -24,29 +25,23 @@ List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),Setting()]
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.app_title),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (value){
-          index=value;
-          setState(() {
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(canvasColor: Theme.of(context).secondaryHeaderColor),
+        child: BottomNavigationBar(
+          onTap: (value){
+            index=value;
+            setState(() {
 
-          });
-        },
-        currentIndex: index,
-        selectedIconTheme: IconThemeData(
-          color: Colors.blue,
+            });
+          },
+          currentIndex: index,
+          items: [
+            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
+            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: AppLocalizations.of(context)!.registration_form),
+            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: AppLocalizations.of(context)!.courses_title),
+            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/setting.png'),),label: AppLocalizations.of(context)!.setting),
+          ],
         ),
-        unselectedIconTheme: IconThemeData(
-          color: Colors.grey
-        ),
-
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: AppLocalizations.of(context)!.registration_form),
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: AppLocalizations.of(context)!.courses_title),
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/setting.png'),),label: AppLocalizations.of(context)!.setting),
-        ],
       ),
       body: tabs[index],
     );

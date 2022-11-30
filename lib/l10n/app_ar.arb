@@ -1,5 +1,5 @@
 {
-  "app_title":"أكوا+",
+  "app_title":"AQUA+",
   "back": "رجوع",
   "cs_title": "علوم الحاسب",
   "math_title": "رياضيات بحتة",
@@ -46,7 +46,8 @@
   "id": "الرقم القومي",
   "level": "عامك الأكاديمي",
   "language": "اللغة",
-  "currentLang": "العربية",
+  "englishLang": "الإنجليزية",
+  "arabicLang": "العربية",
   "theme": "المظهر",
   "lightMode": "فاتح",
   "dartMode": "داكن",
