@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/student/parallel.dart';
 
 import '../partement.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,7 +19,7 @@ class Courses extends StatelessWidget {
       AppLocalizations.of(context)!.geomety,
     ];
     List<String> coursesRoutes = [
-      Courses.routeName,
+      Parallel.routeName,
       Courses.routeName,
       Courses.routeName,
       Courses.routeName,
