@@ -4,7 +4,7 @@ import 'package:project/student/student_login.dart';
 
 import 'resetpaas_student.dart';
 
-class OtpStudent extends StatelessWidget {
+class OtpStudentEmail extends StatelessWidget {
 static const String routeName='otpEmailStudent';
   @override
   Widget build(BuildContext context) {

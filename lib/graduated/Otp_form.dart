@@ -18,12 +18,10 @@ class _OtpFormGraduatedState extends State<OtpFormGraduated> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff7f6fb),
       resizeToAvoidBottomInset: false,
       body: Container(
           padding: EdgeInsets.all(28),
           decoration: BoxDecoration(
-            color: Colors.white,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(

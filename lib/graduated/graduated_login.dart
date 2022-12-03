@@ -24,9 +24,13 @@ class GraduatedLogIn extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Image.asset(
-                    pro.currTheme==ThemeMode.light? 'assets/images/logo_blue.png':'assets/images/white.png'),
-
+                SizedBox(height: 25,),
+                Container(
+                  margin: EdgeInsets.only(left: 15),
+                  child: Image.asset(
+                      pro.currTheme==ThemeMode.light? 'assets/images/blue_logo.png':'assets/images/white_logo.png'),
+                ),
+                SizedBox(height: 10,),
                 TextFeilf(
                     AppLocalizations.of(context)!.email_hint,
                     AppLocalizations.of(context)!.email_label,
