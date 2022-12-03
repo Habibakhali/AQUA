@@ -5,7 +5,6 @@ import 'package:project/select.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-
 class Programs extends StatefulWidget {
   static const String routeName = 'select_programs';
 
@@ -16,7 +15,7 @@ class Programs extends StatefulWidget {
 class _ProgramsState extends State<Programs> {
   @override
   Widget build(BuildContext context) {
-    var pro=Provider.of<SettingProvider>(context);
+    var pro = Provider.of<SettingProvider>(context);
     List<String> programName = [
       AppLocalizations.of(context)!.cs_title,
       AppLocalizations.of(context)!.math_title,
@@ -48,8 +47,15 @@ class _ProgramsState extends State<Programs> {
         padding: EdgeInsets.all(20.0),
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Image.asset(
-             pro.currTheme==ThemeMode.light? 'assets/images/logo_blue.png':'assets/images/white.png'),
+          SizedBox(
+            height: 15,
+          ),
+          Image.asset(pro.currTheme == ThemeMode.light
+              ? 'assets/images/blue_logo.png'
+              : 'assets/images/white_logo.png'),
+          SizedBox(
+            height: 15,
+          ),
           Expanded(
             child: GridView.builder(
                 itemCount: programName.length,
@@ -59,8 +65,8 @@ class _ProgramsState extends State<Programs> {
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (_, index) {
-                  return
-                    Partment(programName[index], routeNames[index], programImage[index]);
+                  return Partment(programName[index], routeNames[index],
+                      programImage[index]);
                 }),
           ),
           Text(
@@ -72,5 +78,4 @@ class _ProgramsState extends State<Programs> {
       ),
     ));
   }
-
 }

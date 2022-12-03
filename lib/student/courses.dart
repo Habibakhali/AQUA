@@ -79,15 +79,17 @@ class Courses extends StatelessWidget {
                 boxShadow: [BoxShadow(
                   blurRadius: 20,color: Colors.grey.withOpacity(0.5)
                 ),],
-                color: Colors.white,
+                color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(right: 15,left: 15),
                 child: TextField(
-                  decoration: InputDecoration(hintText: AppLocalizations.of(context)!.find_your_course,
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.find_your_course,
+                  hintStyle: Theme.of(context).textTheme.bodySmall,
                   border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search)),
+                  suffixIcon: Icon(Icons.search,color: Theme.of(context).canvasColor,)),
 
                 ),
               ),

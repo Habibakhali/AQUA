@@ -25,7 +25,7 @@ class SelectionPart extends StatelessWidget {
               ),
               Expanded(
                 child: Image.asset(
-                    pro.currTheme==ThemeMode.light? 'assets/images/logo_blue.png':'assets/images/white.png'),
+                    pro.currTheme==ThemeMode.light? 'assets/images/blue_logo.png':'assets/images/white_logo.png'),
 
               ),
               SizedBox(

@@ -12,6 +12,7 @@ import 'package:project/student/OtpStudent.dart';
 import 'package:project/student/courses.dart';
 import 'package:project/student/homeScreen.dart';
 import 'package:project/student/parallel.dart';
+import 'package:project/student/otp_Email_Sta.dart';
 import 'package:project/student/registration_form.dart';
 import 'package:project/student/resetpaas_student.dart';
 import 'package:project/student/setting.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
           SignUpStudent.routeName:(_)=>SignUpStudent(),
           OtpFormGraduated.routeName:(_)=>OtpFormGraduated(PasswordResetGra.routeName),
           OtpStudent.routeName:(_)=>OtpStudent(),
+          OtpStudentEmail.routeName:(_)=>OtpStudentEmail(),
           ResetPassStu.routeName:(_)=>ResetPassStu(),
           PasswordResetGra.routeName:(_) => PasswordResetGra(GraduatedLogIn.routeName),}
     );

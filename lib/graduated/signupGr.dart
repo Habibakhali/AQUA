@@ -4,6 +4,7 @@ import 'package:project/selection_button.dart';
 import 'package:project/type_of_textfeild/password_textfield.dart';
 import 'package:project/type_of_textfeild/text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class SignUpGraduated extends StatefulWidget {
   static const String routeName = 'signup';
@@ -60,8 +61,7 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     AppLocalizations.of(context)!.password_hint, ''),
                 PasswordTextField(AppLocalizations.of(context)!.confirm_label,
                     AppLocalizations.of(context)!.confirm_hint, ''),
-                SeleBtn(
-                    AppLocalizations.of(context)!.register, widget.routeverfi)
+                SeleBtn(AppLocalizations.of(context)!.register, widget.routeverfi)
               ],
             ),
           ),

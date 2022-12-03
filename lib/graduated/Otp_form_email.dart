@@ -18,12 +18,10 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff7f6fb),
       resizeToAvoidBottomInset: false,
       body: Container(
           padding: EdgeInsets.all(28),
           decoration: BoxDecoration(
-            color: Colors.white,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -32,18 +30,13 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
               SizedBox(height: 20,),
               Text(AppLocalizations.of(context)!.verification_code,
                   textAlign: TextAlign.right,
-                  style:TextStyle( fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
+                  style:Theme.of(context).textTheme.subtitle1),
               SizedBox(height: 20,),
               Text( AppLocalizations.of(context)!.sending_to_email ,
                   textAlign: TextAlign.right,
-                  style:TextStyle( fontSize: 12,
-                  color: Colors.black38)),
+                  style:Theme.of(context).textTheme.bodySmall),
 
-              Text( '*******@sci.eg.edu.com' , style:TextStyle( fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
+              Text( '*******@sci.eg.edu.com' , style:Theme.of(context).textTheme.subtitle1),
               SizedBox(height: 50,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,10 +185,7 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
 
               Text(
                AppLocalizations.of(context)!.didnt_recirve,
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black38),
+                style: Theme.of(context).textTheme.subtitle1
               ),
               SizedBox(
                 height: 18,
