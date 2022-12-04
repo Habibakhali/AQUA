@@ -63,17 +63,19 @@ class MyApp extends StatelessWidget {
           Programs.routeName:(_)=>Programs(),
           AcadimecRegsteration.routeName:(_)=>AcadimecRegsteration(),
           SelectionPart.routename: (_) => SelectionPart(),
-          GraduatedLogIn.routeName: (_) => GraduatedLogIn(SignUpGraduated.routeName,OtpFormGraduated.routeName,'Not published Now'),
+          GraduatedLogIn.routeName: (_) => GraduatedLogIn("SignUpGraduated.routeName",OtpFormGraduated.routeName,'Not published Now',),
           StudentLogin.routeName: (_) => StudentLogin(),
           DoctorLogin.routeName: (_) => DoctorLogin(),
           QALogin.routeName: (_) => QALogin(),
-          SignUpGraduated.routeName: (_) => SignUpGraduated(OtpFormEmailGraduated.routeName),
-          SignUpStudent.routeName:(_)=>SignUpStudent(),
-          OtpFormGraduated.routeName:(_)=>OtpFormGraduated(PasswordResetGra.routeName),
-          OtpFormEmailGraduated.routeName:(_)=>OtpFormEmailGraduated(GraduatedLogIn.routeName),
+          OtpFormGraduated.routeName:(_)=>OtpFormGraduated("PasswordResetGra.routeName"),
           OtpStudent.routeName:(_)=>OtpStudent(),
+
+           SignUpGraduated.routeName: (_) => SignUpGraduated(OtpFormEmailGraduated.routeName),
+          SignUpStudent.routeName:(_)=>SignUpStudent(),
+
+          OtpFormEmailGraduated.routeName:(_)=>OtpFormEmailGraduated(GraduatedLogIn.routeName),
           OtpStudentEmail.routeName:(_)=>OtpStudentEmail(),
           ResetPassStu.routeName:(_)=>ResetPassStu(),
-          PasswordResetGra.routeName:(_) => PasswordResetGra(GraduatedLogIn.routeName),}
+          PasswordResetGra.routeName:(_) => PasswordResetGra(GraduatedLogIn.routeName)}
     );
   }}
