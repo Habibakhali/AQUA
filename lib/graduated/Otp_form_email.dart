@@ -30,13 +30,13 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
               SizedBox(height: 20,),
               Text(AppLocalizations.of(context)!.verification_code,
                   textAlign: TextAlign.right,
-                  style:Theme.of(context).textTheme.subtitle1),
+                  style:Theme.of(context).textTheme.headlineSmall),
               SizedBox(height: 20,),
               Text( AppLocalizations.of(context)!.sending_to_email ,
                   textAlign: TextAlign.right,
                   style:Theme.of(context).textTheme.bodySmall),
 
-              Text( '*******@sci.eg.edu.com' , style:Theme.of(context).textTheme.subtitle1),
+              Text( '*******@sci.eg.edu.com' , style:Theme.of(context).textTheme.headlineSmall),
               SizedBox(height: 50,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -185,7 +185,7 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
 
               Text(
                AppLocalizations.of(context)!.didnt_recirve,
-                style: Theme.of(context).textTheme.subtitle1
+                style: Theme.of(context).textTheme.headlineSmall
               ),
               SizedBox(
                 height: 18,

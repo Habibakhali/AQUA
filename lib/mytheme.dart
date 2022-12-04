@@ -19,7 +19,7 @@ class MyTheme{
       bodySmall: TextStyle(
         color: Color.fromRGBO(0, 0, 0, 0.5)
       ),
-      subtitle1: TextStyle( fontSize: 18,
+      headlineSmall: TextStyle( fontSize: 18,
           fontWeight: FontWeight.bold,
           color: Colors.black),
       bodyMedium: TextStyle(color: Colors.black),
@@ -62,9 +62,9 @@ class MyTheme{
           bodySmall: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.5)),
           bodyMedium: TextStyle(color: Colors.white),
           bodyLarge: TextStyle(color: Colors.white),
-        subtitle1: TextStyle( fontSize: 18,
+        headlineSmall: TextStyle( fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.black),
+            color: Colors.white),
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
