@@ -44,7 +44,7 @@ class GraduatedLogIn extends StatelessWidget {
                 SeleBtn(AppLocalizations.of(context)!.login, loginroutename),
                 TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, OtpFormGraduated.routeName);
+                      Navigator.pushNamed(context, otpGrouteName);
                     },
                     child: Text(
                       AppLocalizations.of(context)!.forget_password,
