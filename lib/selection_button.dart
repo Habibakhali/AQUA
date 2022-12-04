@@ -6,9 +6,9 @@ class SeleBtn extends StatelessWidget {
 
   String routeName;
 
+  GlobalKey<FormState> formKey ;
 
-
-  SeleBtn(this.text, this.routeName);
+  SeleBtn(this.text, this.routeName,this.formKey);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,13 @@ class SeleBtn extends StatelessWidget {
         Container(
             margin: EdgeInsets.all(10),
             padding: EdgeInsets.all(5),
+            width: MediaQuery.of(context).size.width*.5,
             child: ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)
-                ))
-              ),
+
                 onPressed: () {
+                if(formKey.currentState?.validate()==true){
                   Navigator.pushNamed(context, routeName);
+                }
                 },
                 child: Text(text,style: TextStyle(fontSize: 18),)));
   }

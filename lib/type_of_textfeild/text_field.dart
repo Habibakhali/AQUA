@@ -7,31 +7,31 @@ class TextFeilf extends StatelessWidget {
   String label;
   Icon icon;
 
-
-
   TextFeilf(this.hint, this.label, this.keyboard_type,this.icon);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: 20,left: 20,right: 20),
-        child: Form(
-          child: TextFormField(
-
-            keyboardType: keyboard_type,
-            decoration: InputDecoration(
-              prefixIcon: icon,
-                label: Text(label),
-                labelStyle: Theme.of(context).textTheme.bodyMedium,
-                hintText: hint,
-                hintStyle: Theme.of(context).textTheme.bodySmall,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).canvasColor
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                )),
-          ),
+        child: TextFormField(
+          validator: (text){
+            if(text==null || text.trim().isEmpty)
+              return 'please enter $label';
+            return null;
+          },
+          keyboardType: keyboard_type,
+          decoration: InputDecoration(
+            prefixIcon: icon,
+              label: Text(label),
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
+              hintText: hint,
+              hintStyle: Theme.of(context).textTheme.bodySmall,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).canvasColor
+                ),
+                borderRadius: BorderRadius.circular(10),
+              )),
         ));
   }
 }

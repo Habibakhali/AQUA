@@ -4,6 +4,7 @@ class PasswordTextField extends StatefulWidget {
   String hint;
   String label;
   String help;
+
   PasswordTextField(this.label,this.hint,this.help);
 
   @override
@@ -17,7 +18,13 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   Widget build(BuildContext context) {
     return  Container(
       margin: EdgeInsets.only(right: 20,left: 20),
-      child: TextField(
+      child: TextFormField(
+        validator: (text){
+          if(text==null || text .trim().isEmpty){
+            return 'please enter ${widget.label}';
+          }
+          return null;
+        },
         keyboardType: TextInputType.visiblePassword,
         obscureText: visubility,
         decoration: InputDecoration(
