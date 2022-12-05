@@ -38,8 +38,13 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                         color: Theme.of(context).canvasColor,
                       )),
                   TextFeilf(
+                      AppLocalizations.of(context)!.id_hint,
+                      AppLocalizations.of(context)!.id,
+                      TextInputType.number,
+                      Icon(Icons.perm_identity_outlined,color: Theme.of(context).canvasColor,)),
+                  TextFeilf(
                       AppLocalizations.of(context)!.email_hint,
-                      AppLocalizations.of(context)!.email_label,
+                      AppLocalizations.of(context)!.university_email,
                       TextInputType.emailAddress,
                       Icon(Icons.email_outlined,color: Theme.of(context).canvasColor,)),
                   TextFeilf(
@@ -47,11 +52,6 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                       AppLocalizations.of(context)!.phone,
                       TextInputType.number,
                       Icon(Icons.phone,color: Theme.of(context).canvasColor,)),
-                  TextFeilf(
-                      AppLocalizations.of(context)!.id_hint,
-                      AppLocalizations.of(context)!.id,
-                      TextInputType.number,
-                      Icon(Icons.perm_identity_outlined,color: Theme.of(context).canvasColor,)),
                   TextFeilf(
                       AppLocalizations.of(context)!.level_hint,
                       AppLocalizations.of(context)!.level,
