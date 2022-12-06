@@ -10,6 +10,7 @@ import 'package:project/graduated/graduated_login.dart';
 import 'package:project/qa/qa_Login.dart';
 import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Setting/setting.dart';
+import 'package:project/student/final_parallel.dart';
 import 'package:project/student/layout/homeScreen.dart';
 import 'package:project/student/login&signUp/OtpStudent.dart';
 import 'package:project/student/login&signUp/resetpaas_student.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           Setting.routeName:(_)=>Setting(),
           Courses.routeName:(_)=>Courses(),
           Parallel.routeName:(_)=>Parallel(),
+          FinalParallel.routeName:(_)=>FinalParallel(),
           RegistrationForm.routeName:(_)=>RegistrationForm(),
           HomeScreenStudent.routeName:(_)=>HomeScreenStudent(),
           Programs.routeName:(_)=>Programs(),
