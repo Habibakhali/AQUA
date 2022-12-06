@@ -4,6 +4,7 @@ import 'package:project/providers/setting_provider.dart';
 import 'package:project/Layout/select.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Programs extends StatefulWidget {
   static const String routeName = 'select_programs';
@@ -69,11 +70,19 @@ class _ProgramsState extends State<Programs> {
                       programImage[index]);
                 }),
           ),
-          Text(
+          TextButton(
+            onPressed: ()async{
+              const url='mailto:naglaa_reda@sci.asu.edu.eg';
+               if (await canLaunch(url)) {
+              await launch(url);
+              } else {
+              throw 'Could not launch $url';
+            }},
+            child:Text(
             AppLocalizations.of(context)!.qa,
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
-          ),
+          ),)
         ]),
       ),
     ));

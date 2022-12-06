@@ -6,6 +6,7 @@ import 'package:project/providers/setting_provider.dart';
 import 'package:project/qa/qa_Login.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../student/login&signUp/student_login.dart';
 
@@ -70,7 +71,13 @@ class SelectionPart extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: TextButton(
-                  onPressed: () {},
+                      onPressed: ()async{
+                        const url='mailto:naglaa_reda@sci.asu.edu.eg';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }},
                   child: Text(
                     AppLocalizations.of(context)!.qa,
                     style: Theme.of(context).textTheme.headlineMedium,

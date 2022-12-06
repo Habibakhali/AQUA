@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'bottom_sheet_screen.dart';
 
 class ItemActivity extends StatefulWidget {
