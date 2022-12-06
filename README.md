@@ -26,7 +26,9 @@
 - Possibility of polling the opinion of community parties
    <br/> to obtain the necessary inquiries from the results
 
-![image](https://user-images.githubusercontent.com/88748494/205982616-02d910e8-6c7a-4d63-bd41-a9ba0f53ad7e.png)
+![image](https://user-images.githubusercontent.com/88748494/205982616-02d910e8-6c7a-4d63-bd41-a9ba0f53ad7e.png) ![image](https://user-images.githubusercontent.com/88748494/205982912-0ffd9f2b-5071-4927-b255-7046a9fc69ca.png)
+
+
 ![image](https://user-images.githubusercontent.com/88748494/205982238-8def6062-4198-4876-921f-43e19276f127.png)
 
 
