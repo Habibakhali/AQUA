@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:project/mytheme.dart';
-import 'package:project/student/acadimec%20regsteration.dart';
-import 'package:project/student/courses.dart';
-import 'package:project/student/registration_form.dart';
-import 'package:project/student/setting.dart';
+import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart';
+import 'package:project/student/Activity/activity.dart';
+import 'package:project/student/Courses/courses.dart';
+import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../Setting/setting.dart';
 
 
 class HomeScreenStudent extends StatefulWidget {
@@ -17,7 +18,7 @@ class HomeScreenStudent extends StatefulWidget {
 class _HomeScreenStudentState extends State<HomeScreenStudent> {
 int index=0;
 
-List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),Setting()];
+List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),StudentActivity(),Setting()];
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),Setting()]
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: AppLocalizations.of(context)!.registration_form),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: AppLocalizations.of(context)!.courses_title),
+            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/activity.png',),size: 28,),label: AppLocalizations.of(context)!.activity),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/setting.png'),),label: AppLocalizations.of(context)!.setting),
           ],
         ),

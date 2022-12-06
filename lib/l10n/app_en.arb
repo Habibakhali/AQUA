@@ -65,6 +65,18 @@
   "ai": "Artificial Intelligence",
   "project_a": "Project A",
   "security": "Cyber Security",
-  "geomety": "Computational Geometric"
+  "geomety": "Computational Geometric",
+  "activity": "Student Activity",
+  "ranger": "Ranger",
+  "stage": "Stage",
+  "singing": "Choral",
+  "sports": "Sports",
+  "drawing": "Drawing",
+  "ranger_description": "It is a stage of the scout movement whose motto is public service and community development",
+  "stage_description": "It is an artistic phenomenon based on a conscious and intentional encounter between the actor and the viewer",
+  "singe_description": "It is a musical group consisting of singers, who perform choral music",
+  "sport_description": "It is a group of sports such as football and table tennis",
+  "drawing_description": "It is a group of artists with artistic talent"
+
 
 }

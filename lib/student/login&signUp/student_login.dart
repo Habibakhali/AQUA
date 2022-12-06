@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project/student/OtpStudent.dart';
-import 'package:project/student/homeScreen.dart';
-import 'package:project/student/signup_student.dart';
+import 'package:project/student/layout/homeScreen.dart';
+import 'package:project/student/login&signUp/signup_student.dart';
 
-import '../graduated/graduated_login.dart';
-import 'acadimec regsteration.dart';
+import '../../graduated/graduated_login.dart';
+import 'OtpStudent.dart';
+
 
 class StudentLogin extends StatelessWidget {
 static const String routeName='Student_login';

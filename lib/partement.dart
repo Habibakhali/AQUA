@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/select.dart';
+import 'Layout/select.dart';
 
 class Partment extends StatelessWidget {
 String text;
