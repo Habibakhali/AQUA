@@ -27,22 +27,7 @@
    <br/> to obtain the necessary inquiries from the results
 
 
+![image](https://user-images.githubusercontent.com/88748494/205982238-8def6062-4198-4876-921f-43e19276f127.png)
 
-# Timeline
-
-## Sprint #1
-
-- Authentication Student
-    - login
-    - Register
-    - Email verification
-    - Reset password
-- Acadimic Registration 
-    
-- Authentication Graduated
-    - login
-    - Register
-    - Email verification
-    - Reset password
 
 
