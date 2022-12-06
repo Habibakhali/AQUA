@@ -73,8 +73,8 @@ class SelectionPart extends StatelessWidget {
                 child: TextButton(
                       onPressed: ()async{
                         const url='mailto:naglaa_reda@sci.asu.edu.eg';
-                        if (await canLaunch(url)) {
-                          await launch(url);
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url));
                         } else {
                           throw 'Could not launch $url';
                         }},
