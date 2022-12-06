@@ -4,9 +4,10 @@ import 'package:project/graduated/graduated_login.dart';
 import 'package:project/partement.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:project/qa/qa_Login.dart';
-import 'package:project/student/student_login.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+
+import '../student/login&signUp/student_login.dart';
 
 class SelectionPart extends StatelessWidget {
   static const String routename = 'selection';

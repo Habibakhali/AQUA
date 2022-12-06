@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/providers/setting_provider.dart';
-import 'package:project/student/setting_lang_data.dart';
-import 'package:project/student/setting_theme_data.dart';
+import 'package:project/student/Setting/setting_lang_data.dart';
+import 'package:project/student/Setting/setting_theme_data.dart';
 import 'package:provider/provider.dart';
 
-import '../mytheme.dart';
+import '../../mytheme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Setting extends StatelessWidget {

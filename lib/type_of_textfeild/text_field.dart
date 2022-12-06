@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:project/mytheme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class TextFeilf extends StatelessWidget {
+class MyTextField extends StatelessWidget {
   TextInputType keyboard_type;
   String hint;
   String label;
   Icon icon;
 
-  TextFeilf(this.hint, this.label, this.keyboard_type, this.icon);
+  MyTextField(this.hint, this.label, this.keyboard_type, this.icon);
   String id='';
 
   @override

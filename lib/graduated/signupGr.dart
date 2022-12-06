@@ -20,6 +20,9 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
   GlobalKey<FormState>formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var p=TextEditingController();
+    var c=TextEditingController();
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -29,7 +32,7 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
               key: formKey,
               child: Column(
                 children: [
-                  TextFeilf(
+                  MyTextField(
                       AppLocalizations.of(context)!.user_name_hint,
                       AppLocalizations.of(context)!.user_name,
                       TextInputType.name,
@@ -37,22 +40,22 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                         Icons.person,
                         color: Theme.of(context).canvasColor,
                       )),
-                  TextFeilf(
+                  MyTextField(
                       AppLocalizations.of(context)!.id_hint,
                       AppLocalizations.of(context)!.id,
                       TextInputType.number,
                       Icon(Icons.perm_identity_outlined,color: Theme.of(context).canvasColor,)),
-                  TextFeilf(
+                  MyTextField(
                       AppLocalizations.of(context)!.email_hint,
                       AppLocalizations.of(context)!.university_email,
                       TextInputType.emailAddress,
                       Icon(Icons.email_outlined,color: Theme.of(context).canvasColor,)),
-                  TextFeilf(
+                  MyTextField(
                       AppLocalizations.of(context)!.phone_hint,
                       AppLocalizations.of(context)!.phone,
                       TextInputType.number,
                       Icon(Icons.phone,color: Theme.of(context).canvasColor,)),
-                  TextFeilf(
+                  MyTextField(
                       AppLocalizations.of(context)!.level_hint,
                       AppLocalizations.of(context)!.level,
                       TextInputType.number,
@@ -61,9 +64,8 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     height: 20,
                   ),
                   PasswordTextField(AppLocalizations.of(context)!.password_label,
-                      AppLocalizations.of(context)!.password_hint, ''),
-                  PasswordTextField(AppLocalizations.of(context)!.confirm_label,
-                      AppLocalizations.of(context)!.confirm_hint, ''),
+                      AppLocalizations.of(context)!.password_hint,AppLocalizations.of(context)!.confirm_label,
+                      AppLocalizations.of(context)!.confirm_hint),
                   SeleBtn(AppLocalizations.of(context)!.register, widget.routeverfi,formKey)
                 ],
               ),
