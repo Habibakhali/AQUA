@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:project/student/setting_page.dart';
+
+import '../type_of_textfeild/buildTextField.dart';
 
 class Prof extends StatefulWidget {
   static const String routeName = 'prof';
@@ -15,7 +21,27 @@ class _ProfState extends State<Prof> {
 
   bool showPassword = false;
   final txtController = TextEditingController();
+  File? _image;
 
+Future pickImage(ImageSource source) async{
+  try{
+  final image=await ImagePicker().pickImage(source: source);
+  if(image==null){return;}
+  File? imageTemporary=File(image.path);
+  _image=await _cropImage(imageFile: imageTemporary);
+
+  setState(() =>
+    _image=imageTemporary);
+
+}
+on Exception catch (e){
+  print('failed to pick image');}
+}
+Future <File?> _cropImage({required File imageFile})async{
+  CroppedFile? croppedImage= await ImageCropper().cropImage(sourcePath: imageFile.path);
+  if(croppedImage==null) return null;
+  return File(croppedImage.path);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +95,15 @@ class _ProfState extends State<Prof> {
                                 offset: Offset(0, 10))
                           ],
                           shape: BoxShape.circle,
-                          image: DecorationImage(
+
+                          /*image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                              ))),
+             image: Image.asset('assets/images/boy.png'),
+                    ),*/),
+                   child:
+                   _image!= null? CircleAvatar(
+                     backgroundImage:FileImage(File(_image!.path))):
+                   Image.asset('assets/images/qa.png'),
                     ),
                     Positioned(
                         bottom: 0,
@@ -91,26 +121,55 @@ class _ProfState extends State<Prof> {
                             ),
                             color: Colors.blue,
                           ),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
+                          child: IconButton(
+
+
+                            color: Colors.white, onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Expanded(
+                                  child: SimpleDialog(
+                                    title:const Text('Choose Image'),
+                                    children: <Widget>[
+                                      SimpleDialogOption(
+                                        onPressed: () {
+                                          pickImage(ImageSource.gallery);
+                                          Navigator.pop(context);
+                                        },
+                                        child:const Text('From gallery'),
+                                      ),
+                                      SimpleDialogOption(
+                                        onPressed: () {
+                                          pickImage(ImageSource.camera);
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('From camera'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+
+                          }, icon:  Icon(Icons.edit) ,
                           ),
                         )),
                   ],
                 ),
               ),
               SizedBox(
-                height: 35,
+                height: 10,
               ),
-              buildTextField(
+              BuildTextField(
                   "Full Name", "User Name", false, false, TextInputType.text),
-              buildTextField("E-mail", "30010548@sci.asu.edu.eg", false, true,
+              BuildTextField("E-mail", "30010548@sci.asu.edu.eg", false, true,
                   TextInputType.emailAddress),
-              buildTextField("Password", "********", true, false,
+              BuildTextField("Password", "********", true, false,
                   TextInputType.visiblePassword),
-              buildTextField("phone number", "0100057256", false, false,
+              BuildTextField("phone number", "0100057256", false, false,
                   TextInputType.number),
-              buildTextField("Location", "Cairo,Egypt", false, false,
+              BuildTextField("Location", "Cairo,Egypt", false, false,
                   TextInputType.streetAddress),
               TextField(
                 decoration: InputDecoration(labelText: 'birth date'),
@@ -118,7 +177,7 @@ class _ProfState extends State<Prof> {
                 controller: txtController,
               ),
               SizedBox(
-                height: 10,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,21 +213,45 @@ class _ProfState extends State<Prof> {
                               )
                           )
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Expanded(
+                              child: AlertDialog(
+                                content: Text('Profile has been edited sucessfully'),
+                                actions: [
+
+                                  TextButton(
+                                    onPressed: () {Navigator.pop(context);},
+                                    child: Text('OK',style: TextStyle(color: Colors.black),),
+
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+
+                      },
                       child: Text("SAVE",
                           style: TextStyle(
                               fontSize: 14,
                               letterSpacing: 2.2,
                               color: Colors.white))),
 
+
                 ],
-              )
+              ),
+              SizedBox(height: 10,)
             ],
           ),
         ),
       ),
     );
-  }
+}
+
+
 
   void _selDatePicker() {
     showDatePicker(context: context,
@@ -182,7 +265,8 @@ class _ProfState extends State<Prof> {
       });
 
     });
-  }
+}
+
 
   Widget buildTextField(String labelText, String placeholder,
       bool isPasswordTextField, bool read, TextInputType type) {
@@ -216,6 +300,8 @@ class _ProfState extends State<Prof> {
             )),
       ),
     );
+
   }
+
 }
 

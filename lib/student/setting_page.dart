@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../accountSetting.dart';
+import '../resetPassWord.dart';
+import 'Setting/setting.dart';
+
 class SettingsPage extends StatefulWidget {
   static const String routeName = 'Setting';
   @override
@@ -57,9 +61,9 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(
               height: 10,
             ),
-            buildAccountOptionRow(context, "Change password"),
-            buildAccountOptionRow(context, "Language"),
-            buildAccountOptionRow(context, "Privacy and security"),
+            AccountSetting("change password",ResetPassWord.routeName),
+            AccountSetting("Language and theme",Setting.routeName),
+            AccountSetting( "Privacy and security",SettingsPage.routeName),
             SizedBox(
               height: 40,
             ),
@@ -148,52 +152,6 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  GestureDetector buildAccountOptionRow(BuildContext context, String title) {
-    return GestureDetector(
-      onTap: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text(title),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Option 1"),
-                    Text("Option 2"),
-                    Text("Option 3"),
-                  ],
-                ),
-                actions: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text("Close")),
-                ],
-              );
-            });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[600],
-              ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.grey,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
+
 }

@@ -4,6 +4,7 @@ import 'package:project/graduated/Otp_form.dart';
 import 'package:project/mytheme.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:project/providers/setting_provider.dart';
+import 'package:project/resetPassWord.dart';
 import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart';
 import 'package:project/graduated/create_new_pass_word.dart';
 import 'package:project/graduated/graduated_login.dart';
@@ -19,6 +20,8 @@ import 'package:project/student/login&signUp/student_login.dart';
 import 'package:project/student/Courses/parallel.dart';
 import 'package:project/student/login&signUp/otp_Email_Sta.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
+import 'package:project/student/prof.dart';
+import 'package:project/student/setting_page.dart';
 import 'package:provider/provider.dart';
 import 'graduated/Otp_form_email.dart';
 import 'graduated/signupGr.dart';
@@ -64,6 +67,9 @@ class MyApp extends StatelessWidget {
           HomeScreenStudent.routeName:(_)=>HomeScreenStudent(),
           Programs.routeName:(_)=>Programs(),
           AcadimecRegsteration.routeName:(_)=>AcadimecRegsteration(),
+          Prof.routeName:(_)=>Prof(),
+          SettingsPage.routeName:(_)=>SettingsPage(),
+          ResetPassWord.routeName:(_)=>  ResetPassWord(),
           SelectionPart.routename: (_) => SelectionPart(),
           GraduatedLogIn.routeName: (_) => GraduatedLogIn("SignUpGraduated.routeName",OtpFormGraduated.routeName,'Not published Now',),
           StudentLogin.routeName: (_) => StudentLogin(),
