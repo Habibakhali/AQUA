@@ -56,7 +56,8 @@ class PasswordTextField extends StatefulWidget {
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Theme.of(context).canvasColor),
                 ),
-                enabledBorder: OutlineInputBorder(
+                enabledBorder:
+                OutlineInputBorder(
                   borderSide: BorderSide(color: Theme.of(context).canvasColor),
                   borderRadius: BorderRadius.circular(10),
                 )),

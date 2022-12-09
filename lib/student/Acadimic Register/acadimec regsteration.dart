@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../prof.dart';
+
 class AcadimecRegsteration extends StatefulWidget {
   static const String routeName = 'AcadimecRegsteration';
 
@@ -46,6 +48,9 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
       child: Center(
         child: Column(
           children: [
+            IconButton(onPressed: (){
+              Navigator.pushNamed(context, Prof.routeName);
+            }, icon:Icon(Icons.person )),
             /* OutlinedButton(onPressed: (){chooseImage(ImageSource.camera);}, child: Text('Choose Image'),),
               SizedBox(height: 20.0,),*/
             ElevatedButton.icon(

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:project/exam_item.dart';
 
+import '../final_parallel.dart';
+
 class Parallel extends StatelessWidget {
 
   static const String routeName = 'parallel';
@@ -64,9 +66,9 @@ class Parallel extends StatelessWidget {
                     textAlign:TextAlign.start ,
                   ),
                   SizedBox(height: 30.0),
-           ExamItem('Final parallel','2020'),
+           ExamItem('Final parallel','2020',FinalParallel.routeName),
                   SizedBox(height: 10,),
-                  ExamItem('MidTerm parallel','2021'),
+                  ExamItem('MidTerm parallel','2021',FinalParallel.routeName),
                   SizedBox(height: 10,),
                   Center(
                     child: Text(
@@ -83,9 +85,9 @@ class Parallel extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30.0),
-              ExamItem('Answer of final exam','2020'),
+              ExamItem('Answer of final exam','2020',FinalParallel.routeName),
                   SizedBox(height: 10,),
-                  ExamItem('Answer of mid term','2021'),
+                  ExamItem('Answer of mid term','2021',FinalParallel.routeName),
                   SizedBox(height: 10,),
 
                   Center(
