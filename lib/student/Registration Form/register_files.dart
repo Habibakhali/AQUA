@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import'dart:io';
 
-import 'package:project/mytheme.dart';
-
 class RegisterFiles extends StatefulWidget {
 File? fileName;
 RegisterFiles(this.fileName);
@@ -19,12 +17,11 @@ class _RegisterFilesState extends State<RegisterFiles> {
       visible: visible,
       child: Stack(
         alignment: Alignment.topRight,
-        children: [Image.file(widget.fileName!),
+        children: [Image.file(widget.fileName!,),
         InkWell(
             onTap:() {
               visible=false;
              setState(() {
-
              });
             },
             child: Icon(Icons.clear,color: Colors.red,))

@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:project/exam_item.dart';
+import 'package:project/student/Courses/exam_item.dart';
 
-import '../final_parallel.dart';
+import 'final_parallel.dart';
 
 class Parallel extends StatelessWidget {
 
@@ -23,11 +23,7 @@ class Parallel extends StatelessWidget {
                     children: [
                       Text(
                           "Exams",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                          )),
+                          style:Theme.of(context).textTheme.headlineLarge ),
                       SizedBox(width: 50,),
                       Image.asset(
                         'assets/images/exam.png',
@@ -37,32 +33,9 @@ class Parallel extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20,),
-                  /*Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      boxShadow: [BoxShadow(
-                          blurRadius: 20,color: Colors.grey.withOpacity(0.5)
-                      ),],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 15,left: 15),
-                      child: TextField(
-                        decoration: InputDecoration(hintText: "Find your course..",
-                            border: InputBorder.none,
-                            suffixIcon: Icon(Icons.search)),
-
-                      ),
-                    ),
-                  ),*/
                   Text(
                     "Recent Exams",
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.headlineSmall,
                     textAlign:TextAlign.start ,
                   ),
                   SizedBox(height: 30.0),

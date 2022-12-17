@@ -9,7 +9,10 @@ ExamItem(this.exam, this.date, this.routeName);
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ElevatedButton(
+      child: ElevatedButton(style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+        elevation:  MaterialStateProperty.all(0),
+      ),
         onPressed: () {
           Navigator.pushNamed(
               context, routeName);
@@ -39,7 +42,7 @@ ExamItem(this.exam, this.date, this.routeName);
                     children: [
                       Text(
                       exam,
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18,color: Colors.black),
                       ),
                       SizedBox(
                         height: 10,

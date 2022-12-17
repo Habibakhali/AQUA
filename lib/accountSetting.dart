@@ -11,23 +11,24 @@ AccountSetting(this.title, this.routeName);
     return
  Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey[600],
+      child: InkWell(
+        onTap: (){
+          Navigator.pushNamed(context, routeName);
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey[600],
+              ),
             ),
-          ),
-          IconButton(
-            color: Colors.grey, onPressed: () {
-              Navigator.pushNamed(context, routeName);
-          }, icon:Icon(Icons.arrow_forward_ios),
-          ),
-        ],
+            Icon(Icons.arrow_forward_ios,color: Colors.grey),
+          ],
+        ),
       ),
     );
   }

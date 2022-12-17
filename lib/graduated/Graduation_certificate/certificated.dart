@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../personal setting/prof.dart';
 
-class AcadimecRegsteration extends StatefulWidget {
-  static const String routeName = 'AcadimecRegsteration';
+class GraduationCertificate extends StatefulWidget {
+  static const String routeName = 'AcadimecRegsterationgrd';
   @override
-  State<AcadimecRegsteration> createState() => _AcadimecRegsterationState();
+  State<GraduationCertificate> createState() => _GraduationCertificateState();
 }
 
-class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
+class _GraduationCertificateState extends State<GraduationCertificate> {
   File? imageFile;
   String status = '';
 
@@ -32,14 +31,14 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     return Flexible(
         child: imageFile != null
             ? Container(
-                child: Image.file(imageFile!),
-              )
+          child: Image.file(imageFile!),
+        )
             : Text(
-                AppLocalizations.of(context)!.no_img,
-                textAlign: TextAlign.center,
-              ));
+          AppLocalizations.of(context)!.no_img,
+          textAlign: TextAlign.center,
+        ));
   }
-String year=DateTime.now().year.toString();
+  String year=DateTime.now().year.toString();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,7 +58,7 @@ String year=DateTime.now().year.toString();
                 size: 24.0,
               ),
               label:
-                  Text(AppLocalizations.of(context)!.capture_img), // <-- Text
+              Text(AppLocalizations.of(context)!.capture_img), // <-- Text
             ),
             Text(AppLocalizations.of(context)!.or),
             ElevatedButton.icon(
@@ -82,53 +81,53 @@ String year=DateTime.now().year.toString();
                 backgroundColor: MaterialStateProperty.all(Colors.white),
               ),
               onPressed: (){
-                  showDialog(context: context,barrierDismissible: false, builder: (context)=>SimpleDialog(
-                    title: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Select semester',),
-                            InkWell(
-                                onTap:(){
-                                  setState(() {
+                showDialog(context: context,barrierDismissible: false, builder: (context)=>SimpleDialog(
+                  title: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Select semester',),
+                          InkWell(
+                              onTap:(){
+                                setState(() {
 
-                                  });
-                                  flutterYearPicker(context);
-                                },
-                                child: Text(year,))
+                                });
+                                flutterYearPicker(context);
+                              },
+                              child: Text(year,))
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      )
+                    ],
+                  ),
+                  contentPadding: EdgeInsets.only(left: 20,right: 20,bottom: 20,top:5),
+                  backgroundColor: Theme.of(context).secondaryHeaderColor,
+                  children: [
+                    InkWell(
+                        child: Row(
+                          children: [
+                            Text('Semester 1'),
                           ],
                         ),
-                        Divider(
-                          thickness: 1,
-                        )
-                      ],
-                    ),
-                    contentPadding: EdgeInsets.only(left: 20,right: 20,bottom: 20,top:5),
-                    backgroundColor: Theme.of(context).secondaryHeaderColor,
-                    children: [
-                      InkWell(
-                          child: Row(
-                            children: [
-                              Text('Semester 1'),
-                            ],
-                          ),
-                          onTap: (){
-                            Navigator.of(context).pop();
-                          }),
-                      SizedBox(height: 8,),
-                      InkWell(
-                          child: Row(
-                            children: [
-                              Text('Semester 2'),
-                            ],
-                          ),
-                          onTap: (){
-                            Navigator.of(context).pop();
-                          }),
-                    ],
-                  ));
-                },
+                        onTap: (){
+                          Navigator.of(context).pop();
+                        }),
+                    SizedBox(height: 8,),
+                    InkWell(
+                        child: Row(
+                          children: [
+                            Text('Semester 2'),
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.of(context).pop();
+                        }),
+                  ],
+                ));
+              },
               child: Text(AppLocalizations.of(context)!.upload_img),
             ),
             SizedBox(
@@ -168,21 +167,21 @@ String year=DateTime.now().year.toString();
               mainAxisSpacing: 0,
               children: [
                 ...List.generate(8,
-                  (index) {
-                    return InkWell(
-                      onTap: () {
-                        year=(DateTime.now().year - index).toString();
-                        Navigator.pop(context);
-                      },
-                      child: Chip(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        label: Container(
-                          child: Text((DateTime.now().year - index).toString(),),
+                        (index) {
+                      return InkWell(
+                        onTap: () {
+                          year=(DateTime.now().year - index).toString();
+                          Navigator.pop(context);
+                        },
+                        child: Chip(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          label: Container(
+                            child: Text((DateTime.now().year - index).toString(),),
+                          ),
                         ),
-                      ),
-                    );
-                  }
-              ),
+                      );
+                    }
+                ),
               ],
             ),
           ),

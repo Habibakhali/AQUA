@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/student/layout/homeScreen.dart';
 import 'package:project/student/login&signUp/signup_student.dart';
 
-import '../../graduated/graduated_login.dart';
+import '../../graduated/login&signup/graduated_login.dart';
 import 'OtpStudent.dart';
 
 

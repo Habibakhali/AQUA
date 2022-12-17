@@ -3,8 +3,8 @@ import 'package:project/providers/setting_provider.dart';
 import 'package:project/selection_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../type_of_textfeild/text_field.dart';
-import 'Otp_form.dart';
+import '../../type_of_textfeild/text_field.dart';
+
 
 class GraduatedLogIn extends StatefulWidget {
   static const String routeName = 'Login_Gradutated';

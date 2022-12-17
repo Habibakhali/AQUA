@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../personal setting/prof.dart';
 
-class AcadimecRegsteration extends StatefulWidget {
-  static const String routeName = 'AcadimecRegsteration';
+class AcadimecRegsterationGrd extends StatefulWidget {
+  static const String routeName = 'AcadimecRegsterationgrd';
   @override
-  State<AcadimecRegsteration> createState() => _AcadimecRegsterationState();
+  State<AcadimecRegsterationGrd> createState() => _AcadimecRegsterationGrdState();
 }
 
-class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
+class _AcadimecRegsterationGrdState extends State<AcadimecRegsterationGrd> {
   File? imageFile;
   String status = '';
 

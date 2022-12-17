@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/graduated/graduated_login.dart';
+import 'package:project/graduated/login&signup/graduated_login.dart';
 
 class SeleBtn extends StatelessWidget {
   String text;
@@ -21,7 +21,7 @@ class SeleBtn extends StatelessWidget {
 
                 onPressed: () {
                 if(formKey.currentState?.validate()==true){
-                  Navigator.pushNamed(context, routeName);
+                  Navigator.pushReplacementNamed(context, routeName);
                 }
                 },
                 child: Text(text,style: TextStyle(fontSize: 18),)));

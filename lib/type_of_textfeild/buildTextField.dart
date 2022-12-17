@@ -34,7 +34,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
                 });
               },
               icon: Icon(
-                Icons.remove_red_eye,
+               Icons.remove_red_eye,
                 color: Colors.grey,
               ),
             )
@@ -43,10 +43,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
             labelText: widget.labelText,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             hintText: widget.placeholder,
-            hintStyle: TextStyle(
-              fontSize: 16,
-              color: Colors.black,
-            )),
+            hintStyle: Theme.of(context).textTheme.headlineMedium),
       ),
     );
 

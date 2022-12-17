@@ -5,7 +5,9 @@ import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../Setting/setting.dart';
+import '../../graduated/personal setting/profileGrd.dart';
+import '../Settingst/setting.dart';
+import '../personal setting/setting_page.dart';
 
 
 class HomeScreenStudent extends StatefulWidget {
@@ -17,14 +19,26 @@ class HomeScreenStudent extends StatefulWidget {
 
 class _HomeScreenStudentState extends State<HomeScreenStudent> {
 int index=0;
-
-List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),StudentActivity(),Setting()];
+List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),StudentActivity(),SettingSt()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.app_title),
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, ProfileGrd.routeName);
+          }, icon:Icon(Icons.person)),
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, SettingsPageSt.routeName);
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Theme.of(context).secondaryHeaderColor),

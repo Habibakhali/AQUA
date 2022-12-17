@@ -12,6 +12,7 @@ class PasswordTextField extends StatefulWidget {
   State<PasswordTextField> createState() => _PasswordTextFieldState();
 }class _PasswordTextFieldState extends State<PasswordTextField> {
   bool visubility = true;
+  bool visubility1 = true;
  var password=TextEditingController();
  var confirm=TextEditingController();
   @override
@@ -76,7 +77,7 @@ class PasswordTextField extends StatefulWidget {
               return null;
             },
             keyboardType: TextInputType.visiblePassword,
-            obscureText: visubility,
+            obscureText: visubility1,
             decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.lock_outline,
@@ -84,11 +85,11 @@ class PasswordTextField extends StatefulWidget {
                 ),
                 suffixIcon: IconButton(
                     onPressed: () {
-                      visubility = !visubility;
+                      visubility1 = !visubility1;
                       setState(() {});
                     },
                     icon: Icon(
-                      visubility ? Icons.visibility : Icons.visibility_off,
+                      visubility1 ? Icons.visibility : Icons.visibility_off,
                       color: Theme.of(context).canvasColor,
                     )),
                 label: Text(widget.labelConfrim),

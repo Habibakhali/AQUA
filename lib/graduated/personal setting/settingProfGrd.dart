@@ -1,17 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project/student/Settingst/setting.dart';
+import '../../accountSetting.dart';
+import '../../resetPassWord.dart';
 
-import '../accountSetting.dart';
-import '../resetPassWord.dart';
-import 'Setting/setting.dart';
+class SettingsPageGrd extends StatefulWidget {
+  static const String routeName = 'SettingprofGRd';
 
-class SettingsPage extends StatefulWidget {
-  static const String routeName = 'Setting';
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  State<SettingsPageGrd> createState() => _SettingsPageGrdState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageGrdState extends State<SettingsPageGrd> {
+  @override
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: ListView(
           children: [
             Text(
-              "Settings",
+            AppLocalizations.of(context)!.setting,
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
             ),
             SizedBox(
@@ -49,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 8,
                 ),
                 Text(
-                  "Account",
+                AppLocalizations.of(context)!.account,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -61,9 +64,9 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(
               height: 10,
             ),
-            AccountSetting("change password",ResetPassWord.routeName),
-            AccountSetting("Language and theme",Setting.routeName),
-            AccountSetting( "Privacy and security",SettingsPage.routeName),
+            AccountSetting(AppLocalizations.of(context)!.change_password,ResetPassWord.routeName),
+            AccountSetting(AppLocalizations.of(context)!.lang_theme,SettingSt.routeName),
+            AccountSetting( AppLocalizations.of(context)!.privacy,''),
             SizedBox(
               height: 40,
             ),
@@ -77,7 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 8,
                 ),
                 Text(
-                  "Notifications",
+                  AppLocalizations.of(context)!.notification,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -89,8 +92,8 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(
               height: 10,
             ),
-            buildNotificationOptionRow("New for you", true),
-            buildNotificationOptionRow("Student activity", true),
+            buildNotificationOptionRow(AppLocalizations.of(context)!.new_foryou, true),
+            buildNotificationOptionRow(AppLocalizations.of(context)!.activity, true),
             SizedBox(
               height: 50,
             ),
@@ -107,8 +110,9 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       onPressed: () {
         Navigator.pop(context);
+        Navigator.pop(context);
       },
-      child: Text("SIGN OUT",
+      child: Text(AppLocalizations.of(context)!.sign_out,
           style: TextStyle(
               fontSize: 14,
               letterSpacing: 2.2,
@@ -151,7 +155,4 @@ class _SettingsPageState extends State<SettingsPage> {
       ],
     );
   }
-
-
-
 }

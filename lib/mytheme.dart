@@ -16,6 +16,11 @@ class MyTheme{
           color: Color.fromRGBO(0, 22, 65, 0.7019607843137254),
         fontSize: 14
       ),
+      headlineLarge: TextStyle(
+        fontSize: 20,
+        color: Colors.black,
+        fontWeight: FontWeight.w600,
+      ),
       bodySmall: TextStyle(
         color: Color.fromRGBO(0, 0, 0, 0.5)
       ),
@@ -59,6 +64,11 @@ class MyTheme{
               color: Colors.white,
             fontSize: 14
           ),
+        headlineLarge: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+        ),
           bodySmall: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.5)),
           bodyMedium: TextStyle(color: Colors.white),
           bodyLarge: TextStyle(color: Colors.white),

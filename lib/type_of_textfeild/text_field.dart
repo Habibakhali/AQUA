@@ -20,7 +20,7 @@ class MyTextField extends StatelessWidget {
             if (text == null || text.trim().isEmpty)
               return 'please enter $label';
             else if (label == AppLocalizations.of(context)!.email_label || label==AppLocalizations.of(context)!.university_email) {
-              if (!text.contains('@sci.asu.edu.eg')&&!first14(text)) {
+              if (!text.contains('@sci.asu.edu.eg')) {
                 return 'please enter university email';
               }
             }
@@ -58,14 +58,13 @@ class MyTextField extends StatelessWidget {
           )
         ));
   }
-  bool isDigit(String s)
-  {
+  bool isDigit(String s) {
     if (s == null) {
       return false;
     }
     return int.tryParse(s) != null;
   }
-  bool first14(String text){
+ /* bool first14(String text){
     int count=0;
     for(int i=0;i<text.length-8;i++){
       if(id[i]==text[i])
@@ -74,5 +73,5 @@ class MyTextField extends StatelessWidget {
     if(count==14)
       return true;
     return false;
-  }
+  }*/
 }

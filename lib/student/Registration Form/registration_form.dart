@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/student/Registration%20Form/register_files.dart';
@@ -18,17 +18,20 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   chooseImage(ImageSource source) async {
     XFile? pickedFile = await ImagePicker().pickImage(source: source,
-      maxHeight: MediaQuery.of(context).size.height , maxWidth: MediaQuery.of(context).size.width,
+      maxHeight: 1080,
+      maxWidth: 1080,
     );
     setState(() {
       imageFile = File(pickedFile!.path);
-      lastfile.insert(lastfile.length, imageFile);
+      if(!lastfile.contains(imageFile)){
+        lastfile.insert(lastfile.length, imageFile);
+      }
+       else _showToast(context);
     });
   }
 
   Widget showImage() {
-    return lastfile.isNotEmpty?
-      Container(
+    return Container(
       child: Expanded(
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -44,7 +47,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
               },
           )
       )
-    ):Text(AppLocalizations.of(context)!.no_img,textAlign: TextAlign.center,);
+    );
   }
 
   @override
@@ -74,12 +77,53 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 size: 24.0,
               ),
               label: Text(AppLocalizations.of(context)!.gallery_img),),
-
-
             showImage(),
+            SizedBox(height: 20,),
+            OutlinedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+              ),
+              onPressed: (){
+                showDialog(context: context,barrierDismissible: false, builder: (context)=>SimpleDialog(
+                  title: Text('Select your semester:'),
+                  contentPadding: EdgeInsets.all(15),
+                  backgroundColor: Theme.of(context).secondaryHeaderColor,
+                  children: [
+                    InkWell(
+                        child: Row(
+                          children: [
+                            Text('Semester 1'),
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.of(context).pop();
+                        }),
+                    SizedBox(height: 8,),
+                    InkWell(
+                        child: Row(
+                          children: [
+                            Text('Semester 2'),
+                          ],
+                        ),
+                        onTap: (){
+                          Navigator.of(context).pop();
+                        }),
+                  ],
+                ));
+              },
+              child: Text(AppLocalizations.of(context)!.upload_img),
+            ),
           ],
         ),
       ),
+    );
+  }
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.grey,
+        content: const Text('your already uploaded this image')),
     );
   }
 }
