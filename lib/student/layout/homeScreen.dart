@@ -22,7 +22,7 @@ int index=0;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),StudentActivity(),Prof()];
+    List<Widget>tabs=[Courses(),AcadimecRegsteration(),RegistrationForm(),StudentActivity(),Prof()];
 
     return Scaffold(
       appBar: AppBar(
