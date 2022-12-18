@@ -6,30 +6,28 @@ import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../graduated/personal setting/profileGrd.dart';
-import '../Settingst/setting.dart';
+import '../Courses/course_selected.dart';
+import '../personal setting/prof.dart';
 import '../personal setting/setting_page.dart';
 
 
 class HomeScreenStudent extends StatefulWidget {
   static const String routeName='homeScreenStudent';
-
   @override
   State<HomeScreenStudent> createState() => _HomeScreenStudentState();
 }
 
 class _HomeScreenStudentState extends State<HomeScreenStudent> {
 int index=0;
-List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),StudentActivity(),SettingSt()];
 
   @override
   Widget build(BuildContext context) {
+    List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),StudentActivity(),Prof()];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.app_title),
         actions: [
-          IconButton(onPressed: (){
-            Navigator.pushNamed(context, ProfileGrd.routeName);
-          }, icon:Icon(Icons.person)),
           IconButton(
             icon: Icon(
               Icons.more_vert,
@@ -55,7 +53,7 @@ List<Widget>tabs=[AcadimecRegsteration(),RegistrationForm(),Courses(),StudentAct
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: AppLocalizations.of(context)!.registration_form),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: AppLocalizations.of(context)!.courses_title),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/activity.png',),size: 28,),label: AppLocalizations.of(context)!.activity),
-            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/setting.png'),),label: AppLocalizations.of(context)!.setting),
+            BottomNavigationBarItem(icon: Icon(Icons.person_outline_sharp),label: AppLocalizations.of(context)!.edit_profile),
           ],
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/graduated/personal%20setting/profileGrd.dart';
 
-import '../../icon.dart';
+import '../../Styling/icon.dart';
 import '../Acadimic RegisterGrd/acadimec regsteration.dart';
 import '../Graduation_certificate/certificated.dart';
 import '../SettingGrd/setting.dart';

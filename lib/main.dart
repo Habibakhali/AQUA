@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:project/doctor/doctor_login.dart';
 import 'package:project/graduated/Layout/HomeScreen.dart';
-import 'package:project/mytheme.dart';
+import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:project/providers/setting_provider.dart';
-import 'package:project/resetPassWord.dart';
+import 'package:project/student/personal%20setting/resetPassWord.dart';
 import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart';
 import 'package:project/graduated/login&signup/create_new_pass_word.dart';
 import 'package:project/qa/qa_Login.dart';
 import 'package:project/student/Courses/course_selected.dart';
 import 'package:project/student/Courses/courses.dart';
-import 'package:project/student/Courses/final_parallel.dart';
+import 'package:project/student/Courses/pdf_viewer_final.dart';
 import 'package:project/student/Settingst/setting.dart';
 import 'package:project/student/layout/homeScreen.dart';
 import 'package:project/student/login&signUp/OtpStudent.dart';
 import 'package:project/student/login&signUp/resetpaas_student.dart';
 import 'package:project/student/login&signUp/signup_student.dart';
 import 'package:project/student/login&signUp/student_login.dart';
-import 'package:project/student/Courses/parallel.dart';
+import 'package:project/student/Courses/exam.dart';
 import 'package:project/student/login&signUp/otp_Email_Sta.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:project/student/personal%20setting/prof.dart';
@@ -65,10 +65,9 @@ class MyApp extends StatelessWidget {
         routes: {
           ProfileGrd.routeName:(_)=>ProfileGrd(),
           SettingSt.routeName:(_)=>SettingSt(),
-          Courses.routeName:(_)=>Courses(),
-          Parallel.routeName:(_)=>Parallel(),
+          Exam.routeName:(_)=>Exam(),
           CourseSelected.routeName:(_)=>CourseSelected(),
-          FinalParallel.routeName:(_)=>FinalParallel(),
+          FinalPdfViewer.routeName:(_)=>FinalPdfViewer(),
           RegistrationForm.routeName:(_)=>RegistrationForm(),
           HomeScreenStudent.routeName:(_)=>HomeScreenStudent(),
           Programs.routeName:(_)=>Programs(),

@@ -27,13 +27,26 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
       imageFile = File(pickedFile!.path);
     });
   }
-
+bool visible=true;
   Widget showImage() {
     return Flexible(
         child: imageFile != null
-            ? Container(
-                child: Image.file(imageFile!),
-              )
+            ? Visibility(
+          visible: visible,
+          child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                Image.file(imageFile!),
+                InkWell(
+                    onTap:() {
+                      visible=false;
+                      setState(() {
+                      });
+                    },
+                    child: Icon(Icons.clear,color: Colors.red,))
+              ]
+          ),
+        )
             : Text(
                 AppLocalizations.of(context)!.no_img,
                 textAlign: TextAlign.center,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project/providers/setting_provider.dart';
-import 'package:project/providers/setting_lang_data.dart';
-import 'package:project/providers/setting_theme_data.dart';
+import 'package:project/student/Settingst/setting_lang_data.dart';
 import 'package:provider/provider.dart';
-import '../../mytheme.dart';
+import '../../Styling/mytheme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../student/Settingst/setting_theme_data.dart';
 
 class SettingGrd extends StatelessWidget{
   static const String routeName = 'Setting_homeScreenGrd';

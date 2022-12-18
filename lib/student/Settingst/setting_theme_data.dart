@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:project/mytheme.dart';
+import 'package:project/Styling/mytheme.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-class LangData extends StatelessWidget {
+class ThemData extends StatefulWidget {
 
+  @override
+  State<ThemData> createState() => _ThemDataState();
+}
+
+class _ThemDataState extends State<ThemData> {
   @override
   Widget build(BuildContext context) {
     var pro=Provider.of<SettingProvider>(context);
@@ -16,21 +21,22 @@ class LangData extends StatelessWidget {
         children: [
           InkWell(
               onTap: (){
-                pro.changeLAnguage('en');
+                pro.changeTheme(ThemeMode.light);
               },
-              child: pro.currentLang=='en'?selectedIte(AppLocalizations.of(context)!.englishLang):unselectedIte(AppLocalizations.of(context)!.englishLang)
+              child: pro.currTheme==ThemeMode.light?selectedIte(AppLocalizations.of(context)!.lightMode):unselectedIte(AppLocalizations.of(context)!.lightMode)
           ),
          SizedBox(height: 12,),
           InkWell(
               onTap: (){
-                pro.changeLAnguage('ar');
+                pro.changeTheme(ThemeMode.dark);
               },
-              child: pro.currentLang=='ar'?selectedIte(AppLocalizations.of(context)!.arabicLang):unselectedIte(AppLocalizations.of(context)!.arabicLang)
+              child: pro.currTheme==ThemeMode.dark?selectedIte(AppLocalizations.of(context)!.dartMode):unselectedIte(AppLocalizations.of(context)!.dartMode)
           ),
         ],
       ),
     );
   }
+
   Widget selectedIte(String text){
     return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,10 +46,11 @@ class LangData extends StatelessWidget {
       ],
     );
   }
+
   Widget unselectedIte(String text){
     return Row(
       children: [
-        Text(text)
+        Text(text,style:Theme.of(context).textTheme.bodyMedium)
       ],
     );
   }

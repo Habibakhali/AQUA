@@ -6,7 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../type_of_textfeild/buildTextField.dart';
+import '../../MyDesign/buildTextField.dart';
 
 class Prof extends StatefulWidget {
   static const String routeName = 'prof';
@@ -45,12 +45,7 @@ class _ProfState extends State<Prof> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.edit_profile),
-        elevation: 1,
-      ),
-      body: Container(
+    return Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(
           onTap: () {
@@ -245,7 +240,6 @@ class _ProfState extends State<Prof> {
             ],
           ),
         ),
-      ),
     );
   }
 

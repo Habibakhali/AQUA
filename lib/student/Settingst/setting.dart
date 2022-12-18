@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:project/providers/setting_provider.dart';
-import 'package:project/providers/setting_lang_data.dart';
-import 'package:project/providers/setting_theme_data.dart';
+import 'package:project/student/Settingst/setting_lang_data.dart';
+import 'package:project/student/Settingst/setting_theme_data.dart';
 import 'package:provider/provider.dart';
 
-import '../../mytheme.dart';
+import '../../Styling/mytheme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingSt extends StatelessWidget{
   static const String routeName = 'Setting_homeSvreenSt';
 
+
   @override
   Widget build(BuildContext context) {
     var pro = Provider.of<SettingProvider>(context);
     return Scaffold(
-      body: SafeArea(
-        child: Container(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.lang_theme),
+      ),
+      body: Container(
           padding: EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -32,7 +35,7 @@ class SettingSt extends StatelessWidget{
                   ShowBottomSheetLang(context);
                 },
                 child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(229, 225, 225, 1.0),
                         borderRadius: BorderRadius.circular(12),
@@ -64,7 +67,7 @@ class SettingSt extends StatelessWidget{
                   ShowBottomSheetTheme(context);
                 },
                 child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(229, 225, 225, 1.0),
                         borderRadius: BorderRadius.circular(12),
@@ -83,7 +86,6 @@ class SettingSt extends StatelessWidget{
             ],
           ),
         ),
-      ),
     );
   }
 

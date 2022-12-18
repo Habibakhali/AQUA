@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExamItem extends StatelessWidget {
 String exam, date;
@@ -41,7 +42,7 @@ ExamItem(this.exam, this.date, this.routeName);
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                      exam,
+                      AppLocalizations.of(context)!.exam,
                         style: TextStyle(fontSize: 18,color: Colors.black),
                       ),
                       SizedBox(

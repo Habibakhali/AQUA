@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-class FinalParallel extends StatelessWidget {
+class FinalPdfViewer extends StatelessWidget {
   static const String routeName = 'Exam';
   PdfViewerController pdfViewerController = PdfViewerController();
   double zoom = 0.0;

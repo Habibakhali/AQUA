@@ -29,24 +29,28 @@ class _RegistrationFormState extends State<RegistrationForm> {
        else _showToast(context);
     });
   }
-
   Widget showImage() {
-    return Container(
-      child: Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: lastfile.length,
+    return  lastfile.isEmpty?Text(AppLocalizations.of(context)!.no_img,
+      textAlign: TextAlign.center,):Container(
+        child: Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: lastfile.length,
               itemBuilder: (_,index){
                 return
-                Row(
-                  children: [
-                    RegisterFiles(lastfile[index]),
-                    SizedBox(width: 10,)
-                  ],
-                );
+                  Row(
+                    children: [
+                      RegisterFiles(lastfile[index],
+                              (index){
+                      lastfile.removeAt(index);
+                      setState(() {
+                      });},index),
+                      SizedBox(width: 10,)
+                    ],
+                  );
               },
-          )
-      )
+            )
+        )
     );
   }
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../icon.dart';
-import '../../selection_button.dart';
-import '../../type_of_textfeild/password_textfield.dart';
-import '../../type_of_textfeild/text_field.dart';
+import '../../MyDesign/password_textfield.dart';
+import '../../MyDesign/selection_button.dart';
+import '../../MyDesign/text_field.dart';
+import '../../Styling/icon.dart';
 import 'otp_Email_Sta.dart';
 
 

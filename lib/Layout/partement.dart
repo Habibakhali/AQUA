@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../student/Courses/parallel.dart';
+import '../student/Courses/exam.dart';
 
 
 class Partment extends StatelessWidget {
@@ -15,7 +15,7 @@ Partment(this.text,this.routeName,this.image);
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          if(routeName!=Parallel.routeName)
+          if(routeName!=Exam.routeName)
 Navigator.pushReplacementNamed(context, routeName)      ;
           Navigator.pushNamed(context, routeName);
         },

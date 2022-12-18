@@ -1,9 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:project/icon.dart';
-import 'package:project/selection_button.dart';
-import 'package:project/type_of_textfeild/password_textfield.dart';
-import 'package:project/type_of_textfeild/text_field.dart';
+import 'package:project/Styling/icon.dart';
+import 'package:project/MyDesign/selection_button.dart';
+import 'package:project/MyDesign/password_textfield.dart';
+import 'package:project/MyDesign/text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'Otp_form_email.dart';
 

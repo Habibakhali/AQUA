@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/selection_button.dart';
-import 'package:project/type_of_textfeild/password_textfield.dart';
+import 'package:project/MyDesign//selection_button.dart';
+import 'package:project/MyDesign//password_textfield.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 

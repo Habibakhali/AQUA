@@ -7,7 +7,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../type_of_textfeild/buildTextField.dart';
+import '../../MyDesign/buildTextField.dart';
 
 class ProfileGrd extends StatefulWidget {
   static const String routeName = 'profgrd';

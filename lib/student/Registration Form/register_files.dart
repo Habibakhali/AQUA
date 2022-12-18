@@ -1,32 +1,23 @@
 import 'package:flutter/material.dart';
 import'dart:io';
 
-class RegisterFiles extends StatefulWidget {
+class RegisterFiles extends StatelessWidget {
 File? fileName;
-RegisterFiles(this.fileName);
+ Function callBack;
+ int index;
+RegisterFiles(this.fileName,this.callBack,this.index);
 
-  @override
-  State<RegisterFiles> createState() => _RegisterFilesState();
-}
-
-class _RegisterFilesState extends State<RegisterFiles> {
-  bool visible =true;
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: visible,
-      child: Stack(
+    return Stack(
         alignment: Alignment.topRight,
-        children: [Image.file(widget.fileName!,),
+        children: [Image.file(fileName!,),
         InkWell(
             onTap:() {
-              visible=false;
-             setState(() {
-             });
+            callBack(index);
             },
             child: Icon(Icons.clear,color: Colors.red,))
         ]
-      ),
     );
   }
 }

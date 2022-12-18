@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/student/Settingst/setting.dart';
-import '../../accountSetting.dart';
-import '../../resetPassWord.dart';
+import 'package:project/student/login&signUp/student_login.dart';
+import 'account_seeting.dart';
+import 'resetPassWord.dart';
 
 class SettingsPageSt extends StatefulWidget {
   static const String routeName = 'Settingst';
@@ -16,29 +17,14 @@ class _SettingsPageStState extends State<SettingsPageSt> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.blue,
-          ),
+        title:   Text(
+          AppLocalizations.of(context)!.setting,
         ),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: ListView(
           children: [
-            Text(
-            AppLocalizations.of(context)!.setting,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 40,
-            ),
             Row(
               children: [
                 Icon(
@@ -106,8 +92,7 @@ class _SettingsPageStState extends State<SettingsPageSt> {
         ),
       ),
       onPressed: () {
-        Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, StudentLogin.routeName);
       },
       child: Text(AppLocalizations.of(context)!.sign_out,
           style: TextStyle(
