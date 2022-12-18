@@ -135,6 +135,7 @@ String year=DateTime.now().year.toString();
               height: 20.0,
             ),
             Text(
+
               status,
               textAlign: TextAlign.center,
               style: TextStyle(

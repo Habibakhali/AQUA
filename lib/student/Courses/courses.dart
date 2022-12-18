@@ -24,6 +24,26 @@ class Courses extends StatefulWidget {
 }
 
 class _CoursesState extends State<Courses> {
+  TextEditingController ?_searchTextController;
+  final FocusNode _node=FocusNode();
+  void initState(){
+    super.initState();
+    _searchTextController=TextEditingController();
+    _searchTextController?.addListener(() { setState(() {
+
+    });});
+  }
+  List<String>?itemsListSearch;
+  @override
+  void dispose(){
+    super.dispose();
+    _node.dispose();
+    _searchTextController?.dispose();
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     List<String> courseName = [
@@ -35,7 +55,9 @@ class _CoursesState extends State<Courses> {
       AppLocalizations.of(context)!.geomety,
     ];
 
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -90,16 +112,51 @@ class _CoursesState extends State<Courses> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(right: 15,left: 15),
-                child: TextField(
+                /*child: TextField(
                   decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.find_your_course,
                   hintStyle: Theme.of(context).textTheme.bodySmall,
                   border: InputBorder.none,
                   suffixIcon: Icon(Icons.search,color: Theme.of(context).canvasColor,)),
 
+                ),*/
+                child: TextField(
+                  onChanged: (value){
+                    setState(() {
+                      itemsListSearch=courseName.where((element) => element.toLowerCase().
+                      contains(value.toLowerCase()))
+                          .toList();
+                      if(_searchTextController!.text.isNotEmpty&&itemsListSearch!.isEmpty){
+                        print('itemsListSearch legnth${itemsListSearch!.length}');
+                      }
+                    });
+                  },
+                  controller:_searchTextController ,
+                  focusNode: _node,
+                  decoration: InputDecoration(
+                      hintText:
+                      AppLocalizations.of(context)!.find_your_course,
+                      filled: true,
+                      //fillColor: Theme.of(context).canvasColor,
+                      hintStyle: Theme.of(context).textTheme.bodySmall,
+                      border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed:
+                          _searchTextController!.text.isEmpty? null:(){
+                          _searchTextController?.clear();
+                          _node.unfocus();
+                        },
+                        icon: Icon(
+                          Icons.cancel,color: _searchTextController!.text.isNotEmpty?Colors.red:Colors.grey,),
+                      )),
                 ),
               ),
             ),
+
             SizedBox(height: 20,),
             Text(AppLocalizations.of(context)!.choose_course,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 27),),
             SizedBox(
@@ -113,9 +170,38 @@ class _CoursesState extends State<Courses> {
             SizedBox(
               height:20 ,
             ),
+            _searchTextController!.text.isNotEmpty&&itemsListSearch!.isEmpty?
+                Expanded(
+                  child: Center(
+                    /*child: Padding(
+                      padding: EdgeInsets.all(5),*/
+                      child: Column(
+                        children: [
+                          /*Padding(padding: EdgeInsets.all(5),*/
+                          //child:
+                          Icon(
+                            Icons.search_off,
+                            size: 100,
+                          ),
+                //  ),
+                         // Padding(padding: EdgeInsets.all(5),
+                            //child:
+                            Text("No result found, \nplease try different keyword",
+                            style: TextStyle(fontSize: 30,fontWeight: FontWeight.w600),),
+
+
+                        ],
+                      ),
+                    ),
+
+                  )
+
+                :
+
             Expanded(child:
             GridView.builder(
-                itemCount: courseName.length,
+                itemCount: _searchTextController!.text.isNotEmpty?itemsListSearch!.length:
+                    courseName.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
@@ -124,8 +210,12 @@ class _CoursesState extends State<Courses> {
                 ),
                 itemBuilder: (context, index) {
                   return widget.Selected[index]?
-                  isSelected(courseName[index], 'assets/images/ocourse.png',index):
-                  unSelected(courseName[index], 'assets/images/ocourse.png',index);
+                  isSelected(
+                    _searchTextController!.text.isNotEmpty?itemsListSearch![index]
+                      :courseName[index], 'assets/images/ocourse.png',index):
+                  unSelected(
+                      _searchTextController!.text.isNotEmpty?itemsListSearch![index]
+                      :courseName[index], 'assets/images/ocourse.png',index);
                    // Partment(courseName[index],coursesRoutes[index],'assets/images/ocourse.png');
                 }),),
             Center(
@@ -134,7 +224,7 @@ class _CoursesState extends State<Courses> {
               arguments: CourseArg(widget.sele)
               );}
               , child: Text('Select')),
-            )
+            ),
           ],
             )
 
