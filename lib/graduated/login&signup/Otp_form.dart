@@ -50,7 +50,7 @@ class _OtpFormGraduatedState extends State<OtpFormGraduated> {
                       child: TextFormField(
                         validator: (text){
                           if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
+                            return AppLocalizations.of(context)!.validation_otp;
                           }
                           return null;
                         },
@@ -89,7 +89,7 @@ class _OtpFormGraduatedState extends State<OtpFormGraduated> {
                       child: TextFormField(
                         validator: (text){
                           if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
+                            return AppLocalizations.of(context)!.validation_otp;
                           }
                           return null;
                         },
@@ -128,7 +128,7 @@ class _OtpFormGraduatedState extends State<OtpFormGraduated> {
                       child: TextFormField(
                         validator: (text){
                           if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
+                            return AppLocalizations.of(context)!.validation_otp;
                           }
                           return null;
                         },
@@ -167,7 +167,7 @@ class _OtpFormGraduatedState extends State<OtpFormGraduated> {
                       child: TextFormField(
                         validator: (text){
                           if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
+                            return AppLocalizations.of(context)!.validation_otp;
                           }
                           return null;
                         },

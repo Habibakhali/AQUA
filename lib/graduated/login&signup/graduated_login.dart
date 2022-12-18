@@ -61,7 +61,7 @@ class _GraduatedLogInState extends State<GraduatedLogIn> {
                     child: TextFormField(
                       validator: (text) {
                         if (text == null || text.trim().isEmpty) {
-                          return 'please enter ${AppLocalizations.of(context)!.password_label}';
+                          return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.password_label}';
                         }
                         return null;
                       },

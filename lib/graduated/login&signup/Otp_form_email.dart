@@ -56,7 +56,7 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
                         },
                         validator: (text){
                           if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
+                            return AppLocalizations.of(context)!.validation_otp;
                           }
                           return null;
                         },
@@ -90,46 +90,7 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
                       child: TextFormField(
                         validator: (text){
                           if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                        },
-                        style: Theme.of(context).textTheme.headline6,
-                        autofocus: true,
-                        showCursor: false,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
-                          counter: Offstage(),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.black12),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2, color: Colors.blue),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 68,
-                      width: 64,
-                      child: TextFormField(
-                        validator: (text){
-                          if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
+                            return AppLocalizations.of(context)!.validation_otp;
                           }
                           return null;
                         },
@@ -168,7 +129,46 @@ class _OtpFormEmailGraduatedState extends State<OtpFormEmailGraduated> {
                       child: TextFormField(
                         validator: (text){
                           if(text==null || text .trim().isEmpty){
-                            return 'please enter numbers';
+                            return AppLocalizations.of(context)!.validation_otp;
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                        },
+                        style: Theme.of(context).textTheme.headline6,
+                        autofocus: true,
+                        showCursor: false,
+                        keyboardType: TextInputType.number,
+                        maxLength: 1,
+                        textAlign: TextAlign.center,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          counter: Offstage(),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.black12),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2, color: Colors.blue),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 68,
+                      width: 64,
+                      child: TextFormField(
+                        validator: (text){
+                          if(text==null || text .trim().isEmpty){
+                            return AppLocalizations.of(context)!.validation_otp;
                           }
                           return null;
                         },

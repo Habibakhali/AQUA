@@ -18,24 +18,24 @@ class MyTextField extends StatelessWidget {
         child: TextFormField(
           validator: (text) {
             if (text == null || text.trim().isEmpty)
-              return 'please enter $label';
+              return '${AppLocalizations.of(context)!.please_enter} $label';
             else if (label == AppLocalizations.of(context)!.email_label || label==AppLocalizations.of(context)!.university_email) {
               if (!text.contains('@sci.asu.edu.eg')) {
-                return 'please enter university email';
+                return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.university_email}';
               }
             }
             else if(label==AppLocalizations.of(context)!.phone){
               if(!(isDigit(text)&&text.length==11)){
-                return'phone number must be 11 digit';
+                return AppLocalizations.of(context)!.validation_phone;
               }
             } else if(label==AppLocalizations.of(context)!.id){
               id=text;
               if(!(isDigit(text)&&text.length==14)){
-                return'${AppLocalizations.of(context)!.id} must be 14 digit';
+                return'${AppLocalizations.of(context)!.id} ${AppLocalizations.of(context)!.validation_id}';
               }
             }else if(label==AppLocalizations.of(context)!.level){
               if(!(text=='1'||text=='2'||text=='3'||text=='4')){
-                return'invalid ${AppLocalizations.of(context)!.level}';
+                return'${AppLocalizations.of(context)!.invalid}';
               }
             }
 

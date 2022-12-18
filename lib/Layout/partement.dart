@@ -16,7 +16,7 @@ Partment(this.text,this.routeName,this.image);
     return ElevatedButton(
         onPressed: () {
           if(routeName!=Exam.routeName)
-Navigator.pushReplacementNamed(context, routeName)      ;
+  Navigator.pushReplacementNamed(context, routeName)      ;
           Navigator.pushNamed(context, routeName);
         },
         child: Column(
