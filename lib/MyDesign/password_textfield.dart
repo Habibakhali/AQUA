@@ -25,11 +25,11 @@ class PasswordTextField extends StatefulWidget {
             controller: password,
             validator: (text) {
               if (text == null || text.trim().isEmpty) {
-                return 'please enter ${widget.labelPassword}';
+                return '${AppLocalizations.of(context)!.please_enter} ${widget.labelPassword}';
               }
               else if (!(text.length >= 8) && !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
                         .hasMatch(text)) {
-                  return 'invalid password';
+                  return AppLocalizations.of(context)!.invalid;
 
               }
               return null;
@@ -68,10 +68,10 @@ class PasswordTextField extends StatefulWidget {
             controller: confirm,
             validator: (text) {
               if (text == null || text.trim().isEmpty) {
-                return 'please enter ${widget.labelConfrim}';
+                return '${AppLocalizations.of(context)!.please_enter} ${widget.labelConfrim}';
               }
               else if (text!=password.text) {
-                return "password dosn't mached";
+                return AppLocalizations.of(context)!.password_lettertwo;
 
               }
               return null;

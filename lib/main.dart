@@ -4,6 +4,7 @@ import 'package:project/graduated/Layout/HomeScreen.dart';
 import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:project/providers/setting_provider.dart';
+import 'package:project/student/Courses/questionner/Form_questionner.dart';
 import 'package:project/student/personal%20setting/resetPassWord.dart';
 import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart';
 import 'package:project/graduated/login&signup/create_new_pass_word.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
         locale: Locale(pro.currentLang),
         initialRoute: Programs.routeName,
         routes: {
+          Questionner.routeName:(_)=>Questionner(),
           ProfileGrd.routeName:(_)=>ProfileGrd(),
           SettingSt.routeName:(_)=>SettingSt(),
           Exam.routeName:(_)=>Exam(),

@@ -5,8 +5,6 @@ import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../graduated/personal setting/profileGrd.dart';
-import '../Courses/course_selected.dart';
 import '../personal setting/prof.dart';
 import '../personal setting/setting_page.dart';
 
@@ -49,9 +47,9 @@ int index=0;
           },
           currentIndex: index,
           items: [
+            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: AppLocalizations.of(context)!.courses_title),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: AppLocalizations.of(context)!.registration_form),
-            BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/courses.png'),),label: AppLocalizations.of(context)!.courses_title),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/activity.png',),size: 28,),label: AppLocalizations.of(context)!.activity),
             BottomNavigationBarItem(icon: Icon(Icons.person_outline_sharp),label: AppLocalizations.of(context)!.edit_profile),
           ],

@@ -18,7 +18,6 @@ class SeleBtn extends StatelessWidget {
             padding: EdgeInsets.all(5),
             width: MediaQuery.of(context).size.width*.5,
             child: ElevatedButton(
-
                 onPressed: () {
                 if(formKey.currentState?.validate()==true){
                   Navigator.pushReplacementNamed(context, routeName);

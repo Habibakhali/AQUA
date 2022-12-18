@@ -3,22 +3,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/Layout/partement.dart';
 import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Courses/exam.dart';
+import 'package:project/student/Courses/questionner/Form_questionner.dart';
 import '../personal setting/prof.dart';
 
 
 
-class CourseSelected extends StatefulWidget {
+class CourseSelected extends StatelessWidget {
 static const String routeName='rouey';
 static bool visited=true;
 
   @override
-  State<CourseSelected> createState() => _CourseSelectedState();
-}
-
-class _CourseSelectedState extends State<CourseSelected> {
-  @override
   Widget build(BuildContext context) {
-
     var arg=ModalRoute.of(context)!.settings.arguments as CourseArg;
     return  Scaffold(
       body: SafeArea(
@@ -27,7 +22,7 @@ class _CourseSelectedState extends State<CourseSelected> {
           child: Column(
             children: [
               SizedBox(height: 10,),
-              Text('Your Subject',textAlign: TextAlign.center,style: Theme.of(context).textTheme.headlineLarge,),
+              Text(AppLocalizations.of(context)!.your_subject,textAlign: TextAlign.center,style: Theme.of(context).textTheme.headlineLarge,),
               SizedBox(height: 20,),
               Expanded( child:
           GridView.builder(
@@ -39,13 +34,12 @@ class _CourseSelectedState extends State<CourseSelected> {
                   childAspectRatio: 1/1.15
               ),
               itemBuilder: (context, index) {
-                return
-                ElevatedButton(
+                return ElevatedButton(
                   onPressed: () {
-                    showDialog(context: context,barrierDismissible: false, builder: (context)=>SimpleDialog(
+                    showDialog(context: context, builder: (context)=>SimpleDialog(
                       title: Column(
                         children: [
-                          Text('Select',),
+                          Text(AppLocalizations.of(context)!.select,),
                           Divider(
                             thickness: 1,
                           )
@@ -72,11 +66,10 @@ class _CourseSelectedState extends State<CourseSelected> {
                               ],
                             ),
                             onTap: (){
-                              Navigator.of(context).pop();
+                              Navigator.pushReplacementNamed(context, Questionner.routeName,);
                             }),
                       ],
                     ));
-                    ;
                   }, child: Column(
                   children: [
                     Expanded( flex:2,child: Image.asset('assets/images/ocourse.png')),
