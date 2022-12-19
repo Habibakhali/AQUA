@@ -8,6 +8,8 @@ import '../personal setting/prof.dart';
 
 class AcadimecRegsteration extends StatefulWidget {
   static const String routeName = 'AcadimecRegsteration';
+  String year = DateTime.now().year.toString();
+
   @override
   State<AcadimecRegsteration> createState() => _AcadimecRegsterationState();
 }
@@ -15,44 +17,50 @@ class AcadimecRegsteration extends StatefulWidget {
 class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   File? imageFile;
   String status = '';
-
-
+  bool visible = true;
   chooseImage(ImageSource source) async {
     XFile? pickedFile = await ImagePicker().pickImage(
       source: source,
       maxHeight: 1080,
       maxWidth: 1080,
+
     );
     setState(() {
+      visible=!visible;
       imageFile = File(pickedFile!.path);
     });
   }
-bool visible=true;
+
+
+
   Widget showImage() {
     return Flexible(
         child: imageFile != null
             ? Visibility(
-          visible: visible,
-          child: Stack(
-              alignment: Alignment.topRight,
-              children: [
-                Image.file(imageFile!),
-                InkWell(
-                    onTap:() {
-                      visible=false;
-                      setState(() {
-                      });
-                    },
-                    child: Icon(Icons.clear,color: Colors.red,))
-              ]
-          ),
-        )
+                visible: visible,
+                child: Stack(alignment: Alignment.topRight, children: [
+                  Image.file(imageFile!),
+                  InkWell(
+                      onTap: () {
+                        visible = false;
+                        setState(() {});
+                      },
+                      child: Icon(
+                        Icons.clear,
+                        color: Colors.red,
+                      ))
+                ]),
+              )
             : Text(
                 AppLocalizations.of(context)!.no_img,
                 textAlign: TextAlign.center,
               ));
   }
-String year=DateTime.now().year.toString();
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,8 +68,6 @@ String year=DateTime.now().year.toString();
       child: Center(
         child: Column(
           children: [
-            /* OutlinedButton(onPressed: (){chooseImage(ImageSource.camera);}, child: Text('Choose Image'),),
-              SizedBox(height: 20.0,),*/
             ElevatedButton.icon(
               onPressed: () {
                 chooseImage(ImageSource.camera);
@@ -94,109 +100,129 @@ String year=DateTime.now().year.toString();
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white),
               ),
-              onPressed: (){
-                  showDialog(context: context,barrierDismissible: false, builder: (context)=>SimpleDialog(
-                    title: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Select semester',),
-                            InkWell(
-                                onTap:(){
-                                  setState(() {
-
-                                  });
-                                  flutterYearPicker(context);
-                                },
-                                child: Text(year,))
-                          ],
-                        ),
-                        Divider(
-                          thickness: 1,
-                        )
-                      ],
-                    ),
-                    contentPadding: EdgeInsets.only(left: 20,right: 20,bottom: 20,top:5),
-                    backgroundColor: Theme.of(context).secondaryHeaderColor,
-                    children: [
-                      InkWell(
-                          child: Row(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => StatefulBuilder(
+                            builder: (context, StateSetter setState) {
+                          return SimpleDialog(
+                            title: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(AppLocalizations.of(context)!
+                                        .select_semester),
+                                    InkWell(
+                                        onTap: () {
+                                          flutterYearPicker(context);
+                                          setState(() {
+                                          });
+                                        },
+                                        child: Text(
+                                          widget.year,
+                                        ))
+                                  ],
+                                ),
+                                Divider(
+                                  thickness: 1,
+                                )
+                              ],
+                            ),
+                            contentPadding: EdgeInsets.only(
+                                left: 20, right: 20, bottom: 20, top: 5),
+                            backgroundColor:
+                                Theme.of(context).secondaryHeaderColor,
                             children: [
-                              Text('Semester 1'),
+                              InkWell(
+                                  child: Row(
+                                    children: [
+                                      Text(AppLocalizations.of(context)!
+                                          .semester1),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  }),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              InkWell(
+                                  child: Row(
+                                    children: [
+                                      Text(AppLocalizations.of(context)!
+                                          .semester2),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  }),
                             ],
-                          ),
-                          onTap: (){
-                            Navigator.of(context).pop();
-                          }),
-                      SizedBox(height: 8,),
-                      InkWell(
-                          child: Row(
-                            children: [
-                              Text('Semester 2'),
-                            ],
-                          ),
-                          onTap: (){
-                            Navigator.of(context).pop();
-                          }),
-                    ],
-                  ));
-                },
+                          );
+                        }));
+              },
               child: Text(AppLocalizations.of(context)!.upload_img),
             ),
             SizedBox(
               height: 20.0,
             ),
             Text(
-
               status,
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.green,
                   fontSize: 20.0,
                   fontWeight: FontWeight.w500),
-            ),],),),);}
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-
-
-  Future flutterYearPicker(BuildContext context) async{
+  Future flutterYearPicker(BuildContext context) async {
     return showDialog(
       context: context,
       builder: (context) {
         final Size size = MediaQuery.of(context).size;
         return AlertDialog(
           title: Column(
-            children: const [
-              Text('Select a Year'),
-              Divider(thickness: 1,)
+            children: [
+              Text(AppLocalizations.of(context)!.select_year),
+              Divider(
+                thickness: 1,
+              )
             ],
           ),
           backgroundColor: Theme.of(context).secondaryHeaderColor,
           content: SizedBox(
-            height: size.height/7,
+            height: size.height / 7,
             child: GridView.count(
               physics: const BouncingScrollPhysics(),
               crossAxisCount: 3,
-              childAspectRatio: 1.5/1,
+              childAspectRatio: 1.5 / 1,
               crossAxisSpacing: 0,
               mainAxisSpacing: 0,
               children: [
-                ...List.generate(8,
-                  (index) {
-                    return InkWell(
-                      onTap: () {
-                        year=(DateTime.now().year - index).toString();
-                        Navigator.pop(context);
-                      },
-                      child: Chip(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        label: Container(
-                          child: Text((DateTime.now().year - index).toString(),),
+                ...List.generate(8, (index) {
+                  return InkWell(
+                    onTap: () {
+
+                      widget.year = (DateTime.now().year - index).toString();
+                      Navigator.pop(context,widget.year);
+                    },
+                    child: Chip(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      label: Container(
+                        child: Text(
+                          (DateTime.now().year - index).toString(),
                         ),
                       ),
-                    );
-                  }
-              ),
+                    ),
+                  );
+                }),
               ],
             ),
           ),
@@ -204,5 +230,4 @@ String year=DateTime.now().year.toString();
       },
     );
   }
-
 }

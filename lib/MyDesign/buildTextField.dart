@@ -20,7 +20,7 @@ class _BuildTextFieldState extends State<BuildTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
+      padding:  EdgeInsets.only(bottom: 35.0),
       child: TextField(
         keyboardType: widget.type,
         readOnly: widget.readOnly,

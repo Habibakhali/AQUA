@@ -1,19 +1,18 @@
-import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project/student/Registration%20Form/register_files.dart';
 
-import '../../student/Registration Form/register_files.dart';
+class RegistrationFormGrd extends StatefulWidget {
+  static const String routeName = 'Rigestergrd';
 
-
-class GraduationCertificate extends StatefulWidget {
-  static const String routeName = 'AcadimecRegsterationgrd';
   @override
-  State<GraduationCertificate> createState() => _GraduationCertificateState();
+  State<RegistrationFormGrd> createState() => _RegistrationFormGrdState();
 }
 
-class _GraduationCertificateState extends State<GraduationCertificate> {
+class _RegistrationFormGrdState extends State<RegistrationFormGrd> {
   File? imageFile;
   List<File?>lastfile=[];
 
@@ -27,7 +26,7 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
       if(!lastfile.contains(imageFile)){
         lastfile.insert(lastfile.length, imageFile);
       }
-      else _showToast(context);
+       else _showToast(context);
     });
   }
   Widget showImage() {
@@ -43,9 +42,9 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
                     children: [
                       RegisterFiles(lastfile[index],
                               (index){
-                            lastfile.removeAt(index);
-                            setState(() {
-                            });},index),
+                      lastfile.removeAt(index);
+                      setState(() {
+                      });},index),
                       SizedBox(width: 10,)
                     ],
                   );
@@ -93,8 +92,8 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-          backgroundColor: Colors.grey,
-          content: const Text('your already uploaded this image')),
+        backgroundColor: Colors.grey,
+        content: const Text('your already uploaded this image')),
     );
   }
 }

@@ -32,6 +32,7 @@ import 'graduated/login&signup/Otp_form_email.dart';
 import 'graduated/login&signup/graduated_login.dart';
 import 'graduated/login&signup/signupGr.dart';
 import 'graduated/personal setting/profileGrd.dart';
+import 'graduated/personal setting/settingProfGrd.dart';
 
 
 void main(){
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
         locale: Locale(pro.currentLang),
         initialRoute: Programs.routeName,
         routes: {
+          SettingsPageGrd.routeName:(_)=>SettingsPageGrd(),
           Questionner.routeName:(_)=>Questionner(),
           ProfileGrd.routeName:(_)=>ProfileGrd(),
           SettingSt.routeName:(_)=>SettingSt(),

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,12 +49,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
   @override
   Widget build(BuildContext context) {
     FilePickerResult? fileload;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.edit_profile),
-        elevation: 1,
-      ),
-      body: Container(
+    return  Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(
           onTap: () {
@@ -166,7 +160,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               BuildTextField(AppLocalizations.of(context)!.password_label,
                   "**********", false, true, TextInputType.visiblePassword),
               BuildTextField(AppLocalizations.of(context)!.phone, "0100057256",
-                  false, false, TextInputType.number),
+    false, false, TextInputType.number),
               BuildTextField(
                   AppLocalizations.of(context)!.location,
                   AppLocalizations.of(context)!.address,
@@ -183,7 +177,6 @@ class _ProfileGrdState extends State<ProfileGrd> {
                 margin: EdgeInsets.only(top: 20),
                 child :InkWell(
                   onTap: ()async {
-                    print("===========================>?${fileload}");
                     fileload=await FilePicker.platform.pickFiles(
                       type: FileType.custom,
                       allowedExtensions: ['pdf', 'doc'],
@@ -200,9 +193,25 @@ class _ProfileGrdState extends State<ProfileGrd> {
                     ),
                   ),
                 ),),
-              SizedBox(
-                height: 15,
-              ),
+    SizedBox(height: 20,),
+    BuildTextField(
+    AppLocalizations.of(context)!.current_job,
+    AppLocalizations.of(context)!.hint_current_job,
+    false,
+    false,
+    TextInputType.text),
+    BuildTextField(
+    AppLocalizations.of(context)!.employer,
+    AppLocalizations.of(context)!.hint_employer,
+    false,
+    false,
+    TextInputType.text),
+    BuildTextField(
+    AppLocalizations.of(context)!.last_job,
+    AppLocalizations.of(context)!.hint_last_job,
+    false,
+    false,
+    TextInputType.text),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -246,7 +255,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    Navigator.pop(context);
+
                                   },
                                   child: Text(
                                     AppLocalizations.of(context)!.ok,
@@ -271,7 +280,6 @@ class _ProfileGrdState extends State<ProfileGrd> {
             ],
           ),
         ),
-      ),
     );
   }
 

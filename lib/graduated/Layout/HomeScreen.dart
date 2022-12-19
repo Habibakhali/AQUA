@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/graduated/personal%20setting/profileGrd.dart';
 
 import '../../Styling/icon.dart';
-import '../Acadimic RegisterGrd/acadimec regsteration.dart';
+import '../Acadimic RegisterGrd/registration_form.dart';
 import '../Graduation_certificate/certificated.dart';
 import '../SettingGrd/setting.dart';
 import '../personal setting/settingProfGrd.dart';
@@ -18,7 +18,7 @@ static const String routeName="homeScrrenGraduated";
 class _HomeScreenGrdState extends State<HomeScreenGrd> {
 int index=0;
 
-List<Widget>tabs=[AcadimecRegsterationGrd(),GraduationCertificate(),SettingGrd()];
+List<Widget>tabs=[RegistrationFormGrd(),GraduationCertificate(),ProfileGrd()];
 
 @override
 Widget build(BuildContext context) {
@@ -26,9 +26,6 @@ Widget build(BuildContext context) {
     appBar: AppBar(
       title: Text(AppLocalizations.of(context)!.app_title),
       actions: [
-        IconButton(onPressed: (){
-          Navigator.pushNamed(context, ProfileGrd.routeName);
-        }, icon:Icon(Icons.person)),
         IconButton(
           icon: Icon(
             Icons.more_vert,
@@ -51,7 +48,7 @@ Widget build(BuildContext context) {
         items: [
           BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
           BottomNavigationBarItem(icon: Icon(MyFlutterApp.graduation_cap),label: AppLocalizations.of(context)!.garduation_certification),
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/setting.png'),),label: AppLocalizations.of(context)!.setting),
+          BottomNavigationBarItem(icon: Icon(Icons.person,),label: AppLocalizations.of(context)!.edit_profile),
         ],
       ),
     ),

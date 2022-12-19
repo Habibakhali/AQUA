@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/Layout/programs.dart';
+import 'package:project/Layout/select.dart';
 
 import '../student/Courses/exam.dart';
 
@@ -15,8 +17,8 @@ Partment(this.text,this.routeName,this.image);
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          if(routeName!=Exam.routeName)
-  Navigator.pushReplacementNamed(context, routeName)      ;
+          if(routeName!=Exam.routeName || routeName== Programs.routeName)
+          Navigator.pushReplacementNamed(context, routeName);
           Navigator.pushNamed(context, routeName);
         },
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project/graduated/login&signup/graduated_login.dart';
 import 'package:project/student/Settingst/setting.dart';
 import '../../student/personal setting/account_seeting.dart';
 import '../../student/personal setting/resetPassWord.dart';
@@ -19,29 +20,12 @@ class _SettingsPageGrdState extends State<SettingsPageGrd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.blue,
-          ),
-        ),
+        title: Text(AppLocalizations.of(context)!.setting,),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: ListView(
           children: [
-            Text(
-            AppLocalizations.of(context)!.setting,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 40,
-            ),
             Row(
               children: [
                 Icon(
@@ -52,7 +36,7 @@ class _SettingsPageGrdState extends State<SettingsPageGrd> {
                   width: 8,
                 ),
                 Text(
-                AppLocalizations.of(context)!.account,
+                  AppLocalizations.of(context)!.account,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -98,26 +82,25 @@ class _SettingsPageGrdState extends State<SettingsPageGrd> {
               height: 50,
             ),
             Center(
-    child:             ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.white),
-        elevation: MaterialStateProperty.all(1),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
-          ),
-        ),
-      ),
-      onPressed: () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      },
-      child: Text(AppLocalizations.of(context)!.sign_out,
-          style: TextStyle(
-              fontSize: 14,
-              letterSpacing: 2.2,
-              color: Colors.blue)),
-    ),
+              child:             ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  elevation: MaterialStateProperty.all(1),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, GraduatedLogIn.routeName);
+                },
+                child: Text(AppLocalizations.of(context)!.sign_out,
+                    style: TextStyle(
+                        fontSize: 14,
+                        letterSpacing: 2.2,
+                        color: Colors.blue)),
+              ),
             )
           ],
         ),
@@ -155,4 +138,8 @@ class _SettingsPageGrdState extends State<SettingsPageGrd> {
       ],
     );
   }
+
+
+
+
 }

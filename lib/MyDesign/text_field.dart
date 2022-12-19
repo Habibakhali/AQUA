@@ -17,6 +17,7 @@ class MyTextField extends StatelessWidget {
         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
         child: TextFormField(
           validator: (text) {
+
             if (text == null || text.trim().isEmpty)
               return '${AppLocalizations.of(context)!.please_enter} $label';
             else if (label == AppLocalizations.of(context)!.email_label || label==AppLocalizations.of(context)!.university_email) {
@@ -24,6 +25,7 @@ class MyTextField extends StatelessWidget {
                 return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.university_email}';
               }
             }
+
             else if(label==AppLocalizations.of(context)!.phone){
               if(!(isDigit(text)&&text.length==11)){
                 return AppLocalizations.of(context)!.validation_phone;
