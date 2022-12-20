@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/doctor/doctor_login.dart';
+import 'package:project/doctor/login&signup/doctor_login.dart';
 import 'package:project/Layout/partement.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:project/qa/qa_Login.dart';

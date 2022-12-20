@@ -18,11 +18,11 @@
     - login ✔
     - Register ✔
 - Manage 
-    - academic record 
-    - graduation certificate
+    - academic record  ✔
+    - graduation certificate ✔
 - Manage 
-    - Personal info
-    - Company info
+    - Personal info ✔ 
+    - Company info ✔
 - Possibility of polling the opinion of community parties
    <br/> to obtain the necessary inquiries from the results
    # Light Mode

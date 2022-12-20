@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project/doctor/doctor_login.dart';
+import 'package:project/doctor/exams/doc_exam.dart';
+import 'package:project/doctor/lay_out/home_screen_doctor.dart';
+import 'package:project/doctor/login&signup/doctor_login.dart';
+import 'package:project/doctor/login&signup/otp_doctor.dart';
+import 'package:project/doctor/login&signup/otp_email_doctor.dart';
 import 'package:project/graduated/Layout/HomeScreen.dart';
 import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
@@ -31,6 +35,8 @@ import 'package:provider/provider.dart';
 import 'Layout/select.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'doctor/login&signup/reset_password_doctor.dart';
+import 'doctor/login&signup/signup_doctor.dart';
 import 'graduated/login&signup/Otp_form.dart';
 import 'graduated/login&signup/Otp_form_email.dart';
 import 'graduated/login&signup/graduated_login.dart';
@@ -38,26 +44,25 @@ import 'graduated/login&signup/signupGr.dart';
 import 'graduated/personal setting/profileGrd.dart';
 import 'graduated/personal setting/settingProfGrd.dart';
 
-
-void main(){
+void main() {
   runApp(ChangeNotifierProvider<SettingProvider>(
-      create:(buildContext){
+      create: (buildContext) {
         return SettingProvider();
-      } ,
+      },
       child: MyApp()));
 }
+
 class MyApp extends StatelessWidget {
-
-  @override  Widget build(BuildContext context) {
-
-    var pro=Provider.of<SettingProvider>(context);
+  @override
+  Widget build(BuildContext context) {
+    var pro = Provider.of<SettingProvider>(context);
     return MaterialApp(
-      theme: MyTheme.lightMode,
+        theme: MyTheme.lightMode,
         darkTheme: MyTheme.darkMode,
         themeMode: pro.currTheme,
         debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
-         AppLocalizations.delegate, // Add this line
+        localizationsDelegates: [
+          AppLocalizations.delegate, // Add this line
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
@@ -75,31 +80,44 @@ class MyApp extends StatelessWidget {
           TablesStudent.routeName:(_)=>TablesStudent(),
           SettingsPageGrd.routeName:(_)=>SettingsPageGrd(),
           Questionner.routeName:(_)=>Questionner(),
-          ProfileGrd.routeName:(_)=>ProfileGrd(),
-          SettingSt.routeName:(_)=>SettingSt(),
-          Exam.routeName:(_)=>Exam(),
-          CourseSelected.routeName:(_)=>CourseSelected(),
-          FinalPdfViewer.routeName:(_)=>FinalPdfViewer(),
-          RegistrationForm.routeName:(_)=>RegistrationForm(),
-          HomeScreenStudent.routeName:(_)=>HomeScreenStudent(),
-          Programs.routeName:(_)=>Programs(),
-          AcadimecRegsteration.routeName:(_)=>AcadimecRegsteration(),
-          Prof.routeName:(_)=>Prof(),
-          SettingsPageSt.routeName:(_)=>SettingsPageSt(),
-          ResetPassWord.routeName:(_)=>  ResetPassWord(),
-          HomeScreenGrd.routeName:(_)=>HomeScreenGrd(),
+          ProfileGrd.routeName: (_) => ProfileGrd(),
+          SettingSt.routeName: (_) => SettingSt(),
+          Exam.routeName: (_) => Exam(),
+          CourseSelected.routeName: (_) => CourseSelected(),
+          FinalPdfViewer.routeName: (_) => FinalPdfViewer(),
+          RegistrationForm.routeName: (_) => RegistrationForm(),
+          HomeScreenStudent.routeName: (_) => HomeScreenStudent(),
+          Programs.routeName: (_) => Programs(),
+          AcadimecRegsteration.routeName: (_) => AcadimecRegsteration(),
+          Prof.routeName: (_) => Prof(),
+          SettingsPageSt.routeName: (_) => SettingsPageSt(),
+          ResetPassWord.routeName: (_) => ResetPassWord(),
+          HomeScreenGrd.routeName: (_) => HomeScreenGrd(),
+          HomeScreenDoctor.routeName: (_) => HomeScreenDoctor(),
+          ExamDoc.routeName:(_)=>ExamDoc(),
           SelectionPart.routename: (_) => SelectionPart(),
-          GraduatedLogIn.routeName: (_) => GraduatedLogIn(SignUpGraduated.routeName,OtpFormGraduated.routeName,HomeScreenGrd.routeName),
+          GraduatedLogIn.routeName: (_) => GraduatedLogIn(
+              SignUpGraduated.routeName,
+              OtpFormGraduated.routeName,
+              HomeScreenGrd.routeName),
           StudentLogin.routeName: (_) => StudentLogin(),
           DoctorLogin.routeName: (_) => DoctorLogin(),
           QALogin.routeName: (_) => QALogin(),
-          OtpFormGraduated.routeName:(_)=>OtpFormGraduated(PasswordResetGra.routeName),
-          OtpStudent.routeName:(_)=>OtpStudent(),
-           SignUpGraduated.routeName: (_) => SignUpGraduated(),
-          SignUpStudent.routeName:(_)=>SignUpStudent(),
-          OtpFormEmailGraduated.routeName:(_)=>OtpFormEmailGraduated(GraduatedLogIn.routeName),
-          OtpStudentEmail.routeName:(_)=>OtpStudentEmail(),
-          ResetPassStu.routeName:(_)=>ResetPassStu(),
-          PasswordResetGra.routeName:(_) => PasswordResetGra(GraduatedLogIn.routeName)}
-    );
-  }}
+          OtpFormGraduated.routeName: (_) =>
+              OtpFormGraduated(PasswordResetGra.routeName),
+          OtpStudent.routeName: (_) => OtpStudent(),
+          OtpDoctor.routeName: (_) => OtpDoctor(),
+          SignUpGraduated.routeName: (_) => SignUpGraduated(),
+          SignUpStudent.routeName: (_) => SignUpStudent(),
+          SignUpDoctor.routeName: (_) => SignUpDoctor(),
+          OtpFormEmailGraduated.routeName: (_) =>
+              OtpFormEmailGraduated(GraduatedLogIn.routeName),
+          OtpStudentEmail.routeName: (_) => OtpStudentEmail(),
+          OtpDoctorEmail.routeName: (_) => OtpDoctorEmail(),
+          ResetPassStu.routeName: (_) => ResetPassStu(),
+          ResetPassDoctor.routeName: (_) => ResetPassDoctor(),
+          PasswordResetGra.routeName: (_) =>
+              PasswordResetGra(GraduatedLogIn.routeName)
+        });
+  }
+}
