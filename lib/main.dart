@@ -37,6 +37,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'doctor/login&signup/reset_password_doctor.dart';
 import 'doctor/login&signup/signup_doctor.dart';
+import 'doctor/office_hours/office_hours.dart';
 import 'graduated/login&signup/Otp_form.dart';
 import 'graduated/login&signup/Otp_form_email.dart';
 import 'graduated/login&signup/graduated_login.dart';
@@ -107,6 +108,7 @@ class MyApp extends StatelessWidget {
               OtpFormGraduated(PasswordResetGra.routeName),
           OtpStudent.routeName: (_) => OtpStudent(),
           OtpDoctor.routeName: (_) => OtpDoctor(),
+          OfficeHours.routeName:(_)=>OfficeHours(),
           SignUpGraduated.routeName: (_) => SignUpGraduated(),
           SignUpStudent.routeName: (_) => SignUpStudent(),
           SignUpDoctor.routeName: (_) => SignUpDoctor(),
@@ -117,7 +119,7 @@ class MyApp extends StatelessWidget {
           ResetPassStu.routeName: (_) => ResetPassStu(),
           ResetPassDoctor.routeName: (_) => ResetPassDoctor(),
           PasswordResetGra.routeName: (_) =>
-              PasswordResetGra(GraduatedLogIn.routeName)
+              PasswordResetGra(GraduatedLogIn.routeName),
         });
   }
 }

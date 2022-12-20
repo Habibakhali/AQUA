@@ -41,6 +41,9 @@ dependencies:
   open_file: ^3.2.1
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.6
+  responsive_table: ^0.2.0+2
+  dependencies:
+
   syncfusion_flutter_pdfviewer: ^20.3.59
 #  pdf_flutter: ^1.1.4
 dev_dependencies:
