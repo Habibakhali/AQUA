@@ -176,5 +176,7 @@
   "hour": "Hour",
   "table": "Tables",
   "age": "Age",
-  "age_hint": "Enter your age"
+  "age_hint": "Enter your age",
+  "data":"Data",
+  "office_hours":"Office Hours"
 }
