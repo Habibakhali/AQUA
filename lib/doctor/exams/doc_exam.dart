@@ -13,6 +13,7 @@ static const String routeName="docname";
 }
 class _ExamDocState extends State<ExamDoc> {
   List<User> userList = [];
+  bool ispressed=false;
   @override
   Widget build(BuildContext context) {
     void addUserData(User user) {
@@ -30,17 +31,25 @@ class _ExamDocState extends State<ExamDoc> {
             ),
             content: AddUserDialog(addUserData),
           );
+
         },
       );
+      ispressed=true;
     }
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: showUserDialog,
+        onPressed:() {showUserDialog()
+    ;
+
+          },
         child: Icon(Icons.add),
       ),
-      body: Container(
-        height: 400,
-        child: ListView.builder(
+      body: ispressed==false?
+            Center(child: Text('Add Exam by tapping [+] button below'))
+        :
+              Container(
+              height: 400,
+              child:  ListView.builder(
           itemBuilder: (ctx, index) {
             return InkWell(
            //   onTap:()=> OpenFile.open(userList[index].pdf?.path??""),
