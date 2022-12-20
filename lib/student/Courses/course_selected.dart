@@ -22,7 +22,7 @@ static bool visited=true;
           child: Column(
             children: [
               SizedBox(height: 10,),
-              Text(AppLocalizations.of(context)!.your_subject,textAlign: TextAlign.center,style: Theme.of(context).textTheme.headlineLarge,),
+              Text(AppLocalizations.of(context)!.subject,textAlign: TextAlign.center,style: Theme.of(context).textTheme.headlineLarge,),
               SizedBox(height: 20,),
               Expanded( child:
           GridView.builder(

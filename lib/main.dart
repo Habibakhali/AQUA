@@ -23,6 +23,7 @@ import 'package:project/student/login&signUp/otp_Email_Sta.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:project/student/personal%20setting/prof.dart';
 import 'package:project/student/personal%20setting/setting_page.dart';
+import 'package:project/student/personal%20setting/table.dart';
 import 'package:provider/provider.dart';
 import 'Layout/select.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         locale: Locale(pro.currentLang),
         initialRoute: Programs.routeName,
         routes: {
+          TablesStudent.routeName:(_)=>TablesStudent(),
           SettingsPageGrd.routeName:(_)=>SettingsPageGrd(),
           Questionner.routeName:(_)=>Questionner(),
           ProfileGrd.routeName:(_)=>ProfileGrd(),

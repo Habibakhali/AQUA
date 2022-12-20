@@ -6,6 +6,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project/MyDesign/text_field.dart';
+import 'package:project/student/personal%20setting/table.dart';
 import '../../MyDesign/buildTextField.dart';
 
 class Prof extends StatefulWidget {
@@ -164,13 +166,25 @@ class _ProfState extends State<Prof> {
                   false,
                   TextInputType.streetAddress),
               TextField(
+                readOnly: true,
                 decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.birth_date),
+                    hintText: AppLocalizations.of(context)!.birth_date),
                 onTap: _selDatePicker,
                 controller: txtController,
               ),
               SizedBox(
                 height: 15,
+              ),
+              InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, TablesStudent.routeName);
+                },
+                child: TextField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.table),
+                  onTap: navigator,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -242,7 +256,9 @@ class _ProfState extends State<Prof> {
         ),
     );
   }
-
+void navigator(){
+  Navigator.pushNamed(context, TablesStudent.routeName);
+}
   void _selDatePicker() {
     showDatePicker(
             context: context,
