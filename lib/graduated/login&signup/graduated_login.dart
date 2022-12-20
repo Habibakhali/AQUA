@@ -38,9 +38,8 @@ class _GraduatedLogInState extends State<GraduatedLogIn> {
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 15),
-                    child: Image.asset(pro.currTheme == ThemeMode.light
-                        ? 'assets/images/blue_logo.png'
-                        : 'assets/images/white_logo.png'),
+                    child:  Image.asset(Theme.of(context).brightness == Brightness.light?'assets/images/blue_logo.png'
+                        : "assets/images/white_logo.png"),
                   ),
                   SizedBox(
                     height: 10,

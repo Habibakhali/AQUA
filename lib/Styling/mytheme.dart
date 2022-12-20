@@ -54,6 +54,7 @@ class MyTheme{
     )
   );
   static final ThemeData darkMode=ThemeData(
+
     brightness: Brightness.dark,
     canvasColor: Colors.white,
     backgroundColor: dark_background,

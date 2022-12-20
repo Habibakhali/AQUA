@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -62,7 +61,7 @@ class FinalPdfViewer extends StatelessWidget {
               icon: Icon(Icons.search,))
         ],
       ),
-      body: SfPdfViewer.asset('pdfs/Parallel 2021.pdf',controller: pdfViewerController,),
+      body: SfPdfViewer.asset('assets/pdfs/Parallel 2021.pdf',controller: pdfViewerController,),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -41,7 +41,6 @@ class _ProgramsState extends State<Programs> {
       Programs.routeName,
       Programs.routeName,
     ];
-
     return Scaffold(
         body: SafeArea(
       child: Container(
@@ -51,9 +50,8 @@ class _ProgramsState extends State<Programs> {
           SizedBox(
             height: 15,
           ),
-          Image.asset(pro.currTheme == ThemeMode.light
-              ? 'assets/images/blue_logo.png'
-              : 'assets/images/white_logo.png'),
+              Image.asset(Theme.of(context).brightness == Brightness.light?'assets/images/blue_logo.png'
+              : "assets/images/white_logo.png"),
           SizedBox(
             height: 15,
           ),
@@ -71,18 +69,20 @@ class _ProgramsState extends State<Programs> {
                 }),
           ),
           TextButton(
-            onPressed: ()async{
-              const url='mailto:naglaa_reda@sci.asu.edu.eg';
-               if (await canLaunchUrl(Uri.parse(url))) {
-                 await launchUrl(Uri.parse(url));
+            onPressed: () async {
+              const url = 'mailto:naglaa_reda@sci.asu.edu.eg';
+              if (await canLaunchUrl(Uri.parse(url))) {
+                await launchUrl(Uri.parse(url));
               } else {
-              throw 'Could not launch $url';
-            }},
-            child:Text(
-            AppLocalizations.of(context)!.qa,
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.center,
-          ),)
+                throw 'Could not launch $url';
+              }
+            },
+            child: Text(
+              AppLocalizations.of(context)!.qa,
+              style: Theme.of(context).textTheme.headlineMedium,
+              textAlign: TextAlign.center,
+            ),
+          )
         ]),
       ),
     ));

@@ -26,7 +26,27 @@ Cell(this.s);
           ),
         ),
         Container(
-          width: MediaQuery.of(context).size.width*.3,
+          width: MediaQuery.of(context).size.width*.2,
+          child: TextField(
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              border:OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.zero)
+              ),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.black
+                  ),
+                  borderRadius: BorderRadius.all(Radius.zero)
+              ),
+
+
+
+            ),
+          ),
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width*.2,
           child: TextField(
             keyboardType: TextInputType.datetime,
             decoration: InputDecoration(

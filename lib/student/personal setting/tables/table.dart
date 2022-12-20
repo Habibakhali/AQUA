@@ -2,7 +2,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 
-import 'tables/Cell.dart';
+import 'Cell.dart';
 
 class TablesStudent extends StatefulWidget {
   static const String routeName="table_Student";

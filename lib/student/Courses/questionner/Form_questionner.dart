@@ -10,6 +10,7 @@ import 'model_question.dart';
 class Questionner extends StatefulWidget {
   static const String routeName = 'Questionner';
   int currentQuestion = 1;
+  bool visibale=true;
   @override
   State<Questionner> createState() => _QuestionnerState();
 }
@@ -199,13 +200,7 @@ class _QuestionnerState extends State<Questionner> {
 
 
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            AppLocalizations.of(context)!.questioner,
-          ),
-        ),
-        body: Container(
+    return widget.visibale?Container(
           margin: EdgeInsets.symmetric(horizontal: 12),
           padding: EdgeInsets.all(8),
           child: Column(
@@ -235,16 +230,25 @@ class _QuestionnerState extends State<Questionner> {
                    else if(widget.currentQuestion<questions.length){
                      setState(() {
                        widget.currentQuestion++;
+                       selected=null;
                      });
                       controller.nextPage(duration: Duration(microseconds: 250), curve: Curves.easeIn);
                     }
-                   else Navigator.pushReplacementNamed(context,HomeScreenStudent.routeName);
+                   else {
+                     widget.visibale=!widget.visibale;
+                     setState(() {
+
+                     });
+                    }
 
                   }, child: widget.currentQuestion<questions.length?Text(AppLocalizations.of(context)!.next):Text(AppLocalizations.of(context)!.submit))),
                SizedBox(height: MediaQuery.of(context).size.height*.25,),
             ],
           ),
-        ));
+        ):
+    Center(
+      child: Image.asset('assets/images/thanks.jpg'),
+    );
   }
 
 

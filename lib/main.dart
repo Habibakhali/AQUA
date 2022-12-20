@@ -4,6 +4,8 @@ import 'package:project/graduated/Layout/HomeScreen.dart';
 import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:project/providers/setting_provider.dart';
+import 'package:project/student/Courses/SelectedItem.dart';
+import 'package:project/student/Courses/questionnair_homeScreen.dart';
 import 'package:project/student/Courses/questionner/Form_questionner.dart';
 import 'package:project/student/personal%20setting/resetPassWord.dart';
 import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart';
@@ -24,6 +26,7 @@ import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:project/student/personal%20setting/prof.dart';
 import 'package:project/student/personal%20setting/setting_page.dart';
 import 'package:project/student/personal%20setting/table.dart';
+import 'package:project/student/personal%20setting/training/training.dart';
 import 'package:provider/provider.dart';
 import 'Layout/select.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -66,6 +69,9 @@ class MyApp extends StatelessWidget {
         locale: Locale(pro.currentLang),
         initialRoute: Programs.routeName,
         routes: {
+        Training.routName:(_)=>Training(),
+          QUestionHome.routeName:(_)=>QUestionHome(),
+          SeleCtedITemCoure.routeName:(_)=>SeleCtedITemCoure(),
           TablesStudent.routeName:(_)=>TablesStudent(),
           SettingsPageGrd.routeName:(_)=>SettingsPageGrd(),
           Questionner.routeName:(_)=>Questionner(),

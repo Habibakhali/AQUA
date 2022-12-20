@@ -6,8 +6,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:project/MyDesign/text_field.dart';
 import 'package:project/student/personal%20setting/table.dart';
+import 'package:project/student/personal%20setting/training/training.dart';
 import '../../MyDesign/buildTextField.dart';
 
 class Prof extends StatefulWidget {
@@ -175,16 +175,23 @@ class _ProfState extends State<Prof> {
               SizedBox(
                 height: 15,
               ),
-              InkWell(
-                onTap: (){
-                  Navigator.pushNamed(context, TablesStudent.routeName);
+              TextField(
+                readOnly: true,
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.table),
+                onTap:      () {            Navigator.pushNamed(context, TablesStudent.routeName);}
+                ,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextField(
+                readOnly: true,
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.training),
+                onTap:  (){
+                  Navigator.pushNamed(context,Training.routName);
                 },
-                child: TextField(
-                  readOnly: true,
-                  decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.table),
-                  onTap: navigator,
-                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,9 +263,6 @@ class _ProfState extends State<Prof> {
         ),
     );
   }
-void navigator(){
-  Navigator.pushNamed(context, TablesStudent.routeName);
-}
   void _selDatePicker() {
     showDatePicker(
             context: context,

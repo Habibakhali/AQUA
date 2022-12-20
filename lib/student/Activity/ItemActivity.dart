@@ -25,7 +25,7 @@ class _ItemActivityState extends State<ItemActivity> {
             borderRadius: BorderRadius.circular(
                 12),
           boxShadow: [BoxShadow(
-              blurRadius: 20,color: Colors.grey.withOpacity(0.5)
+              blurRadius: 5,color: Colors.grey.withOpacity(0.5)
           )]
         ),
         child:Column(

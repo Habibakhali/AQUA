@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +8,7 @@ import '../personal setting/prof.dart';
 class AcadimecRegsteration extends StatefulWidget {
   static const String routeName = 'AcadimecRegsteration';
   String year = DateTime.now().year.toString();
-
+  bool visible = true;
   @override
   State<AcadimecRegsteration> createState() => _AcadimecRegsterationState();
 }
@@ -17,7 +16,7 @@ class AcadimecRegsteration extends StatefulWidget {
 class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   File? imageFile;
   String status = '';
-  bool visible = true;
+
   chooseImage(ImageSource source) async {
     XFile? pickedFile = await ImagePicker().pickImage(
       source: source,
@@ -26,7 +25,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
 
     );
     setState(() {
-      visible=!visible;
+
       imageFile = File(pickedFile!.path);
     });
   }
@@ -37,12 +36,12 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     return Flexible(
         child: imageFile != null
             ? Visibility(
-                visible: visible,
+                visible: widget.visible,
                 child: Stack(alignment: Alignment.topRight, children: [
                   Image.file(imageFile!),
                   InkWell(
                       onTap: () {
-                        visible = false;
+                        widget.visible = false;
                         setState(() {});
                       },
                       child: Icon(

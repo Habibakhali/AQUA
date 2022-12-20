@@ -5,6 +5,7 @@ import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../Courses/questionner/Form_questionner.dart';
 import '../personal setting/prof.dart';
 import '../personal setting/setting_page.dart';
 
