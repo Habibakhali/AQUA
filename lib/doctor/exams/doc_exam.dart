@@ -54,7 +54,9 @@ class _ExamDocState extends State<ExamDoc> {
             return InkWell(
            //   onTap:()=> OpenFile.open(userList[index].pdf?.path??""),
               child:
-                ExamItem(userList[index].coursName,userList[index].coursName,FinalPdfViewer.routeName),
+                ExamItem(userList[index].coursName,userList[index].coursName,FinalPdfViewer.routeName,
+                  userList[index].pdf?.names.first!
+                      ??""),
               /*Card(
                 margin: EdgeInsets.all(4),
                 elevation: 8,

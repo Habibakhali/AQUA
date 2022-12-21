@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../student/personal setting/Cell.dart';
+
+import '../../student/personal setting/tables/Cell.dart';
 
 
 class OfficeHours extends StatefulWidget {

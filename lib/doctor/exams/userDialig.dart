@@ -7,6 +7,7 @@ class AddUserDialog extends StatefulWidget {
   AddUserDialog(this.addUser);
   @override
   _AddUserDialogState createState() => _AddUserDialogState();
+  var icon = Icon(Icons.add);
 }
 class _AddUserDialogState extends State<AddUserDialog> {
   FilePickerResult? result;
@@ -64,6 +65,10 @@ class _AddUserDialogState extends State<AddUserDialog> {
                     type: FileType.custom,
                     allowedExtensions: ['pdf', 'doc'],
                   );
+                  if (fileload != null) {
+                    widget.icon = Icon(Icons.check_circle_outline_sharp);
+                    setState(() {});
+                  }
                 },
                 child: TextFormField(
                   decoration: InputDecoration(
@@ -75,7 +80,9 @@ class _AddUserDialogState extends State<AddUserDialog> {
 
                   ),
                 ),
+
               ),),
+            fileload!=null?Text(fileload?.names.first!??"",textAlign: TextAlign.start,):Text(""),
             ElevatedButton(
               onPressed: () {
 

@@ -4,6 +4,7 @@ import 'package:project/doctor/lay_out/home_screen_doctor.dart';
 import 'package:project/doctor/login&signup/doctor_login.dart';
 import 'package:project/doctor/login&signup/otp_doctor.dart';
 import 'package:project/doctor/login&signup/otp_email_doctor.dart';
+import 'package:project/doctor/setting/setting.dart';
 import 'package:project/graduated/Layout/HomeScreen.dart';
 import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
@@ -38,6 +39,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'doctor/login&signup/reset_password_doctor.dart';
 import 'doctor/login&signup/signup_doctor.dart';
 import 'doctor/office_hours/office_hours.dart';
+import 'doctor/setting/personal_setting.dart';
 import 'graduated/login&signup/Otp_form.dart';
 import 'graduated/login&signup/Otp_form_email.dart';
 import 'graduated/login&signup/graduated_login.dart';
@@ -120,6 +122,8 @@ class MyApp extends StatelessWidget {
           ResetPassDoctor.routeName: (_) => ResetPassDoctor(),
           PasswordResetGra.routeName: (_) =>
               PasswordResetGra(GraduatedLogIn.routeName),
+          SettingsPageDoc.routeName:(_)=>SettingsPageDoc(),
+          PersonalSetting.routeName:(_)=>PersonalSetting()
         });
   }
 }
