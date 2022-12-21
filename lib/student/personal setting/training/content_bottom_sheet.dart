@@ -30,8 +30,51 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
     return Container(
         child: Form(
         key: formKey,
-          child: Column(
-            children: [
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+              Container(
+                  margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                  child: TextFormField(
+                      validator: (text) {
+                        if (text == null || text
+                            .trim()
+                            .isEmpty)
+                          return '${AppLocalizations.of(context)!
+                              .please_enter} ${ AppLocalizations.of(context)!
+                              .title}';
+                        return null;
+                      },
+                      controller: title,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.edit),
+                          label: Text(
+                            AppLocalizations.of(context)!.title,
+                          ),
+                          labelStyle: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyMedium,
+                          hintText: AppLocalizations.of(context)!.enter_title,
+                          hintStyle: Theme
+                              .of(context)
+                              .textTheme
+                              .bodySmall,
+                          border: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: Theme
+                                .of(context)
+                                .canvasColor),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: Theme
+                                .of(context)
+                                .canvasColor),
+                            borderRadius: BorderRadius.circular(10),
+                          )))),
+
             Container(
                 margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                 child: TextFormField(
@@ -41,28 +84,28 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
                           .isEmpty)
                         return '${AppLocalizations.of(context)!
                             .please_enter} ${ AppLocalizations.of(context)!
-                            .title}';
+                            .description}';
                       return null;
                     },
-                    controller: title,
+                    controller: description,
+                    maxLines: 3,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.edit),
+                        prefixIcon: Icon(Icons.dehaze_sharp),
                         label: Text(
-                          AppLocalizations.of(context)!.title,
+                          AppLocalizations.of(context)!.description,
                         ),
                         labelStyle: Theme
                             .of(context)
                             .textTheme
                             .bodyMedium,
-                        hintText: AppLocalizations.of(context)!.enter_title,
+                        hintText: AppLocalizations.of(context)!.enter_description,
                         hintStyle: Theme
                             .of(context)
                             .textTheme
                             .bodySmall,
                         border: OutlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Theme
+                          borderSide: BorderSide(color: Theme
                               .of(context)
                               .canvasColor),
                         ),
@@ -73,61 +116,19 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
                               .canvasColor),
                           borderRadius: BorderRadius.circular(10),
                         )))),
-
-          Container(
-              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextFormField(
-                  validator: (text) {
-                    if (text == null || text
-                        .trim()
-                        .isEmpty)
-                      return '${AppLocalizations.of(context)!
-                          .please_enter} ${ AppLocalizations.of(context)!
-                          .description}';
-                    return null;
-                  },
-                  controller: description,
-                  maxLines: 5,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.dehaze_sharp),
-                      label: Text(
-                        AppLocalizations.of(context)!.description,
-                      ),
-                      labelStyle: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium,
-                      hintText: AppLocalizations.of(context)!.enter_description,
-                      hintStyle: Theme
-                          .of(context)
-                          .textTheme
-                          .bodySmall,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Theme
-                            .of(context)
-                            .canvasColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Theme
-                            .of(context)
-                            .canvasColor),
-                        borderRadius: BorderRadius.circular(10),
-                      )))),
-          SizedBox(
-            height: 15,
-          ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-              ElevatedButton(
-              onPressed: () {
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                ElevatedButton(
+                onPressed: () {
 
     setState(() {});
     chooseImage();
     },
-          child: Text(AppLocalizations.of(context)!.gallery_img)),
+            child: Text(AppLocalizations.of(context)!.gallery_img)),
     Visibility(
     visible: widget.visible,
     child:                 imageFile==null?Icon(Icons.image):Image.file(imageFile!),
@@ -152,6 +153,7 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
     child: Text(AppLocalizations.of(context)!.post)))
     ],
     ),
+          ),
         ));
   }
 

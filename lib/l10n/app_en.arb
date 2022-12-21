@@ -10,6 +10,14 @@
   "qa": "Quality assurance Unit\nAin Shams University" ,
   "student_login": "Student",
   "doctor_login": "Doctor & Assistant",
+  "doctor": "Doctor",
+  "assistant": "Assistant",
+  "add": "Add",
+
+  "upload_exam": "Upload Exam",
+
+  "year": "Year",
+  "additem": "'Add Exam by tapping [+] button below",
   "qa_login": "Quality Assurance",
   "graduated_login": "Graduated",
   "email_label": "Email",
@@ -180,7 +188,8 @@
   "sign_out": "SIGN OUT",
   "edit_profile": "Edit profile",
   "day": "Day",
-  "hour": "Hour",
+  "hour": "Time",
+
   "table": "Tables",
   "age": "Age",
   "age_hint": "Enter your age",

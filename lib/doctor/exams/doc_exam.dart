@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:project/doctor/exams/userDialig.dart';
 import 'package:open_file/open_file.dart';
 import 'package:project/student/Courses/exam_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../student/Courses/pdf_viewer_final.dart';
+import 'ExamDoc.dart';
 class ExamDoc extends StatefulWidget {
 static const String routeName="docname";
   @override
@@ -45,28 +47,17 @@ class _ExamDocState extends State<ExamDoc> {
         child: Icon(Icons.add),
       ),
       body: ispressed==false?
-            Center(child: Text('Add Exam by tapping [+] button below'))
+            Center(child: Text(AppLocalizations.of(context)!.additem))
         :
               Container(
               height: 400,
               child:  ListView.builder(
           itemBuilder: (ctx, index) {
             return InkWell(
-           //   onTap:()=> OpenFile.open(userList[index].pdf?.path??""),
               child:
-                ExamItem(userList[index].coursName,userList[index].coursName,FinalPdfViewer.routeName),
-              /*Card(
-                margin: EdgeInsets.all(4),
-                elevation: 8,
-                child: Column(
-                  children: [
-                    Text(userList[index].year),
-                Text(userList[index].coursName),
-                    Text(userList[index].pdf?.names.first!
-                        ??"", textAlign: TextAlign.start,),
-                  ],
-                )
-              ),*/
+              ExamItemDoc(userList[index].coursName,userList[index].coursName,FinalPdfViewer.routeName,
+                  userList[index].pdf
+                      ),
             );
           },
           itemCount: userList.length,

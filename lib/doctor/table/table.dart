@@ -1,22 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../student/personal setting/tables/Cell.dart';
 
-import '../../student/personal setting/Cell.dart';
+import '../../student/personal setting/tables/Cell.dart';
 
-class Table extends StatefulWidget {
+class MyTable extends StatefulWidget {
 
 
   @override
-  State<Table> createState() => _TableState();
+  State<MyTable> createState() => _MyTableState();
   List rows=[Cell(Text(""))];
 }
 
-class _TableState extends State<Table> {
+class _MyTableState extends State<MyTable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.all(30),
+        margin: EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -31,27 +33,24 @@ class _TableState extends State<Table> {
                             topLeft: Radius.circular(12)
                         )
                     ),
-                    child: Text('course name')),
+                    child: Text(AppLocalizations.of(context)!.courses_title)),
                 Container(
                     padding: EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width*.3,
+                    width: MediaQuery.of(context).size.width*.2,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                    ),
+                    child: Text(AppLocalizations.of(context)!.day)),
+                Container(
+                    padding: EdgeInsets.all(8),
+                    width: MediaQuery.of(context).size.width*.2,
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(12)
                         )
                     ),
-                    child: Text('day')),
-                Container(
-                    padding: EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width*.3,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(12)
-                        )
-                    ),
-                    child: Text('time')),
+                    child: Text(AppLocalizations.of(context)!.hour)),
               ],
             ),
             Expanded(

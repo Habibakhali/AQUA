@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/doctor/login&signup/doctor_login.dart';
 import 'package:project/Layout/partement.dart';
 import 'package:project/providers/setting_provider.dart';
-import 'package:project/qa/qa_Login.dart';
+import 'package:project/qa/login&signUp/qa_Login.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

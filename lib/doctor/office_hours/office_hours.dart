@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-import '../../student/personal setting/Cell.dart';
+import '../../student/personal setting/tables/Cell.dart';
+import '../table/two_cell.dart';
 
 
 class OfficeHours extends StatefulWidget {
  static const String routeName='office';
- List rows=[Cell(Text(""))];
+ List rows=[TwoCell(Text(""))];
 
   @override
   State<OfficeHours> createState() => _OfficeHoursState();
@@ -19,7 +19,7 @@ class _OfficeHoursState extends State<OfficeHours> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.all(30),
+        margin: EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -37,7 +37,7 @@ class _OfficeHoursState extends State<OfficeHours> {
                     child: Text('Day',)),
                 Container(
                     padding: EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width*.3,
+                    width: MediaQuery.of(context).size.width*.4,
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(
@@ -51,7 +51,7 @@ class _OfficeHoursState extends State<OfficeHours> {
               child: ListView.builder(
                   itemCount: widget.rows.length,
                   itemBuilder: (context,index){
-                    return Cell(widget.rows[index]);
+                    return TwoCell(widget.rows[index]);
                   }),
             ),
             SizedBox(height: 10,),
@@ -67,7 +67,7 @@ class _OfficeHoursState extends State<OfficeHours> {
                         )
                     ),
                     onPressed: (){
-                      widget.rows.add(Cell(Text("")));
+                      widget.rows.add(TwoCell(Text("")));
                       setState(() {
 
                       });

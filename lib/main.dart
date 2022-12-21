@@ -4,17 +4,20 @@ import 'package:project/doctor/lay_out/home_screen_doctor.dart';
 import 'package:project/doctor/login&signup/doctor_login.dart';
 import 'package:project/doctor/login&signup/otp_doctor.dart';
 import 'package:project/doctor/login&signup/otp_email_doctor.dart';
+import 'package:project/doctor/setting/setting.dart';
 import 'package:project/graduated/Layout/HomeScreen.dart';
 import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:project/providers/setting_provider.dart';
+import 'package:project/qa/LayOut/HomeScreenQa.dart';
+import 'package:project/qa/login&signUp/signup_Qa.dart';
 import 'package:project/student/Courses/SelectedItem.dart';
 import 'package:project/student/Courses/questionnair_homeScreen.dart';
 import 'package:project/student/Courses/questionner/Form_questionner.dart';
 import 'package:project/student/personal%20setting/resetPassWord.dart';
 import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart';
 import 'package:project/graduated/login&signup/create_new_pass_word.dart';
-import 'package:project/qa/qa_Login.dart';
+import 'package:project/qa/login&signUp/qa_Login.dart';
 import 'package:project/student/Courses/course_selected.dart';
 import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Courses/pdf_viewer_final.dart';
@@ -38,6 +41,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'doctor/login&signup/reset_password_doctor.dart';
 import 'doctor/login&signup/signup_doctor.dart';
 import 'doctor/office_hours/office_hours.dart';
+import 'doctor/setting/personal_setting.dart';
 import 'graduated/login&signup/Otp_form.dart';
 import 'graduated/login&signup/Otp_form_email.dart';
 import 'graduated/login&signup/graduated_login.dart';
@@ -104,6 +108,8 @@ class MyApp extends StatelessWidget {
           StudentLogin.routeName: (_) => StudentLogin(),
           DoctorLogin.routeName: (_) => DoctorLogin(),
           QALogin.routeName: (_) => QALogin(),
+          HomeScreenQa.routeName:(_)=>HomeScreenQa(),
+          SignUpQa.routeName:(_)=>SignUpQa(),
           OtpFormGraduated.routeName: (_) =>
               OtpFormGraduated(PasswordResetGra.routeName),
           OtpStudent.routeName: (_) => OtpStudent(),
@@ -120,6 +126,8 @@ class MyApp extends StatelessWidget {
           ResetPassDoctor.routeName: (_) => ResetPassDoctor(),
           PasswordResetGra.routeName: (_) =>
               PasswordResetGra(GraduatedLogIn.routeName),
+          SettingsPageDoc.routeName:(_)=>SettingsPageDoc(),
+          PersonalSetting.routeName:(_)=>PersonalSetting()
         });
   }
 }

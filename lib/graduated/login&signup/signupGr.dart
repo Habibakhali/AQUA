@@ -10,9 +10,9 @@ import 'Otp_form_email.dart';
 class SignUpGraduated extends StatefulWidget {
   static const String routeName = 'signupGrd';
   FilePickerResult? fileload;
-
-  bool visible = false;
   var icon = Icon(Icons.add);
+  bool visible = false;
+
 
   @override
   State<SignUpGraduated> createState() => _SignUpGraduatedState();

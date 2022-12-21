@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/doctor/login&signup/otp_email_doctor.dart';
@@ -10,8 +11,10 @@ import '../../Styling/icon.dart';
 
 class SignUpDoctor extends StatefulWidget {
   static const String routeName='signup-doctor';
-
-  @override
+bool visible=false;
+bool visible2=false;
+  FilePickerResult? fileload;
+  var icon = Icon(Icons.add);  @override
   State<SignUpDoctor> createState() => _SignUpDoctorState();
 }
 
@@ -54,17 +57,96 @@ class _SignUpDoctorState extends State<SignUpDoctor> {
                       AppLocalizations.of(context)!.phone,
                       TextInputType.number,
                       Icon(Icons.phone,color: Theme.of(context).canvasColor,)),
-                  MyTextField(
-                      AppLocalizations.of(context)!.level_hint,
-                      AppLocalizations.of(context)!.level,
-                      TextInputType.number,
-                      Icon(MyFlutterApp.graduation_cap,color: Theme.of(context).canvasColor,)),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                    child: InkWell(
+                      onTap: () async {
+                        widget.fileload = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf', 'doc'],
+                        );
+                        if (widget.fileload != null) {
+                          widget.icon = Icon(Icons.check_circle_outline_sharp);
+                          setState(() {});
+                        }
+                      },
+                      child: TextFormField(
+                        validator: (_) {
+                          if (widget.fileload == null)
+                            return AppLocalizations.of(context)!.validation_cv;
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          enabled: false,
+                          suffixIcon: widget.icon,
+                          errorStyle: TextStyle(color: Colors.red),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                          labelText: AppLocalizations.of(context)!.cv,
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          prefixIcon: Icon(Icons.upload_outlined),
+                          border: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: Colors.grey, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  widget.fileload!=null?Text(widget.fileload?.names.first!??"",textAlign: TextAlign.start,):Text(""),
                   SizedBox(
                     height: 20,
                   ),
                   PasswordTextField(AppLocalizations.of(context)!.password_label,
                       AppLocalizations.of(context)!.password_hint,AppLocalizations.of(context)!.confirm_label,
                       AppLocalizations.of(context)!.confirm_hint),
+                  SizedBox(height: 15,),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(AppLocalizations.of(context)!.doctor),
+                      InkWell(
+                        onTap: () {
+                          widget.visible = true;
+                          widget.visible2=false;
+                          setState(() {});
+                        },
+                        child: Container(
+                          width: 24,
+                          height: 24,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: widget.visible ? Icon(Icons.done) : Text(""),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(AppLocalizations.of(context)!.assistant),
+                      InkWell(
+                        onTap: () {
+                          widget.visible = false;
+                          widget.visible2=true;
+                          setState(() {});
+                        },
+                        child: Container(
+                          width: 24,
+                          height: 24,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: widget.visible2 ? Icon(Icons.done) : Text(""),
+                        ),
+                      )
+                    ],
+                  ),
                   SeleBtn(AppLocalizations.of(context)!.register, OtpDoctorEmail.routeName,formKey)
                 ],
               ),
