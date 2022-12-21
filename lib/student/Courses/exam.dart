@@ -39,9 +39,9 @@ class Exam extends StatelessWidget {
                     textAlign:TextAlign.start ,
                   ),
                   SizedBox(height: 30.0),
-           ExamItem('Final parallel','2020',FinalPdfViewer.routeName),
+           ExamItem('Final parallel','2020',FinalPdfViewer.routeName,""),
                   SizedBox(height: 10,),
-                  ExamItem('MidTerm parallel','2021',FinalPdfViewer.routeName),
+                  ExamItem('MidTerm parallel','2021',FinalPdfViewer.routeName,""),
                   SizedBox(height: 10,),
                   Center(
                     child: Text(
@@ -58,9 +58,9 @@ class Exam extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 30.0),
-              ExamItem('Answer of final exam','2020',FinalPdfViewer.routeName),
+              ExamItem('Answer of final exam','2020',FinalPdfViewer.routeName,""),
                   SizedBox(height: 10,),
-                  ExamItem('Answer of mid term','2021',FinalPdfViewer.routeName),
+                  ExamItem('Answer of mid term','2021',FinalPdfViewer.routeName,""),
                   SizedBox(height: 10,),
 
                   Center(
