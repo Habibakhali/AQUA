@@ -298,21 +298,25 @@ return res;
     }
     return response;
   }
-  static Future<RegisterationFormModel> storeRegisterationForm(File imageFile,String semester)async{
+  static Future<RegisterationFormModel> storeRegisterationForm(File imageFile,String semester,File? imageAddSub)async{
     var uri=Uri.https(base,'/api/registertionForms');
     final pref=await SharedPreferences.getInstance();
     var multipartFile =  await http.MultipartFile.fromPath('re_image', imageFile.path);
+    var deImage =  imageAddSub!=null?await http.MultipartFile.fromPath('da_image', imageAddSub.path):null;
     Map<String, String> headers = {
       "Accept": "application/json",
       "Authorization": "Bearer ${pref.getString('token')??""}"
     };
     var request = http.MultipartRequest('POST',uri)
+
       ..fields.addAll({
-        'semester':semester
+        'semester':semester,
       })
       ..headers.addAll(headers)
-      ..files.add(multipartFile);
+      ..files.add(multipartFile)
+    ..files.add(deImage!);
     http.Response response = await http.Response.fromStream( await request.send());
+    print('status Code: ${response.statusCode}');
     var json=jsonDecode(response.body);
     var res=RegisterationFormModel.fromJson(json);
     return res;
@@ -396,7 +400,7 @@ if(respons.statusCode==401){
 }
 return respons;
 }
-void getActivity()async{
+  void getActivity()async{
     var url=Uri.https(base,'/api/studentActivities');
     http.Response response=await http.get(url);
 }
