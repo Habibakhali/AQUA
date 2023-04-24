@@ -1,12 +1,18 @@
 import 'dart:io';
-import 'dart:math';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/student/Registration%20Form/register_files.dart';
+import '../../API/Models/Student/academic_registry_api.dart';
+import '../../API/Models/Student/get_registeration_forn.dart';
+import '../../API/Models/Student/registeration_form_model.dart';
+import '../../API/api_manager.dart';
 
 class RegistrationForm extends StatefulWidget {
   static const String routeName = 'Rigester';
+  String year = '1';
+  bool visible = true;
 
   @override
   State<RegistrationForm> createState() => _RegistrationFormState();
@@ -14,120 +20,255 @@ class RegistrationForm extends StatefulWidget {
 
 class _RegistrationFormState extends State<RegistrationForm> {
   File? imageFile;
-  List<File?>lastfile=[];
+  String status = '';
+  String selected = '';
+  var pickedFile;
+  int? id;
+  late String email;
+  late String password;
+  late String token;
 
   chooseImage(ImageSource source) async {
-    XFile? pickedFile = await ImagePicker().pickImage(source: source,
+    pickedFile = await ImagePicker().pickImage(
+      source: source,
       maxHeight: 1080,
       maxWidth: 1080,
     );
     setState(() {
+      widget.visible = true;
       imageFile = File(pickedFile!.path);
-      if(!lastfile.contains(imageFile)){
-        lastfile.insert(lastfile.length, imageFile);
-      }
-       else _showToast(context);
     });
   }
-  Widget showImage() {
-    return  lastfile.isEmpty?Text(AppLocalizations.of(context)!.no_img,
-      textAlign: TextAlign.center,):Container(
-        child: Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: lastfile.length,
-              itemBuilder: (_,index){
-                return
-                  Row(
-                    children: [
-                      RegisterFiles(lastfile[index],
-                              (index){
-                      lastfile.removeAt(index);
-                      setState(() {
-                      });},index),
-                      SizedBox(width: 10,)
-                    ],
-                  );
-              },
-            )
-        )
-    );
+
+
+  void showImage() async {
+    GetRegisterationFormModel data = await ApiManager.getRegisterationForm(id ?? 0);
+    print('---------------------->${data.payload!.id!}');
+    status =  'https://' + ApiManager.base + '/' + data.payload!.reImage!;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initPref();
+  }
+  initPref()async{
+    final pref=await SharedPreferences.getInstance();
+    token=pref.getString('token')??'0';
+    email=pref.getString('email')!;
+    password=pref.getString('password')!;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(30),
-      child: Center(
-        child: Column(
-          children: [
-            ElevatedButton.icon(
-              onPressed: () {
-                chooseImage(ImageSource.camera);
-              },
-              icon: Icon( // <-- Icon
-                Icons.camera_alt_outlined,
-                size: 24.0,
-              ),
-              label: Text(AppLocalizations.of(context)!.capture_img), // <-- Text
-            ),
-            Text(AppLocalizations.of(context)!.or),
-            ElevatedButton.icon(
-              onPressed: () {
-                chooseImage(ImageSource.gallery);
-              },
-              icon: Icon( // <-- Icon
-                Icons.image,
-                size: 24.0,
-              ),
-              label: Text(AppLocalizations.of(context)!.gallery_img),),
-            showImage(),
-            SizedBox(height: 20,),
-            OutlinedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-              ),
-              onPressed: (){
-                showDialog(context: context,barrierDismissible: false, builder: (context)=>SimpleDialog(
-                  title: Text('Select your semester:'),
-                  contentPadding: EdgeInsets.all(15),
-                  backgroundColor: Theme.of(context).secondaryHeaderColor,
-                  children: [
-                    InkWell(
-                        child: Row(
-                          children: [
-                            Text('Semester 1'),
-                          ],
+        padding: EdgeInsets.all(30.0),
+        child: Center(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      chooseImage(ImageSource.camera);
+                    },
+                    icon: Icon(
+                      // <-- Icon
+                      Icons.camera_alt_outlined,
+                      size: 24.0,
+                    ),
+                    label:
+                    Text(AppLocalizations.of(context)!.capture_img), // <-- Text
+                  ),
+                  Center(child: Text(AppLocalizations.of(context)!.or)),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      chooseImage(ImageSource.gallery);
+                    },
+                    icon: Icon(
+                      // <-- Icon
+                      Icons.image,
+                      size: 24.0,
+                    ),
+                    label: Text(AppLocalizations.of(context)!.gallery_img),
+                  ),
+                  status.isEmpty
+                      ? Center(child: Text(AppLocalizations.of(context)!.no_img))
+                      : Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Image.network(status),
+                      InkWell(
+                          onTap: (){
+                            ApiManager.delRegiserationForm(id!);
+                            setState(() {
+                              selected='';
+                              status='';
+                            });
+                          },
+                          child: Icon(Icons.clear,color: Colors.red,))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  OutlinedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) => StatefulBuilder(
+                              builder: (context, StateSetter setState) {
+                                return SimpleDialog(
+                                  title: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(AppLocalizations.of(context)!
+                                              .select_semester),
+                                          InkWell(
+                                              onTap: () {
+                                                flutterYearPicker(context);
+                                              },
+                                              child: Text(
+                                                'level: ${widget.year}',
+                                              ))
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1,
+                                      )
+                                    ],
+                                  ),
+                                  contentPadding: EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 20, top: 5),
+                                  backgroundColor:
+                                  Theme.of(context).secondaryHeaderColor,
+                                  children: [
+                                    InkWell(
+                                        child: Row(
+                                          children: [
+                                            Text(AppLocalizations.of(context)!
+                                                .semester1),
+                                          ],
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            selected = widget.year + '1';
+                                          });
+                                          Navigator.of(context).pop();
+                                        }),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    InkWell(
+                                        child: Row(
+                                          children: [
+                                            Text(AppLocalizations.of(context)!
+                                                .semester2),
+                                          ],
+                                        ),
+                                        onTap: () {
+                                          selected = widget.year + '2';
+                                          setState(() {});
+                                          Navigator.of(context).pop();
+                                        }),
+                                  ],
+                                );
+                              }));
+                      setState(() {});
+                    },
+                    child: Text(AppLocalizations.of(context)!.select_semester),
+                  ),
+                  selected.isNotEmpty
+                      ? Center(child: Text('Semester is : $selected' ))
+                      : Center(child: Text('Choose your semester')),
+                  OutlinedButton(
+                    onPressed: () {
+                      validate();
+                    },
+                    child: Text(AppLocalizations.of(context)!.upload_img),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                ])));
+  }
+
+  Future flutterYearPicker(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        final Size size = MediaQuery.of(context).size;
+        return AlertDialog(
+          title: Column(
+            children: [
+              Text(AppLocalizations.of(context)!.select_year),
+              Divider(
+                thickness: 1,
+              )
+            ],
+          ),
+          backgroundColor: Theme.of(context).secondaryHeaderColor,
+          content: SizedBox(
+            height: size.height * 0.08,
+            child: GridView.count(
+              physics: const BouncingScrollPhysics(),
+              crossAxisCount: 4,
+              childAspectRatio: 1.5 / 1,
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 0,
+              children: [
+                ...List.generate(4, (index) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        widget.year = (1 + index).toString();
+                        print('------------------------------>${widget.year}');
+                        Navigator.pop(context, widget.year);
+                      });
+                    },
+                    child: Chip(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      label: Container(
+                        child: Text(
+                          (1 + index).toString(),
                         ),
-                        onTap: (){
-                          Navigator.of(context).pop();
-                        }),
-                    SizedBox(height: 8,),
-                    InkWell(
-                        child: Row(
-                          children: [
-                            Text('Semester 2'),
-                          ],
-                        ),
-                        onTap: (){
-                          Navigator.of(context).pop();
-                        }),
-                  ],
-                ));
-              },
-              child: Text(AppLocalizations.of(context)!.upload_img),
+                      ),
+                    ),
+                  );
+                }),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
-  void _showToast(BuildContext context) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.grey,
-        content: const Text('your already uploaded this image')),
-    );
+
+  void validate() async {
+    RegisterationFormModel data=RegisterationFormModel();
+    showImage();
+    if(imageFile!=null)
+     data = await ApiManager.storeRegisterationForm(imageFile!, selected);
+    else ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('something error')));
+    if (data.success == true) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('image is uploaded')));
+      id = data.payload!.id;
+
+
+    } else{
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('something error')));
+    }
+    print('--------------------------token: ${token}');
+
   }
 }
