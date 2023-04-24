@@ -26,7 +26,7 @@ class GetRegisterationFormModel {
 class Payload {
   int? id;
   String? reImage;
-  Null? daImage;
+  String? daImage;
   int? semester;
   String? stdId;
 
