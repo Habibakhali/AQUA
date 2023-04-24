@@ -41,11 +41,11 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
                 return
                   Row(
                     children: [
-                      RegisterFiles(lastfile[index],
+                     /* RegisterFiles(lastfile[index],
                               (index){
                             lastfile.removeAt(index);
                             setState(() {
-                            });},index),
+                            });},index),*/
                       SizedBox(width: 10,)
                     ],
                   );

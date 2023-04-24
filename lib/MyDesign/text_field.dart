@@ -7,9 +7,10 @@ class MyTextField extends StatelessWidget {
   String hint;
   String label;
   Icon icon;
+  TextEditingController textController=TextEditingController();
 
 
-  MyTextField(this.hint, this.label, this.keyboard_type, this.icon);
+  MyTextField(this.hint, this.label, this.keyboard_type, this.icon,{textController});
   String id='';
 
   @override
@@ -18,7 +19,6 @@ class MyTextField extends StatelessWidget {
         margin: EdgeInsets.only(top: 20, left: 20, right: 20),
         child: TextFormField(
           validator: (text) {
-
             if (text == null || text.trim().isEmpty)
               return '${AppLocalizations.of(context)!.please_enter} $label';
             else if (label == AppLocalizations.of(context)!.email_label || label==AppLocalizations.of(context)!.university_email) {
@@ -44,6 +44,7 @@ class MyTextField extends StatelessWidget {
 
             return null;
           },
+            controller: textController,
           keyboardType: keyboard_type,
           decoration: InputDecoration(
               prefixIcon: icon,

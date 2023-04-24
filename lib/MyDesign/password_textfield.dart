@@ -6,15 +6,16 @@ class PasswordTextField extends StatefulWidget {
   String labelPassword;
   String hintConfirm;
   String labelConfrim;
+  var password=TextEditingController();
+  var confirm=TextEditingController();
 
-  PasswordTextField(this.labelPassword, this.hintPassword,this.labelConfrim,this.hintConfirm);
+  PasswordTextField(this.labelPassword, this.hintPassword,this.labelConfrim,this.hintConfirm,this.password,this.confirm);
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
 }class _PasswordTextFieldState extends State<PasswordTextField> {
   bool visubility = true;
   bool visubility1 = true;
- var password=TextEditingController();
- var confirm=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +23,7 @@ class PasswordTextField extends StatefulWidget {
       child: Column(
         children: [
           TextFormField(
-            controller: password,
+            controller: widget.password,
             validator: (text) {
               if (text == null || text.trim().isEmpty) {
                 return '${AppLocalizations.of(context)!.please_enter} ${widget.labelPassword}';
@@ -65,12 +66,12 @@ class PasswordTextField extends StatefulWidget {
           ),
           SizedBox(height:20 ,),
           TextFormField(
-            controller: confirm,
+            controller: widget.confirm,
             validator: (text) {
               if (text == null || text.trim().isEmpty) {
                 return '${AppLocalizations.of(context)!.please_enter} ${widget.labelConfrim}';
               }
-              else if (text!=password.text) {
+              else if (text!=widget.password.text) {
                 return AppLocalizations.of(context)!.password_lettertwo;
 
               }

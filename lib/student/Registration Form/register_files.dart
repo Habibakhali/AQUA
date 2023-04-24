@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import'dart:io';
 
 class RegisterFiles extends StatelessWidget {
-File? fileName;
+String fileName;
  Function callBack;
  int index;
 RegisterFiles(this.fileName,this.callBack,this.index);
@@ -11,12 +11,13 @@ RegisterFiles(this.fileName,this.callBack,this.index);
   Widget build(BuildContext context) {
     return Stack(
         alignment: Alignment.topRight,
-        children: [Image.file(fileName!,),
+        children: [
+          Image.network(fileName,),
         InkWell(
             onTap:() {
             callBack(index);
             },
-            child: Icon(Icons.clear,color: Colors.red,))
+            child: Icon(Icons.clear,color: Colors.red,)),
         ]
     );
   }

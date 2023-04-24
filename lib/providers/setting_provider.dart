@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 class SettingProvider extends ChangeNotifier{
   String currentLang='en';
+  String currtokenStudent='';
+  String emailStudent='';
+  String passwordStudent='';
   ThemeMode currTheme=ThemeMode.system;
   bool defultTheme(){
     currTheme=ThemeMode.system;
@@ -20,7 +23,6 @@ class SettingProvider extends ChangeNotifier{
     currTheme=newtheme;
     notifyListeners();
   }
-
   void changeLAnguage(String text){
     if(currentLang==text){
       return ;

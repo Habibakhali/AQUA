@@ -19,7 +19,7 @@ static const String routeName="homeScrrenGraduated";
 class _HomeScreenGrdState extends State<HomeScreenGrd> {
 int index=0;
 
-List<Widget>tabs=[RegistrationFormGrd(),GraduationCertificate(),QuestionnerGrd(),ProfileGrd()];
+List<Widget>tabs=[RegistrationFormGrd(),GraduationCertificate(),ProfileGrd()];
 
 @override
 Widget build(BuildContext context) {
@@ -49,7 +49,6 @@ Widget build(BuildContext context) {
         items: [
           BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
           BottomNavigationBarItem(icon: Icon(MyFlutterApp.graduation_cap),label: AppLocalizations.of(context)!.garduation_certification),
-          BottomNavigationBarItem(icon: Icon(Icons.question_answer_outlined),label: AppLocalizations.of(context)!.questioner),
           BottomNavigationBarItem(icon: Icon(Icons.person,),label: AppLocalizations.of(context)!.edit_profile),
         ],
       ),

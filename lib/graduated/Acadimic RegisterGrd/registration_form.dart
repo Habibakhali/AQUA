@@ -40,11 +40,11 @@ class _RegistrationFormGrdState extends State<RegistrationFormGrd> {
                 return
                   Row(
                     children: [
-                      RegisterFiles(lastfile[index],
+                     /* RegisterFiles(lastfile[index],
                               (index){
                       lastfile.removeAt(index);
                       setState(() {
-                      });},index),
+                      });},index),*/
                       SizedBox(width: 10,)
                     ],
                   );

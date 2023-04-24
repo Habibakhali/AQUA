@@ -22,8 +22,8 @@ class _SignUpDoctorState extends State<SignUpDoctor> {
   GlobalKey<FormState>formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var p=TextEditingController();
-    var c=TextEditingController();
+    var password=TextEditingController();
+    var confirm=TextEditingController();
 
     return Scaffold(
       body: SafeArea(
@@ -103,50 +103,8 @@ class _SignUpDoctorState extends State<SignUpDoctor> {
                   ),
                   PasswordTextField(AppLocalizations.of(context)!.password_label,
                       AppLocalizations.of(context)!.password_hint,AppLocalizations.of(context)!.confirm_label,
-                      AppLocalizations.of(context)!.confirm_hint),
-                  SizedBox(height: 15,),
+                      AppLocalizations.of(context)!.confirm_hint,password,confirm),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(AppLocalizations.of(context)!.doctor),
-                      InkWell(
-                        onTap: () {
-                          widget.visible = true;
-                          widget.visible2=false;
-                          setState(() {});
-                        },
-                        child: Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black)),
-                          child: widget.visible ? Icon(Icons.done) : Text(""),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 15,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(AppLocalizations.of(context)!.assistant),
-                      InkWell(
-                        onTap: () {
-                          widget.visible = false;
-                          widget.visible2=true;
-                          setState(() {});
-                        },
-                        child: Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black)),
-                          child: widget.visible2 ? Icon(Icons.done) : Text(""),
-                        ),
-                      )
-                    ],
-                  ),
                   SeleBtn(AppLocalizations.of(context)!.register, OtpDoctorEmail.routeName,formKey)
                 ],
               ),

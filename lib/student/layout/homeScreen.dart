@@ -4,8 +4,7 @@ import 'package:project/student/Activity/activity.dart';
 import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../Courses/questionner/Form_questionner.dart';
+import '../../providers/setting_provider.dart';
 import '../personal setting/prof.dart';
 import '../personal setting/setting_page.dart';
 
@@ -22,7 +21,6 @@ int index=0;
   @override
   Widget build(BuildContext context) {
     List<Widget>tabs=[Courses(),AcadimecRegsteration(),RegistrationForm(),StudentActivity(),Prof()];
-
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.app_title),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project/doctor/login&signup/doctor_login.dart';
 import 'package:project/Layout/partement.dart';
 import 'package:project/providers/setting_provider.dart';
-import 'package:project/qa/login&signUp/qa_Login.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,44 +43,27 @@ class SelectionPart extends StatelessWidget {
                     width: 8,
                   ),
                   Expanded(
-                      child: Partment(AppLocalizations.of(context)!.qa_login,
-                          QALogin.routeName, 'assets/images/qa.png')),
-                ]),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Expanded(
-                child: Row(children: [
-                  Expanded(
-                      child: Partment(
-                          AppLocalizations.of(context)!.doctor_login,
-                          DoctorLogin.routeName,
-                          'assets/images/doctor.png')),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Expanded(
                       child: Partment(
                           AppLocalizations.of(context)!.graduated_login,
                           GraduatedLogIn.routeName,
                           'assets/images/graduat.png')),
                 ]),
               ),
-              Expanded(
-                flex: 2,
-                child: TextButton(
-                      onPressed: ()async{
-                        const url='mailto:naglaa_reda@sci.asu.edu.eg';
-                        if (await canLaunchUrl(Uri.parse(url))) {
-                          await launchUrl(Uri.parse(url));
-                        } else {
-                          throw 'Could not launch $url';
-                        }},
-                  child: Text(
-                    AppLocalizations.of(context)!.qa,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
+              SizedBox(
+                height: 8,
+              ),
+              Spacer(),
+              TextButton(
+                    onPressed: ()async{
+                      const url='mailto:naglaa_reda@sci.asu.edu.eg';
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }},
+                child: Text(
+                  AppLocalizations.of(context)!.qa,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
             ],

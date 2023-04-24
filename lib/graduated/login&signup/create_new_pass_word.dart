@@ -6,9 +6,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class PasswordResetGra extends StatelessWidget {
-  static const String routeName = 'newPassWord';
+  static const String routeName = 'newPassWordGrd';
   String backToligin;
   PasswordResetGra(this.backToligin);
+  var password=TextEditingController();
+  var confirm=TextEditingController();
 GlobalKey<FormState>formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ GlobalKey<FormState>formKey=GlobalKey<FormState>();
                 ),
                 SizedBox(height: 20,),
                 PasswordTextField(AppLocalizations.of(context)!.password_label, AppLocalizations.of(context)!.password_letter,
-                    AppLocalizations.of(context)!.confirm_label, AppLocalizations.of(context)!.password_lettertwo),
+                    AppLocalizations.of(context)!.confirm_label, AppLocalizations.of(context)!.password_lettertwo,password,confirm),
               SeleBtn(AppLocalizations.of(context)!.reset_password, backToligin,formKey),
               ],
             ),

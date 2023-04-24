@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/doctor/exams/doc_exam.dart';
 import 'package:project/doctor/lay_out/home_screen_doctor.dart';
 import 'package:project/doctor/login&signup/doctor_login.dart';
+import 'package:project/doctor/login&signup/forget_pass_doc.dart';
 import 'package:project/doctor/login&signup/otp_doctor.dart';
 import 'package:project/doctor/login&signup/otp_email_doctor.dart';
 import 'package:project/doctor/setting/setting.dart';
@@ -9,17 +10,14 @@ import 'package:project/graduated/Layout/HomeScreen.dart';
 import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:project/providers/setting_provider.dart';
-import 'package:project/qa/LayOut/HomeScreenQa.dart';
-import 'package:project/qa/login&signUp/signup_Qa.dart';
 import 'package:project/student/Courses/SelectedItem.dart';
 import 'package:project/student/Courses/questionnair_homeScreen.dart';
 import 'package:project/student/Courses/questionner/Form_questionner.dart';
+import 'package:project/student/login&signUp/forget_passwoord.dart';
 import 'package:project/student/personal%20setting/resetPassWord.dart';
 import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart';
 import 'package:project/graduated/login&signup/create_new_pass_word.dart';
-import 'package:project/qa/login&signUp/qa_Login.dart';
 import 'package:project/student/Courses/course_selected.dart';
-import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Courses/pdf_viewer_final.dart';
 import 'package:project/student/Settingst/setting.dart';
 import 'package:project/student/layout/homeScreen.dart';
@@ -44,6 +42,7 @@ import 'doctor/office_hours/office_hours.dart';
 import 'doctor/setting/personal_setting.dart';
 import 'graduated/login&signup/Otp_form.dart';
 import 'graduated/login&signup/Otp_form_email.dart';
+import 'graduated/login&signup/forget_password_grd.dart';
 import 'graduated/login&signup/graduated_login.dart';
 import 'graduated/login&signup/signupGr.dart';
 import 'graduated/personal setting/profileGrd.dart';
@@ -80,6 +79,7 @@ class MyApp extends StatelessWidget {
         initialRoute: Programs.routeName,
         routes: {
         Training.routName:(_)=>Training(),
+          ForgetMyPasswordDr.routeName:(_)=>ForgetMyPasswordDr(),
           QUestionHome.routeName:(_)=>QUestionHome(),
           SeleCtedITemCoure.routeName:(_)=>SeleCtedITemCoure(),
           TablesStudent.routeName:(_)=>TablesStudent(),
@@ -101,25 +101,19 @@ class MyApp extends StatelessWidget {
           HomeScreenDoctor.routeName: (_) => HomeScreenDoctor(),
           ExamDoc.routeName:(_)=>ExamDoc(),
           SelectionPart.routename: (_) => SelectionPart(),
-          GraduatedLogIn.routeName: (_) => GraduatedLogIn(
-              SignUpGraduated.routeName,
-              OtpFormGraduated.routeName,
-              HomeScreenGrd.routeName),
+          GraduatedLogIn.routeName: (_) => GraduatedLogIn(),
           StudentLogin.routeName: (_) => StudentLogin(),
           DoctorLogin.routeName: (_) => DoctorLogin(),
-          QALogin.routeName: (_) => QALogin(),
-          HomeScreenQa.routeName:(_)=>HomeScreenQa(),
-          SignUpQa.routeName:(_)=>SignUpQa(),
-          OtpFormGraduated.routeName: (_) =>
-              OtpFormGraduated(PasswordResetGra.routeName),
+          ForgetMyPasswordStudent.routeName:(_)=>ForgetMyPasswordStudent(),
+          ForgetMyPasswordGrd.routeName:(_)=>ForgetMyPasswordGrd(),
+          OtpFormGraduated.routeName: (_) => OtpFormGraduated(),
           OtpStudent.routeName: (_) => OtpStudent(),
           OtpDoctor.routeName: (_) => OtpDoctor(),
           OfficeHours.routeName:(_)=>OfficeHours(),
           SignUpGraduated.routeName: (_) => SignUpGraduated(),
           SignUpStudent.routeName: (_) => SignUpStudent(),
           SignUpDoctor.routeName: (_) => SignUpDoctor(),
-          OtpFormEmailGraduated.routeName: (_) =>
-              OtpFormEmailGraduated(GraduatedLogIn.routeName),
+          OtpFormEmailGraduated.routeName: (_) => OtpFormEmailGraduated(),
           OtpStudentEmail.routeName: (_) => OtpStudentEmail(),
           OtpDoctorEmail.routeName: (_) => OtpDoctorEmail(),
           ResetPassStu.routeName: (_) => ResetPassStu(),

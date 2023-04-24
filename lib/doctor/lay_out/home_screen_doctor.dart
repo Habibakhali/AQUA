@@ -4,6 +4,7 @@ import 'package:project/doctor/setting/personal_setting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../office_hours/office_hours.dart';
+import '../setting/setting.dart';
 import '../table/table.dart';
 
 class HomeScreenDoctor extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomeScreenDoctorState extends State<HomeScreenDoctor> {
               Icons.more_vert,
             ),
             onPressed: () {
-              Navigator.pushNamed(context, HomeScreenDoctor.routeName);
+              Navigator.pushNamed(context, SettingsPageDoc.routeName);
             },
           ),
         ],

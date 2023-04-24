@@ -6,6 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../MyDesign/buildTextField.dart';
 
 class ProfileGrd extends StatefulWidget {
@@ -212,6 +213,19 @@ class _ProfileGrdState extends State<ProfileGrd> {
     false,
     false,
     TextInputType.text),
+              TextButton(
+                onPressed: () async {
+                  const url = 'https://docs.google.com/forms/d/e/1FAIpQLSc9AXGfkkO0AJzTdPPh5iQwpKEs0O51FW96BAHemQ8pcdg91A/viewform';
+                  if (await canLaunch(url)) {
+                  await launch(url);
+                  } else {
+                  throw 'Could not launch $url';}},
+                child: Text(
+                  AppLocalizations.of(context)!.qa,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
