@@ -3,8 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project/student/Registration%20Form/register_files.dart';
-import '../../API/Models/Student/academic_registry_api.dart';
 import '../../API/Models/Student/get_registeration_forn.dart';
 import '../../API/Models/Student/registeration_form_model.dart';
 import '../../API/api_manager.dart';
@@ -97,7 +95,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       : Stack(
                     alignment: Alignment.topRight,
                     children: [
-                      Image.network(status),
+                      Image.network(status,width: MediaQuery.of(context).size.width,height: 310,),
                       InkWell(
                           onTap: (){
                             ApiManager.delRegiserationForm(id!);
@@ -194,12 +192,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     },
                     child: Text(AppLocalizations.of(context)!.upload_img),
                   ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
                 ])));
   }
-
   Future flutterYearPicker(BuildContext context) async {
     return showDialog(
       context: context,
@@ -252,23 +246,20 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   void validate() async {
-    RegisterationFormModel data=RegisterationFormModel();
-    showImage();
-    if(imageFile!=null)
-     data = await ApiManager.storeRegisterationForm(imageFile!, selected);
-    else ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('something error')));
+    RegisterationFormModel data=await ApiManager.storeRegisterationForm(imageFile!, selected);
     if (data.success == true) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('image is uploaded')));
       id = data.payload!.id;
-
+      print('===============> ${data.message}');
+      showImage();
 
     } else{
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('something error')));
+      print('===============>errorData ${data.message}');
     }
-    print('--------------------------token: ${token}');
+//    print('--------------------------token: ${token}');
 
   }
 }
