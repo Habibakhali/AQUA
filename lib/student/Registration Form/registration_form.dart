@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:project/student/Registration%20Form/register_files.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -160,7 +161,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     ),
                     status.isEmpty
                         ? Center(child: Text(AppLocalizations.of(context)!.no_img))
-                        : Stack(
+                        : imageAS.isEmpty?Stack(
                       alignment: Alignment.topRight,
                       children: [
                         Image.network(status,width: MediaQuery.of(context).size.width,height: 310,),
@@ -173,6 +174,40 @@ class _RegistrationFormState extends State<RegistrationForm> {
                               });
                             },
                             child: Icon(Icons.clear,color: Colors.red,))
+                      ],
+                    ):Row(
+                      children: [
+                        Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Image.network(status,width: MediaQuery.of(context).size.width*0.4,height: 310,),
+                            InkWell(
+                                onTap: (){
+                                  ApiManager.delRegiserationForm(id!);
+                                  setState(() {
+                                    selected='';
+                                    status='';
+                                  });
+                                },
+                                child: Icon(Icons.clear,color: Colors.red,))
+                          ],
+                        ),
+                        Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Image.network(imageAS,width: MediaQuery.of(context).size.width*0.4,height: 310,),
+                            InkWell(
+                                onTap: (){
+                                  ApiManager.delRegiserationForm(id!);
+                                  setState(() {
+                                    selected='';
+                                    imageAS='';
+                                    status='';
+                                  });
+                                },
+                                child: Icon(Icons.clear,color: Colors.red,))
+                          ],
+                        )
                       ],
                     ),
                     SizedBox(
