@@ -14,6 +14,8 @@ import 'dart:convert';
 import 'Models/Student/otp_student_api.dart';
 import 'Models/Student/resend_otp_student_api.dart';
 import 'Models/Student/reset_forget_pass_student.dart';
+import 'Models/Student/show_course_details.dart';
+import 'Models/get_course_reservation.dart';
 
 class ApiManager{
   static String base='aqua.larasci.site';
@@ -387,19 +389,95 @@ return res;
     var res=LoginStudentApi.fromJson(json);
     return res;
   }
-  static Future<http.Response> getCourse(String email,String pass,String currToken)async{
+  static Future<http.Response> getCourse()async{
 var url=Uri.https(base,'/api/courses');
+final pref=await SharedPreferences.getInstance();
 http.Response respons=await http.get(url,headers: {
   "Accept": "application/json",
   "Content-Type": "application/json",
-  "Authorization": "Bearer $currToken"
+  "Authorization": "Bearer ${pref.getString('token')}"
 });
 if(respons.statusCode==401){
-  LoginStudentApi data=await RefrsghJWT(email, pass, currToken);
-  currToken=data.accessToken!;
+  LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
+  pref.setString('token', data.accessToken!);
 }
 return respons;
 }
+// i add any course and not need usse response
+  //when i need to add course ,we must call this function in  initState in courses.dart
+static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int semester)async{
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.https(base,'/api/courses');
+    http.Response response=await http.post(url,headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')}"
+    },
+    body: jsonEncode({
+      "c_code":cCode,
+      "c_name":cName,
+      "c_hours":cHour,
+      "c_prereq[0]":cPrereq,
+      "semester":semester,
+    }));
+    if(response.statusCode==200){
+      print("****************> adding cousres success");
+}}
+  static Future<ShowCourseDetails> showCourses(String code)async{
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.https(base,'/api/courses/$code');
+    http.Response response=await http.get(url,headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')}"
+    });
+    var json=jsonDecode(response.body);
+    var res=ShowCourseDetails.fromJson(json);
+    return res;
+  }
+  static Future<http.Response> storeCourseReservation(String cCode,String semester)async{
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.https(base,'/api/courseReservation');
+    http.Response response=await http.post(url,headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')}"
+    },
+    body: jsonEncode({
+      "c_code":cCode,
+      "semester":int.parse(semester),
+    }));
+    print(pref.getString('token'));
+    return response;
+  }
+  static Future<List<PayloadcourseReservation>?> getCourseReservation()async{
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.parse('https://'+base+'/api/courseReservation');
+    http.Response response=await http.get(url,headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')}"
+    });
+    print('=============>${response.body}');
+   var json=jsonDecode(response.body);
+   var res=GetCourseReservation.fromJson(json);
+   List<PayloadcourseReservation>? playload=res.payload;
+
+   return playload;
+  }
+  static Future<bool> delCourseReservation(int id)async{
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.https(base,'/api/courseReservation/$id');
+    http.Response response=await http.delete(url,headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')}"
+    });
+    print('delete coure : ${response.statusCode}');
+    if(response.statusCode==200)
+      return true;
+    return false;
+  }
   void getActivity()async{
     var url=Uri.https(base,'/api/studentActivities');
     http.Response response=await http.get(url);
