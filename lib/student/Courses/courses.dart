@@ -1,23 +1,23 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:project/API/Models/get_curses.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/student/Courses/course_selected.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 
 class Courses extends StatefulWidget {
   static const String routeName = 'Courses';
   List<String> sele = [];
-
+  String year = '1';
   List<bool> Selected = [
+    false, false, false, false, false, false, false, false,
+    false,false, false, false, false, false, false,
     false,
-    false,
-    false,
-    false,
-    false,
+    false, false,
+    false, false,
     false,
   ];
   bool visited = false;
@@ -25,7 +25,8 @@ class Courses extends StatefulWidget {
   @override
   State<Courses> createState() => _CoursesState();
 }
-class _CoursesState extends State<Courses> {
+class _CoursesState extends State<Courses>{
+  String selected = '1';
   TextEditingController? _searchTextController;
   final FocusNode _node = FocusNode();
   late String token;
@@ -40,20 +41,19 @@ class _CoursesState extends State<Courses> {
       setState(() {});
     });
   }
+  int x=0;
   _readCourses()async{
     final pref=await SharedPreferences.getInstance();
-    token=pref.getString('token')!;
-    email=pref.getString('email')!;
-    password=pref.getString('password')!;
-  var data=await ApiManager.getCourse(email,password , token);
+   // ApiManager.storeCourses(cCode, cName, cHour, cPrereq, semester);
+    var data=await ApiManager.getCourse();
   List<Payloadd> name=GetCourses.fromJson(jsonDecode(data.body)).payload!;
   for(int i=0;i<name.length;i++){
-    courseName.insert(i, name[i].cName!);
+    courseName.insert(i, name[i].cName!+'/'+name[i].cCode!);
   }
-  setState(() {
-
-  });
+  data.isRedirect?x=0:x=1;
+  setState(() {});
   print('++++++++++++++++++++++> $courseName');
+  print('++++++++++++++++++++++> ${courseName.length}');
 }
   List<String>? itemsListSearch;
 
@@ -66,14 +66,6 @@ class _CoursesState extends State<Courses> {
 
   @override
   Widget build(BuildContext context) {
-    /*List<String> courseName = [
-      AppLocalizations.of(context)!.parallel,
-      AppLocalizations.of(context)!.ai,
-      AppLocalizations.of(context)!.project_a,
-      AppLocalizations.of(context)!.image_process,
-      AppLocalizations.of(context)!.security,
-      AppLocalizations.of(context)!.geomety,
-    ];*/
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -188,7 +180,7 @@ class _CoursesState extends State<Courses> {
                       ),
                     ),
                   )
-                : Expanded(
+                : x==0?Center(child: CircularProgressIndicator()):Expanded(
                     child: GridView.builder(
                         itemCount: _searchTextController!.text.isNotEmpty
                             ? itemsListSearch!.length
@@ -200,14 +192,15 @@ class _CoursesState extends State<Courses> {
                           crossAxisCount: 2,
                         ),
                         itemBuilder: (context, index) {
-                          return widget.Selected[index]
-                              ? isSelected(
-                                  _searchTextController!.text.isNotEmpty
-                                      ? itemsListSearch![index]
-                                      : courseName[index],
-                                  'assets/images/ocourse.png',
-                                  index)
-                              : unSelected(
+                          return  widget.Selected[index]?
+                          isSelected(
+                              _searchTextController!.text.isNotEmpty
+                                  ? itemsListSearch![index]
+                                  : courseName[index],
+                              'assets/images/ocourse.png',
+                              index)
+                              :
+                          unSelected(
                                   _searchTextController!.text.isNotEmpty
                                       ? itemsListSearch![index]
                                       : courseName[index],
@@ -218,13 +211,94 @@ class _CoursesState extends State<Courses> {
             Center(
               child: _searchTextController!.text.isNotEmpty
                   ? Text("")
-                  : ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, CourseSelected.routeName,
-                            arguments: CourseArg(widget.sele));
-                      },
-                      child: Text(AppLocalizations.of(context)!.select)),
+                  : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children:[
+                      InkWell(
+                          onTap: (){
+setState(() {
+
+});                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) => StatefulBuilder(
+                                    builder: (context, StateSetter setState) {
+                                      return SimpleDialog(
+                                        title: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(AppLocalizations.of(context)!
+                                                    .select_semester),
+                                                InkWell(
+                                                    onTap: () {
+                                                      flutterYearPicker(context);
+                                                    },
+                                                    child: Text(
+                                                      'level: ${widget.year}',
+                                                    ))
+                                              ],
+                                            ),
+                                            Divider(
+                                              thickness: 1,
+                                            )
+                                          ],
+                                        ),
+                                        contentPadding: EdgeInsets.only(
+                                            left: 20, right: 20, bottom: 20, top: 5),
+                                        backgroundColor:
+                                        Theme.of(context).secondaryHeaderColor,
+                                        children: [
+                                          InkWell(
+                                              child: Row(
+                                                children: [
+                                                  Text(AppLocalizations.of(context)!
+                                                      .semester1),
+                                                ],
+                                              ),
+                                              onTap: () {
+                                                setState(() {
+                                                  selected = '1';
+                                                });
+                                                Navigator.of(context).pop();
+                                              }),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          InkWell(
+                                              child: Row(
+                                                children: [
+                                                  Text(AppLocalizations.of(context)!
+                                                      .semester2),
+                                                ],
+                                              ),
+                                              onTap: () {
+                                                selected = '2';
+                                                setState(() {});
+                                                Navigator.of(context).pop();
+                                              }),
+                                        ],
+                                      );
+                                    }));
+                            setState(() {});
+                          },
+                          child:                       Text('Select semester: ${widget.year+selected}'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          print('===========>${data!.body}');
+                       Navigator.pushReplacementNamed(
+                              context, CourseSelected.routeName,
+                           );
+//                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("something went wrong")));
+
+                        },
+                        child: Text(AppLocalizations.of(context)!.select)),
+
+                    ]
+                  ),
             ),
           ],
         ),
@@ -239,7 +313,7 @@ class _CoursesState extends State<Courses> {
         ElevatedButton(
           onPressed: () {
             widget.Selected[index] = !widget.Selected[index];
-            if (widget.sele.contains(x)) widget.sele.remove(x);
+            //if (widget.sele.contains(x)) widget.sele.remove(x);
             setState(() {});
           },
           child: Column(
@@ -265,13 +339,14 @@ class _CoursesState extends State<Courses> {
         )
       ],
     );
-  }
-
+  }http.Response? data;
   Widget unSelected(String x, String y, int index) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async{
         widget.Selected[index] = !widget.Selected[index];
-        if (!widget.sele.contains(x)) widget.sele.add(x);
+        if (!widget.sele.contains(x)){
+          data=await ApiManager.storeCourseReservation(x.split('/').last, widget.year+selected);
+        }
         setState(() {});
       },
       child: Column(
@@ -291,10 +366,57 @@ class _CoursesState extends State<Courses> {
       ),
     );
   }
+  Future flutterYearPicker(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        final Size size = MediaQuery.of(context).size;
+        return AlertDialog(
+          title: Column(
+            children: [
+              Text(AppLocalizations.of(context)!.select_year),
+              Divider(
+                thickness: 1,
+              )
+            ],
+          ),
+          backgroundColor: Theme.of(context).secondaryHeaderColor,
+          content: SizedBox(
+            height: size.height * 0.08,
+            child: GridView.count(
+              physics: const BouncingScrollPhysics(),
+              crossAxisCount: 4,
+              childAspectRatio: 1.5 / 1,
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 0,
+              children: [
+                ...List.generate(4, (index) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        widget.year = (1 + index).toString();
+                        print('------------------------------>${widget.year}');
+                        Navigator.pop(context, widget.year);
+                      });
+                    },
+                    child: Chip(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      label: Container(
+                        child: Text(
+                          (1 + index).toString(),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
-class CourseArg {
-  List<String> s = [];
 
-  CourseArg(this.s);
-}
+
