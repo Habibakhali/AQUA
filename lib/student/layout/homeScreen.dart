@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../providers/setting_provider.dart';
 import '../personal setting/prof.dart';
 import '../personal setting/setting_page.dart';
+import '../personal setting/training/training.dart';
 
 
 class HomeScreenStudent extends StatefulWidget {
@@ -20,7 +21,7 @@ int index=0;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget>tabs=[Courses(),AcadimecRegsteration(),RegistrationForm(),StudentActivity(),Prof()];
+    List<Widget>tabs=[Courses(),AcadimecRegsteration(),RegistrationForm(),Training(),Prof()];
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.app_title),
