@@ -9,6 +9,7 @@ import '../Activity/activity.dart';
 import '../Registration Form/registration_form.dart';
 import '../personal setting/prof.dart';
 import '../personal setting/setting_page.dart';
+import '../personal setting/training/training.dart';
 import 'SelectedItem.dart';
 
 
@@ -16,7 +17,7 @@ import 'SelectedItem.dart';
 class CourseSelected extends StatefulWidget {
 static const String routeName='rouey';
 static bool visited=true;
-List<Widget>tabs=[SeleCtedITemCoure(),AcadimecRegsteration(),RegistrationForm(),StudentActivity(),Prof()];
+List<Widget>tabs=[SeleCtedITemCoure(),AcadimecRegsteration(),RegistrationForm(),Training(),Prof()];
 
 
   @override

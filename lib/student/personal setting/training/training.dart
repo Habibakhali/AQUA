@@ -25,9 +25,6 @@ class _TrainingState extends State<Training> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.training),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
