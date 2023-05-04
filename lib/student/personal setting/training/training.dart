@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project/API/Models/Student/GetActivity.dart';
+import 'package:project/API/api_manager.dart';
 import 'package:project/student/personal%20setting/training/post_item.dart';
-
 import 'content_bottom_sheet.dart';
+import 'data_activity_bottomSheet.dart';
 
 class Training extends StatefulWidget {
   static const String routName = "training";
@@ -14,43 +13,76 @@ class Training extends StatefulWidget {
 }
 
 class _TrainingState extends State<Training> {
-  List<PostArg>arg=[];
-
-  void caal(PostArg p){
-    setState(() {
-      arg.add(p);
-    });
-  }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
             BottomSheetInsertion();
           });
-
         },
         child: Icon(Icons.add),
       ),
-body: Column(
-  children: [
-    Expanded(child:
-    ListView.builder(
-        itemCount: arg.length,
-        itemBuilder: (context,index){
-      return PostItem(arg[index].title,arg[index].description,arg[index].img);
-    })
-    )
-  ],
-),
+      body: Column(
+        children: [
+          Expanded(
+              child: StreamBuilder<List<PayloadActivity>?>(
+                  stream: ApiManager.getActivity(),
+                  builder: (context, snap) {
+                    if (snap.connectionState == ConnectionState.waiting)
+                      return Center(child: CircularProgressIndicator());
+                    if (snap.hasError) {
+                      print(snap.error);
+                      return Center(
+                        child: Text(
+                          "Something went wrong",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      );
+                    } else {
+                      var data = snap.data;
+                      if (data == null)
+                        return Center(
+                          child: Text(
+                            'No Activity 😕',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        );
+                      else {
+                        return ListView.builder(
+                            itemCount: data.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                  onTap: () async {
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          return DataOfActivityBottomSheet(
+                                              data[index].title!,
+                                              data[index].des!,
+                                              data[index].image!);
+                                        });
+                                  },
+                                  child: PostItem(
+                                      data[index].title!,
+                                      data[index].des!,
+                                      data[index].image!,
+                                      data[index].id!));
+                            });
+                      }
+                    }
+                  }))
+        ],
+      ),
     );
   }
 
-  void  BottomSheetInsertion(){
-    showModalBottomSheet(context: context, builder: (context){
-      return ContentBottomSheet(caal);
-    });
+  void BottomSheetInsertion() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return ContentBottomSheet();
+        });
   }
 }

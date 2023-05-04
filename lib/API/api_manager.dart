@@ -1,8 +1,11 @@
 import 'package:project/API/Models/Student/me_jwt.dart';
 import 'package:project/API/Models/Student/post_acadimic_registration.dart';
 import 'package:project/API/Models/Student/registeration_form_model.dart';
+import 'package:project/API/Models/Student/update_activity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
+import 'Models/Student/GetActivity.dart';
+import 'Models/Student/ShowActivity.dart';
 import 'Models/Student/academic_registry_api.dart';
 import 'Models/Student/forget_pass_student.dart';
 import 'Models/Student/get_registeration_forn.dart';
@@ -140,7 +143,10 @@ pref.setString('email', email);
 pref.setString('password', password);
 return r;
   }
-  static Future<LoginStudentApi> loginGrd(String email,String password)async{
+  static Future<http.Response> loginGrd(String email,String password)async{
+    final pref=await SharedPreferences.getInstance();
+    pref.setString('emailGrd', email);
+    pref.setString('passGrd', password);
     var url=Uri.https(base,'/api/grad/auth/login');
     http.Response res=await http.post(url,
     headers: {
@@ -154,9 +160,7 @@ return r;
     );
     print('---------------->${res.statusCode}');
     print('---------------->${res.body}');
-    var json=jsonDecode(res.body);
-var r=LoginStudentApi.fromJson(json);
-return r;
+return res;
   }
   //to know account which i send code to this
   static Future<ForgetPassStudent> RequestCodeToForgetPassStudent(String email)async{
@@ -458,7 +462,7 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
       "Content-Type": "application/json",
       "Authorization": "Bearer ${pref.getString('token')}"
     });
-    print('=============>${response.body}');
+    print('=============>${pref.getString('token')}');
    var json=jsonDecode(response.body);
    var res=GetCourseReservation.fromJson(json);
    List<PayloadcourseReservation>? playload=res.payload;
@@ -478,9 +482,79 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
       return true;
     return false;
   }
-  void getActivity()async{
+
+  static Future<http.Response> storeActivity(String title,String des,File? image)async{
+    final pref=await SharedPreferences.getInstance();
+    var uri=Uri.https(base,'/api/studentActivities');
+    var multipartFile =  await http.MultipartFile.fromPath('image', image!.path);
+    Map<String, String> headers = {
+      "Accept": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')??""}"
+    };
+    var request = http.MultipartRequest('POST',uri)
+
+      ..fields.addAll({
+        'title':title,
+        "des":des
+      })
+      ..headers.addAll(headers)
+      ..files.add(multipartFile);
+    http.Response response = await http.Response.fromStream( await request.send());
+    print('--------------->${response.statusCode}');
+  return response;
+
+}
+static Stream<List<PayloadActivity>?>getActivity()async*{
     var url=Uri.https(base,'/api/studentActivities');
+    print('------------------- I\'am here' );
     http.Response response=await http.get(url);
+    List<PayloadActivity>? playload = [];
+    var json = jsonDecode(response.body);
+    GetActivity res = GetActivity.fromJson(json);
+    playload = res.payload;
+    yield playload;
+}
+
+static Future<ShowActivity>showActivity(int id)async{
+    var url=Uri.https(base,'/api/studentActivities/$id');
+    http.Response response=await http.get(url);
+    var json=jsonDecode(response.body);
+    var res=ShowActivity.fromJson(json);
+    return res;
+}
+
+static Future<bool?>updateActivity(int id,String title,String des,File? image)async{
+    var url=Uri.https(base,'/api/studentActivities/$id');
+    var multipartFile =  await http.MultipartFile.fromPath('image', image!.path);
+    Map<String, String> headers = {
+      "Accept": "application/json",
+    };
+    var request = http.MultipartRequest('POST',url)
+
+      ..fields.addAll({
+        'title':title,
+        "des":des
+      })
+      ..headers.addAll(headers)
+      ..files.add(multipartFile);
+    http.Response response = await http.Response.fromStream( await request.send());
+    print('status cod of upadteactivity ${response.statusCode}');
+    print(id);
+    var json=jsonDecode(response.body);
+    UpdateActivity res=UpdateActivity.fromJson(json);
+    return res.success;
+}
+
+static Future<bool?>delActivity(int id)async{
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.https(base,'/api/studentActivities/$id');
+    http.Response response=await http.delete(url,headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')??""}"
+    });
+    var json=jsonDecode(response.body);
+    UpdateActivity res=UpdateActivity.fromJson(json);
+    return res.success;
 }
 
 }
