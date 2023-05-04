@@ -3,8 +3,8 @@ import 'package:project/graduated/login&signup/signupGr.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../../API/Models/Student/login_student_api.dart';
 import '../../API/api_manager.dart';
+import 'package:http/http.dart' as http;
 import '../Layout/HomeScreen.dart';
 import 'forget_password_grd.dart';
 
@@ -23,7 +23,6 @@ class _GraduatedLogInState extends State<GraduatedLogIn> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var pro = Provider.of<SettingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -160,8 +159,8 @@ class _GraduatedLogInState extends State<GraduatedLogIn> {
   }
 void validation()async{
     if(formKey.currentState!.validate()){
-      LoginStudentApi data=await ApiManager.loginGrd(textController.text, passController.text);
-      if(data.error==null){
+      http.Response data=await ApiManager.loginGrd(textController.text, passController.text);
+      if(data.statusCode==200){
         Navigator.pushReplacementNamed(context, HomeScreenGrd.routeName);
         return showDialog(context: context, builder: (context) =>
             AlertDialog(
@@ -175,7 +174,7 @@ void validation()async{
             AlertDialog(
                 title: Text("Error"),
                 // To display the title it is optional
-                content: Text(data.error!)),
+                content: Text('Some thing went wrong')),
         );
       }
 
