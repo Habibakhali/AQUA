@@ -23,6 +23,7 @@ class PasswordTextField extends StatefulWidget {
       child: Column(
         children: [
           TextFormField(
+            textInputAction: TextInputAction.next,
             controller: widget.password,
             validator: (text) {
               if (text == null || text.trim().isEmpty) {

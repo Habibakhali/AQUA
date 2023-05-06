@@ -6,6 +6,8 @@ import 'package:project/student/layout/homeScreen.dart';
 import 'package:project/student/login&signUp/forget_passwoord.dart';
 import 'package:project/student/login&signUp/signup_student.dart';
 import 'package:provider/provider.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 
 
 class StudentLogin extends StatefulWidget {
@@ -116,8 +118,42 @@ class _StudentLoginState extends State<StudentLogin> {
                     height: MediaQuery.of(context).size.height*0.07,
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
-                        onPressed: ()  {
-                          validation();
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            bool result = await InternetConnectionChecker()
+                                .hasConnection;
+                            if (result) {
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) =>
+                                      StatefulBuilder(builder:
+                                          (context, StateSetter setState) {
+                                        return SimpleDialog(
+                                            title: Container(
+                                                padding: EdgeInsets.all(10),
+                                                child: Center(
+                                                  child:
+                                                  CircularProgressIndicator(),
+                                                )));
+                                      }));
+
+                              validation();
+                            }
+                            else {
+                              return showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: Center(
+                                        child: Text("No Internet")),
+                                    content: Image.asset(
+                                      'assets/images/wi-fi-disconnected.png',
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                  ));
+                            }
+                          }
                         },
                         child: Text(
                           AppLocalizations.of(context)!.login,
@@ -159,9 +195,9 @@ class _StudentLoginState extends State<StudentLogin> {
     );
   }
   Future<dynamic> validation()async{
-  if(formKey.currentState!.validate()){
     var data =await ApiManager.loginStudent(textController.text, passController.text);
     if(data.error==null){
+      Navigator.pop(context);
      Navigator.pushReplacementNamed(context, HomeScreenStudent.routeName,
      );
      return showDialog(context: context, builder: (context) =>
@@ -172,6 +208,7 @@ class _StudentLoginState extends State<StudentLogin> {
      );
     }
     else {
+      Navigator.pop(context);
       return showDialog(context: context, builder: (context) =>
           AlertDialog(
               title: Text("Error"),
@@ -183,4 +220,3 @@ class _StudentLoginState extends State<StudentLogin> {
 
 }
   }
-}

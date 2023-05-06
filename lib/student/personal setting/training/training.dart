@@ -27,8 +27,8 @@ class _TrainingState extends State<Training> {
       body: Column(
         children: [
           Expanded(
-              child: StreamBuilder<List<PayloadActivity>?>(
-                  stream: ApiManager.getActivity(),
+              child: FutureBuilder<List<PayloadActivity>?>(
+                  future: ApiManager.getActivity(),
                   builder: (context, snap) {
                     if (snap.connectionState == ConnectionState.waiting)
                       return Center(child: CircularProgressIndicator());
@@ -50,6 +50,11 @@ class _TrainingState extends State<Training> {
                           ),
                         );
                       else {
+                        Future.delayed(Duration(seconds: 15),(){
+                          setState(() {
+
+                          });
+                        }) ;
                         return ListView.builder(
                             itemCount: data.length,
                             itemBuilder: (context, index) {

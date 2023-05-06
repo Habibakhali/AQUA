@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/API/api_manager.dart';
 import '../../API/Models/Student/forget_pass_student.dart';
 import 'OtpStudent.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 
 class ForgetMyPasswordStudent extends StatefulWidget {
 static String routeName='ForgetPasswordStudent';
@@ -62,8 +64,42 @@ GlobalKey<FormState> foemkey=GlobalKey<FormState>();
               Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height*0.07,
-                  child: ElevatedButton(onPressed: (){
-                    validation();
+                  child: ElevatedButton(onPressed: () async{
+                    if (foemkey.currentState!.validate()) {
+                      bool result = await InternetConnectionChecker()
+                          .hasConnection;
+                      if (result) {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) =>
+                                StatefulBuilder(builder:
+                                    (context, StateSetter setState) {
+                                  return SimpleDialog(
+                                      title: Container(
+                                          padding: EdgeInsets.all(10),
+                                          child: Center(
+                                            child:
+                                            CircularProgressIndicator(),
+                                          )));
+                                }));
+
+                        validation();
+                      }
+                      else {
+                        return showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Center(
+                                  child: Text("No Internet")),
+                              content: Image.asset(
+                                'assets/images/wi-fi-disconnected.png',
+                                width: 100,
+                                height: 100,
+                              ),
+                            ));
+                      }
+                    }
                   }, child: Text('Find account',style: TextStyle(
                     fontSize: 18
                   ),)))
@@ -78,6 +114,7 @@ Future<dynamic> validation()async{
   if(foemkey.currentState!.validate()){
     ForgetPassStudent data=await ApiManager.RequestCodeToForgetPassStudent(email.text);
     if(data.errors!=null){
+      Navigator.pop(context);
       return showDialog(context: context, builder: (context) =>
           AlertDialog(
               title: Text("Error"),
@@ -85,6 +122,7 @@ Future<dynamic> validation()async{
               content: Text(data.message!)),);
     }
     else{
+      Navigator.pop(context);
       Navigator.pushReplacementNamed(context, OtpStudent.routeName,arguments: email.text);
       return showDialog(context: context, builder: (context) =>
           AlertDialog(

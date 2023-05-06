@@ -14,7 +14,6 @@ class SelectionPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var pro = Provider.of<SettingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -35,18 +34,33 @@ class SelectionPart extends StatelessWidget {
               Expanded(
                 child: Row(children: [
                   Expanded(
-                      child: Partment(
-                          AppLocalizations.of(context)!.student_login,
-                          StudentLogin.routeName,
-                          'assets/images/student.png')),
+                      child: ElevatedButton(
+                          onPressed: () {
+                              Navigator.pushReplacementNamed(context, StudentLogin.routeName);
+                          },
+                          child: Column(
+                            children: [
+                              Expanded(flex:2,child: Image.asset('assets/images/student.png',)),
+                              Expanded(child: Text(AppLocalizations.of(context)!.student_login,textAlign: TextAlign.center
+                                ,)),
+                            ],
+                          ))),
                   SizedBox(
                     width: 8,
                   ),
                   Expanded(
-                      child: Partment(
-                          AppLocalizations.of(context)!.graduated_login,
-                          GraduatedLogIn.routeName,
-                          'assets/images/graduat.png')),
+                      child: ElevatedButton(
+                          onPressed: () {
+                              Navigator.pushReplacementNamed(context, GraduatedLogIn.routeName);
+                          },
+                          child: Column(
+                            children: [
+                              Expanded(flex:2,child: Image.asset('assets/images/graduat.png',)),
+                              Expanded(child: Text(AppLocalizations.of(context)!.graduated_login,textAlign: TextAlign.center
+                                ,)),
+                            ],
+                          ))
+                  ),
                 ]),
               ),
               SizedBox(

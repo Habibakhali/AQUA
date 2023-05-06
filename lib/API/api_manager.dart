@@ -19,10 +19,11 @@ import 'Models/Student/resend_otp_student_api.dart';
 import 'Models/Student/reset_forget_pass_student.dart';
 import 'Models/Student/show_course_details.dart';
 import 'Models/get_course_reservation.dart';
+import 'Models/get_curses.dart';
 
 class ApiManager{
   static String base='aqua.larasci.site';
-  static Future<Register> postRegisterStud(String userName, String email, String pass, String confi_pass) async {
+  static Future<Register> postRegisterStud(String userName, String email, String pass, String confi_pass,String id,String phone,String year) async {
     var URL = Uri.https(base, '/api/auth/register');
     http.Response signUp = await http.post(
       URL,
@@ -35,6 +36,9 @@ class ApiManager{
             "email": email,
             "password": pass,
             "password_confirmation": confi_pass,
+            "std_info":jsonEncode({
+              "id":id, "phone":phone, "acad_year":year,
+            })
           }),);
     var json = jsonDecode(signUp.body) ;
     print("----------------------------------------> StatusCode ${signUp.statusCode}");
@@ -138,7 +142,7 @@ class ApiManager{
     );
     var json=jsonDecode(res.body);
 var r=LoginStudentApi.fromJson(json);
-pref.setString('token', r.accessToken!);
+pref.setString('token', r.accessToken??'');
 pref.setString('email', email);
 pref.setString('password', password);
 return r;
@@ -393,7 +397,7 @@ return res;
     var res=LoginStudentApi.fromJson(json);
     return res;
   }
-  static Future<http.Response> getCourse()async{
+  static Future<List<Payloadd>> getCourse()async{
 var url=Uri.https(base,'/api/courses');
 final pref=await SharedPreferences.getInstance();
 http.Response respons=await http.get(url,headers: {
@@ -405,7 +409,9 @@ if(respons.statusCode==401){
   LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
   pref.setString('token', data.accessToken!);
 }
-return respons;
+print(respons.statusCode);
+List<Payloadd> name = GetCourses.fromJson(jsonDecode(respons!.body)).payload!;
+return name;
 }
 // i add any course and not need usse response
   //when i need to add course ,we must call this function in  initState in courses.dart
@@ -442,7 +448,7 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
   static Future<http.Response> storeCourseReservation(String cCode,String semester)async{
     final pref=await SharedPreferences.getInstance();
     var url=Uri.https(base,'/api/courseReservation');
-    http.Response response=await http.post(url,headers: {
+    http.Response response= await http.post(url,headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
       "Authorization": "Bearer ${pref.getString('token')}"
@@ -451,7 +457,6 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
       "c_code":cCode,
       "semester":int.parse(semester),
     }));
-    print(pref.getString('token'));
     return response;
   }
   static Future<List<PayloadcourseReservation>?> getCourseReservation()async{
@@ -462,11 +467,9 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
       "Content-Type": "application/json",
       "Authorization": "Bearer ${pref.getString('token')}"
     });
-    print('=============>${pref.getString('token')}');
    var json=jsonDecode(response.body);
    var res=GetCourseReservation.fromJson(json);
    List<PayloadcourseReservation>? playload=res.payload;
-
    return playload;
   }
   static Future<bool> delCourseReservation(int id)async{
@@ -478,6 +481,7 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
       "Authorization": "Bearer ${pref.getString('token')}"
     });
     print('delete coure : ${response.statusCode}');
+    print('delete body : ${response.body}');
     if(response.statusCode==200)
       return true;
     return false;
@@ -504,7 +508,7 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
   return response;
 
 }
-static Stream<List<PayloadActivity>?>getActivity()async*{
+static Future<List<PayloadActivity>?>getActivity()async{
     var url=Uri.https(base,'/api/studentActivities');
     print('------------------- I\'am here' );
     http.Response response=await http.get(url);
@@ -512,7 +516,8 @@ static Stream<List<PayloadActivity>?>getActivity()async*{
     var json = jsonDecode(response.body);
     GetActivity res = GetActivity.fromJson(json);
     playload = res.payload;
-    yield playload;
+
+    return playload;
 }
 
 static Future<ShowActivity>showActivity(int id)async{

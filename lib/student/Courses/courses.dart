@@ -4,12 +4,25 @@ import 'package:project/API/Models/get_curses.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/student/Courses/course_selected.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+
+import '../../API/Models/Student/store_course_re.dart';
+import '../../providers/setting_provider.dart';
 
 class Courses extends StatefulWidget {
   static const String routeName = 'Courses';
   List<String> sele = [];
+
+  bool visited = false;
+
+  @override
+  State<Courses> createState() => _CoursesState();
+}
+
+class _CoursesState extends State<Courses> {
+  String selected = '1';
   String year = '1';
   List<bool> Selected = [
     false,
@@ -33,15 +46,17 @@ class Courses extends StatefulWidget {
     false,
     false,
     false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
   ];
-  bool visited = false;
-
-  @override
-  State<Courses> createState() => _CoursesState();
-}
-
-class _CoursesState extends State<Courses> {
-  String selected = '1';
   TextEditingController? _searchTextController;
   final FocusNode _node = FocusNode();
   late String token;
@@ -58,17 +73,12 @@ class _CoursesState extends State<Courses> {
     });
   }
 
-  int x = 0;
 
   _readCourses() async {
-    final pref = await SharedPreferences.getInstance();
-    // ApiManager.storeCourses(cCode, cName, cHour, cPrereq, semester);
     var data = await ApiManager.getCourse();
-    List<Payloadd> name = GetCourses.fromJson(jsonDecode(data.body)).payload!;
-    for (int i = 0; i < name.length; i++) {
-      courseName.insert(i, name[i].cName! + '/' + name[i].cCode!);
+    for (int i = 0; i < data.length; i++) {
+      courseName.insert(i, data[i].cName! + '/' + data[i].cCode!);
     }
-    data.isRedirect ? x = 0 : x = 1;
     setState(() {});
     print('++++++++++++++++++++++> $courseName');
     print('++++++++++++++++++++++> ${courseName.length}');
@@ -85,263 +95,283 @@ class _CoursesState extends State<Courses> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(
-                AppLocalizations.of(context)!.welcome,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-              ),
-              Image.asset(
-                'assets/images/boyy.png',
-                height: 100,
-                width: 100,
-              ),
-            ]),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 20, color: Colors.grey.withOpacity(0.5)),
-                ],
-                color: Theme.of(context).backgroundColor,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 15, left: 15),
-                child: TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      itemsListSearch = courseName
-                          .where((element) => element
-                              .toLowerCase()
-                              .contains(value.toLowerCase()))
-                          .toList();
-                      if (_searchTextController!.text.isNotEmpty &&
-                          itemsListSearch!.isEmpty) {
-                        print(
-                            'itemsListSearch legnth${itemsListSearch!.length}');
-                      }
-                    });
-                  },
-                  controller: _searchTextController,
-                  focusNode: _node,
-                  decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.find_your_course,
-                      //filled: true,
-                      //fillColor: Theme.of(context).canvasColor,
-                      hintStyle: Theme.of(context).textTheme.bodySmall,
-                      border: InputBorder.none,
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Theme.of(context).canvasColor,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: _searchTextController!.text.isEmpty
-                            ? null
-                            : () {
-                                _searchTextController?.clear();
-                                _node.unfocus();
-                              },
-                        icon: Icon(
-                          Icons.cancel,
-                          color: _searchTextController!.text.isNotEmpty
-                              ? Colors.red
-                              : Colors.transparent,
+    var pro = Provider.of<SettingProvider>(context);
+    pro.ConnectionState();
+    return !pro.result
+        ? AlertDialog(
+            title: Center(child: Text('No Internet')),
+            content: Image.asset('assets/images/wi-fi-disconnected.png'),
+          )
+        : Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.welcome,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
                         ),
-                      )),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              AppLocalizations.of(context)!.choose_course,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              width: 60,
-              height: 2,
-              color: const Color(0xffFD6D8D),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            _searchTextController!.text.isNotEmpty && itemsListSearch!.isEmpty
-                ? Expanded(
-                    child: SingleChildScrollView(
-                      child: Center(
-                        child: Column(
-                          children: const [
-                            //child:
-                            Icon(Icons.search_off, size: 130),
-                            Text(
-                              "No result found, \nplease try different keyword",
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              textAlign: TextAlign.center,
+                        Image.asset(
+                          'assets/images/boyy.png',
+                          height: 100,
+                          width: 100,
+                        ),
+                      ]),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 20,
+                            color: Colors.grey.withOpacity(0.5)),
+                      ],
+                      color: Theme.of(context).backgroundColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15, left: 15),
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            itemsListSearch = courseName
+                                .where((element) => element
+                                    .toLowerCase()
+                                    .contains(value.toLowerCase()))
+                                .toList();
+                            if (_searchTextController!.text.isNotEmpty &&
+                                itemsListSearch!.isEmpty) {
+                              print(
+                                  'itemsListSearch legnth${itemsListSearch!.length}');
+                            }
+                          });
+                        },
+                        controller: _searchTextController,
+                        focusNode: _node,
+                        decoration: InputDecoration(
+                            hintText:
+                                AppLocalizations.of(context)!.find_your_course,
+                            //filled: true,
+                            //fillColor: Theme.of(context).canvasColor,
+                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            border: InputBorder.none,
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Theme.of(context).canvasColor,
                             ),
-                          ],
-                        ),
+                            suffixIcon: IconButton(
+                              onPressed: _searchTextController!.text.isEmpty
+                                  ? null
+                                  : () {
+                                      _searchTextController?.clear();
+                                      _node.unfocus();
+                                    },
+                              icon: Icon(
+                                Icons.cancel,
+                                color: _searchTextController!.text.isNotEmpty
+                                    ? Colors.red
+                                    : Colors.transparent,
+                              ),
+                            )),
                       ),
                     ),
-                  )
-                : x == 0
-                    ? Center(child: CircularProgressIndicator())
-                    : Expanded(
-                        child: GridView.builder(
-                            itemCount: _searchTextController!.text.isNotEmpty
-                                ? itemsListSearch!.length
-                                : courseName.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 8,
-                              crossAxisCount: 2,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.choose_course,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    width: 60,
+                    height: 2,
+                    color: const Color(0xffFD6D8D),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _searchTextController!.text.isNotEmpty &&
+                          itemsListSearch!.isEmpty
+                      ? Expanded(
+                          child: SingleChildScrollView(
+                            child: Center(
+                              child: Column(
+                                children: const [
+                                  //child:
+                                  Icon(Icons.search_off, size: 130),
+                                  Text(
+                                    "No result found, \nplease try different keyword",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
-                            itemBuilder: (context, index) {
-                              return widget.Selected[index]
-                                  ? isSelected(
-                                      _searchTextController!.text.isNotEmpty
-                                          ? itemsListSearch![index]
-                                          : courseName[index],
-                                      'assets/images/ocourse.png',
-                                      index)
-                                  : unSelected(
-                                      _searchTextController!.text.isNotEmpty
-                                          ? itemsListSearch![index]
-                                          : courseName[index],
-                                      'assets/images/ocourse.png',
-                                      index);
-                            }),
-                      ),
-            Center(
-              child: _searchTextController!.text.isNotEmpty
-                  ? Text("")
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {});
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) => StatefulBuilder(builder:
-                                          (context, StateSetter setState) {
-                                        return SimpleDialog(
-                                          title: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(AppLocalizations.of(
-                                                          context)!
-                                                      .select_semester),
-                                                  InkWell(
-                                                      onTap: () {
-                                                        flutterYearPicker(
-                                                            context);
-                                                      },
-                                                      child: Text(
-                                                        'level: ${widget.year}',
-                                                      ))
-                                                ],
-                                              ),
-                                              Divider(
-                                                thickness: 1,
-                                              )
-                                            ],
-                                          ),
-                                          contentPadding: EdgeInsets.only(
-                                              left: 20,
-                                              right: 20,
-                                              bottom: 20,
-                                              top: 5),
-                                          backgroundColor: Theme.of(context)
-                                              .secondaryHeaderColor,
-                                          children: [
-                                            InkWell(
-                                                child: Row(
-                                                  children: [
-                                                    Text(AppLocalizations.of(
-                                                            context)!
-                                                        .semester1),
-                                                  ],
-                                                ),
-                                                onTap: () {
-                                                  setState(() {
-                                                    selected = '1';
-                                                  });
-                                                  Navigator.of(context).pop();
-                                                }),
-                                            SizedBox(
-                                              height: 8,
-                                            ),
-                                            InkWell(
-                                                child: Row(
-                                                  children: [
-                                                    Text(AppLocalizations.of(
-                                                            context)!
-                                                        .semester2),
-                                                  ],
-                                                ),
-                                                onTap: () {
-                                                  selected = '2';
-                                                  setState(() {});
-                                                  Navigator.of(context).pop();
-                                                }),
-                                          ],
-                                        );
-                                      }));
-                              setState(() {});
-                            },
-                            child: Text(
-                                'Select semester: ${widget.year + selected}'),
                           ),
-                          ElevatedButton(
-                              onPressed: () {
-                                print('===========>${data!.body}');
-                                Navigator.pushReplacementNamed(
-                                  context,
-                                  CourseSelected.routeName,
-                                );
+                        )
+                      :  Expanded(
+                              child: GridView.builder(
+                                  itemCount:
+                                      _searchTextController!.text.isNotEmpty
+                                          ? itemsListSearch!.length
+                                          : courseName.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8,
+                                    crossAxisCount: 2,
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    return Selected[index]
+                                        ? isSelected(
+                                            _searchTextController!
+                                                    .text.isNotEmpty
+                                                ? itemsListSearch![index]
+                                                : courseName[index],
+                                            'assets/images/ocourse.png',
+                                            index)
+                                        : unSelected(
+                                            _searchTextController!
+                                                    .text.isNotEmpty
+                                                ? itemsListSearch![index]
+                                                : courseName[index],
+                                            'assets/images/ocourse.png',
+                                            index);
+                                  }),),
+                  Center(
+                    child: _searchTextController!.text.isNotEmpty
+                        ? Text("")
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {});
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context) => StatefulBuilder(
+                                                builder: (context,
+                                                    StateSetter setState) {
+                                              return SimpleDialog(
+                                                title: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(AppLocalizations
+                                                                .of(context)!
+                                                            .select_semester),
+                                                        InkWell(
+                                                            onTap: () {
+                                                              flutterYearPicker(
+                                                                  context);
+                                                            },
+                                                            child: Text(
+                                                              'level: ${year}',
+                                                            ))
+                                                      ],
+                                                    ),
+                                                    Divider(
+                                                      thickness: 1,
+                                                    )
+                                                  ],
+                                                ),
+                                                contentPadding: EdgeInsets.only(
+                                                    left: 20,
+                                                    right: 20,
+                                                    bottom: 20,
+                                                    top: 5),
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .secondaryHeaderColor,
+                                                children: [
+                                                  InkWell(
+                                                      child: Row(
+                                                        children: [
+                                                          Text(AppLocalizations
+                                                                  .of(context)!
+                                                              .semester1),
+                                                        ],
+                                                      ),
+                                                      onTap: () {
+                                                        setState(() {
+                                                          selected = '1';
+                                                        });
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      }),
+                                                  SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  InkWell(
+                                                      child: Row(
+                                                        children: [
+                                                          Text(AppLocalizations
+                                                                  .of(context)!
+                                                              .semester2),
+                                                        ],
+                                                      ),
+                                                      onTap: () {
+                                                        selected = '2';
+                                                        setState(() {});
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      }),
+                                                ],
+                                              );
+                                            }));
+                                    setState(() {});
+                                  },
+                                  child: Text(
+                                      'Select semester: ${year + selected}'),
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      print('===========>${data!.body}');
+                                      Navigator.pushReplacementNamed(
+                                        context,
+                                        CourseSelected.routeName,
+                                      );
 //                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("something went wrong")));
-                              },
-                              child:
-                                  Text(AppLocalizations.of(context)!.select)),
-                        ]),
+                                    },
+                                    child: Text(
+                                        AppLocalizations.of(context)!.select)),
+                              ]),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
-
+  int? id;
   Widget isSelected(String x, String y, int index) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
         ElevatedButton(
           onPressed: () {
-            widget.Selected[index] = !widget.Selected[index];
-            //if (widget.sele.contains(x)) widget.sele.remove(x);
-            setState(() {});
+            Selected[index]=!Selected[index];
+            ApiManager
+                .delCourseReservation(id!);
+            setState(() {
+
+            });
           },
           child: Column(
             children: [
@@ -373,12 +403,45 @@ class _CoursesState extends State<Courses> {
   Widget unSelected(String x, String y, int index) {
     return ElevatedButton(
       onPressed: () async {
-        widget.Selected[index] = !widget.Selected[index];
-        if (!widget.sele.contains(x)) {
+        Selected[index]=!Selected[index];
+        print(Selected[index]);
+        if (courseName.contains(x)) {
+          print('iam here ');
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) =>
+                  StatefulBuilder(builder:
+                      (context, StateSetter setState) {
+                    return SimpleDialog(
+                        title: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Center(
+                              child:
+                              CircularProgressIndicator(),
+                            )));
+                  }));
           data = await ApiManager.storeCourseReservation(
-              x.split('/').last, widget.year + selected);
+              x.split('/').last, (year+selected).toString());
+        var json=jsonDecode(data!.body);
+        print(data!.statusCode);
+        print(data!.body);
+        if(data!.statusCode==200){
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Subject has been registered successfully")));}
+        else{
+          Navigator.pop(context);
+          Selected[index]=!Selected[index];
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Something went wrong,try again')));
         }
-        setState(() {});
+        var res=StoreCourseReservation.fromJson(json);
+        if(res.payload!=null){
+        id=(res.payload!.id);
+        print(id);
+        }}
+        setState(() {
+
+        });
       },
       child: Column(
         children: [
@@ -426,9 +489,9 @@ class _CoursesState extends State<Courses> {
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        widget.year = (1 + index).toString();
-                        print('------------------------------>${widget.year}');
-                        Navigator.pop(context, widget.year);
+                       year = (1 + index).toString();
+                        print('------------------------------>${year}');
+                        Navigator.pop(context, year);
                       });
                     },
                     child: Chip(
