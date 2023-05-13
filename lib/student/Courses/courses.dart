@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:project/API/Models/get_curses.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/student/Courses/course_selected.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 import '../../API/Models/Student/store_course_re.dart';
@@ -335,7 +333,7 @@ class _CoursesState extends State<Courses> {
                                                       }),
                                                 ],
                                               );
-                                            }));
+                                            },),);
                                     setState(() {});
                                   },
                                   child: Text(

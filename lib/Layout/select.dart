@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/doctor/login&signup/doctor_login.dart';
-import 'package:project/Layout/partement.dart';
-import 'package:project/providers/setting_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../graduated/login&signup/graduated_login.dart';
@@ -35,7 +32,9 @@ class SelectionPart extends StatelessWidget {
                 child: Row(children: [
                   Expanded(
                       child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async{
+                            final pref= await SharedPreferences.getInstance();
+                            pref.setString("category","student");
                               Navigator.pushReplacementNamed(context, StudentLogin.routeName);
                           },
                           child: Column(
@@ -50,7 +49,9 @@ class SelectionPart extends StatelessWidget {
                   ),
                   Expanded(
                       child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async{
+                            final pref= await SharedPreferences.getInstance();
+                            pref.setString("category","graduated");
                               Navigator.pushReplacementNamed(context, GraduatedLogIn.routeName);
                           },
                           child: Column(

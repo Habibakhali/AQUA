@@ -1,6 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:project/Layout/programs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../graduated/Layout/HomeScreen.dart';
+import '../student/layout/homeScreen.dart';
 
 class SettingProvider extends ChangeNotifier{
   String currentLang='en';
@@ -10,6 +15,7 @@ class SettingProvider extends ChangeNotifier{
    bool result=false;
    bool selection=false;
   ThemeMode currTheme=ThemeMode.system;
+
   bool changeSelectedCourses(bool click){
     selection=!selection;
     notifyListeners();

@@ -33,6 +33,7 @@ import 'package:project/student/personal%20setting/setting_page.dart';
 import 'package:project/student/personal%20setting/table.dart';
 import 'package:project/student/personal%20setting/training/training.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Layout/select.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -48,7 +49,15 @@ import 'graduated/login&signup/signupGr.dart';
 import 'graduated/personal setting/profileGrd.dart';
 import 'graduated/personal setting/settingProfGrd.dart';
 
-void main() {
+String? home;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final pref = await SharedPreferences.getInstance();
+  home = (pref.getString('category') == 'student' &&
+          pref.getString('token') != null)
+      ? HomeScreenStudent.routeName
+      : HomeScreenGrd.routeName;
   runApp(ChangeNotifierProvider<SettingProvider>(
       create: (buildContext) {
         return SettingProvider();
@@ -73,18 +82,18 @@ class MyApp extends StatelessWidget {
         ],
         supportedLocales: [
           Locale('en', ''), // English, no country code
-          Locale('ar', ''), // Spanish, no country code
+          Locale('ar', ''), // arabic, no country code
         ],
         locale: Locale(pro.currentLang),
-        initialRoute: Programs.routeName,
+        initialRoute: home ?? Programs.routeName,
         routes: {
-        Training.routName:(_)=>Training(),
-          ForgetMyPasswordDr.routeName:(_)=>ForgetMyPasswordDr(),
-          QUestionHome.routeName:(_)=>QUestionHome(),
-          SeleCtedITemCoure.routeName:(_)=>SeleCtedITemCoure(),
-          TablesStudent.routeName:(_)=>TablesStudent(),
-          SettingsPageGrd.routeName:(_)=>SettingsPageGrd(),
-          Questionner.routeName:(_)=>Questionner(),
+          Training.routName: (_) => Training(),
+          ForgetMyPasswordDr.routeName: (_) => ForgetMyPasswordDr(),
+          QUestionHome.routeName: (_) => QUestionHome(),
+          SeleCtedITemCoure.routeName: (_) => SeleCtedITemCoure(),
+          TablesStudent.routeName: (_) => TablesStudent(),
+          SettingsPageGrd.routeName: (_) => SettingsPageGrd(),
+          Questionner.routeName: (_) => Questionner(),
           ProfileGrd.routeName: (_) => ProfileGrd(),
           SettingSt.routeName: (_) => SettingSt(),
           Exam.routeName: (_) => Exam(),
@@ -99,17 +108,17 @@ class MyApp extends StatelessWidget {
           ResetPassWord.routeName: (_) => ResetPassWord(),
           HomeScreenGrd.routeName: (_) => HomeScreenGrd(),
           HomeScreenDoctor.routeName: (_) => HomeScreenDoctor(),
-          ExamDoc.routeName:(_)=>ExamDoc(),
+          ExamDoc.routeName: (_) => ExamDoc(),
           SelectionPart.routename: (_) => SelectionPart(),
           GraduatedLogIn.routeName: (_) => GraduatedLogIn(),
           StudentLogin.routeName: (_) => StudentLogin(),
           DoctorLogin.routeName: (_) => DoctorLogin(),
-          ForgetMyPasswordStudent.routeName:(_)=>ForgetMyPasswordStudent(),
-          ForgetMyPasswordGrd.routeName:(_)=>ForgetMyPasswordGrd(),
+          ForgetMyPasswordStudent.routeName: (_) => ForgetMyPasswordStudent(),
+          ForgetMyPasswordGrd.routeName: (_) => ForgetMyPasswordGrd(),
           OtpFormGraduated.routeName: (_) => OtpFormGraduated(),
           OtpStudent.routeName: (_) => OtpStudent(),
           OtpDoctor.routeName: (_) => OtpDoctor(),
-          OfficeHours.routeName:(_)=>OfficeHours(),
+          OfficeHours.routeName: (_) => OfficeHours(),
           SignUpGraduated.routeName: (_) => SignUpGraduated(),
           SignUpStudent.routeName: (_) => SignUpStudent(),
           SignUpDoctor.routeName: (_) => SignUpDoctor(),
@@ -120,8 +129,8 @@ class MyApp extends StatelessWidget {
           ResetPassDoctor.routeName: (_) => ResetPassDoctor(),
           PasswordResetGra.routeName: (_) =>
               PasswordResetGra(GraduatedLogIn.routeName),
-          SettingsPageDoc.routeName:(_)=>SettingsPageDoc(),
-          PersonalSetting.routeName:(_)=>PersonalSetting()
+          SettingsPageDoc.routeName: (_) => SettingsPageDoc(),
+          PersonalSetting.routeName: (_) => PersonalSetting()
         });
   }
 }

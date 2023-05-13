@@ -294,7 +294,7 @@ return res;
 var res=GetAcademicRegistryApi.fromJson(json);
 return res;
   }
-  static Future<http.Response> delAcadimicRegistery(int id)async{
+  static Future<int> delAcadimicRegistery(int id)async{
     var url=Uri.https(base,'/api/academicRegistry/$id');
     final pref=await SharedPreferences.getInstance();
     http.Response response=await http.delete(url,
@@ -302,11 +302,12 @@ return res;
       "Accept": "application/json",
       "Authorization": "Bearer ${pref.getString('token')??""}"
     });
+    print('deletion is : ${response.statusCode}');
     if(response.statusCode==401){
       LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
       pref.setString('token',data.accessToken!);
     }
-    return response;
+    return response.statusCode;
   }
   static Future<RegisterationFormModel> storeRegisterationForm(File imageFile,String semester,File? imageAddSub)async{
     var uri=Uri.https(base,'/api/registertionForms');
@@ -321,10 +322,9 @@ return res;
 
       ..fields.addAll({
         'semester':semester,
-      })
-      ..headers.addAll(headers)
-      ..files.add(multipartFile)
-    ..files.add(deImage!);
+      })..headers.addAll(headers)
+        ..files.add(multipartFile);
+    (deImage!=null)? request.files.add(deImage!): print('');
     http.Response response = await http.Response.fromStream( await request.send());
     print('status Code: ${response.statusCode}');
     var json=jsonDecode(response.body);

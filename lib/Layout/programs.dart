@@ -16,7 +16,6 @@ class Programs extends StatefulWidget {
 class _ProgramsState extends State<Programs> {
   @override
   Widget build(BuildContext context) {
-    var pro = Provider.of<SettingProvider>(context);
     List<String> programName = [
       AppLocalizations.of(context)!.cs_title,
       AppLocalizations.of(context)!.math_title,
