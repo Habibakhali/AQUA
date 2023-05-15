@@ -17,7 +17,7 @@ import 'SelectedItem.dart';
 class CourseSelected extends StatefulWidget {
 static const String routeName='rouey';
 static bool visited=true;
-List<Widget>tabs=[SeleCtedITemCoure(),AcadimecRegsteration(),RegistrationForm(),Training(),Prof()];
+List<Widget>tabs=[SeleCtedITemCoure(),AcadimecRegsteration(),RegistrationForm(),Training()];
 
 
   @override
@@ -58,7 +58,6 @@ class _CourseSelectedState extends State<CourseSelected> {
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/registration_form.png'),),label: AppLocalizations.of(context)!.registration_form),
             BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/activity.png',),size: 28,),label: AppLocalizations.of(context)!.activity),
-            BottomNavigationBarItem(icon: Icon(Icons.person_outline_sharp),label: AppLocalizations.of(context)!.edit_profile),
           ],
         ),
       ),
