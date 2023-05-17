@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:project/student/Registration%20Form/register_files.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,7 +12,6 @@ import '../../providers/setting_provider.dart';
 
 class RegistrationForm extends StatefulWidget {
   static const String routeName = 'Rigester';
-  bool visible = true;
 
   @override
   State<RegistrationForm> createState() => _RegistrationFormState();
@@ -20,12 +19,11 @@ class RegistrationForm extends StatefulWidget {
 
 class _RegistrationFormState extends State<RegistrationForm> {
   File? imageFile;
-  String status = '';
-  String imageAS = '';
+  String status='';
+  String imageAS='';
   File? imageAddSub;
-
-  String semesterAddSub = '';
   String year = '1';
+  int? SY;
   String selected = '1';
   var pickedFile;
   int? id;
@@ -41,26 +39,23 @@ class _RegistrationFormState extends State<RegistrationForm> {
       maxWidth: 1080,
     );
     setState(() {
-      widget.visible = true;
       if (check == 1)
         imageAddSub = File(pickedFile!.path);
       else {
         imageFile = File(pickedFile!.path);
+        print(imageFile);
       }
     });
   }
 
   void showImage() async {
+    final pref = await SharedPreferences.getInstance();
     GetRegisterationFormModel data =
         await ApiManager.getRegisterationForm(id ?? 0);
     print('---------------------->${data.payload!.id!}');
-    setState(() {
-      status = 'https://' + ApiManager.base + '/' + data.payload!.reImage!;
-      data.payload!.daImage != null
-          ? imageAS =
-              'https://' + ApiManager.base + '/' + data.payload!.daImage!
-          : imageAS = '';
-    });
+    setState(() {});
+    status=pref.getString('status'+email)??"";
+    imageAS=pref.getString('imageAS'+email)??"";
   }
 
   @override
@@ -74,6 +69,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
     token = pref.getString('token') ?? '0';
     email = pref.getString('email')!;
     password = pref.getString('password')!;
+    SY = pref.getInt('semester' + email)??11;
+    status = pref.getString('status' + email)??'';
+    print(status);
+    id=pref.getInt('id'+email)??0;
+    imageAS = pref.getString('imageAS' + email)??"";
   }
 
   @override
@@ -101,7 +101,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                               onPressed: () {
                                 check = 1;
                                 chooseImage(ImageSource.camera);
-
                                 setState(() {});
                               },
                               icon: Icon(
@@ -127,7 +126,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                               ),
                               label: Text('From Gallery'),
                             ),
-                            imageAS.isEmpty
+                            imageAddSub == null
                                 ? Center(
                                     child: Text(
                                         AppLocalizations.of(context)!.no_img))
@@ -139,6 +138,26 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                           color: Colors.green),
                                     ],
                                   ),
+                            OutlinedButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (context) =>
+                                          StatefulBuilder(builder:
+                                              (context, StateSetter setState) {
+                                            return SimpleDialog(
+                                                title: Container(
+                                                    padding: EdgeInsets.all(10),
+                                                    child: Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    )));
+                                          }));
+                                  vaildateAdd_Sub();
+                                },
+                                child: Text(
+                                    AppLocalizations.of(context)!.upload_img))
                           ],
                         ),
                       );
@@ -178,25 +197,40 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         ),
                         label: Text(AppLocalizations.of(context)!.gallery_img),
                       ),
-                      status.isEmpty
-                          ? Center(
+                          status==''&&imageFile==null&&imageAS==''&&imageAddSub==null
+                              ? Center(
                               child: Text(AppLocalizations.of(context)!.no_img))
-                          : imageAS.isEmpty
+                              :imageFile!=null&&status==''&&imageAS==''&&imageAddSub==null?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Selected image :'),
+                              Icon(Icons.check_circle,color: Colors.green,)
+                            ],
+                          )
+                      :status.isNotEmpty&&imageAS==''
                               ? Stack(
                                   alignment: Alignment.topRight,
                                   children: [
-                                    Image.network(
-                                      status,
+                                    CachedNetworkImage(
+                                      imageUrl: status!,
                                       width: MediaQuery.of(context).size.width,
                                       height: 310,
+                                      placeholder: (context, url) => Center(
+                                          child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                     ),
                                     InkWell(
-                                        onTap: () {
-                                          ApiManager.delRegiserationForm(id!);
+                                        onTap: ()async {
+                                          final pref=await SharedPreferences.getInstance();
+                                          var dd=await ApiManager.delRegiserationFormre(id!);
+                                          if(dd.statusCode==200){
+                                            status='';
+                                            imageFile=null;
+                                            pref.setString('status'+email, '');
                                           setState(() {
-                                            selected = '';
-                                            status = '';
-                                          });
+                                          });}
                                         },
                                         child: Icon(
                                           Icons.clear,
@@ -206,57 +240,74 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 )
                               : Row(
                                   children: [
-                                    Stack(
-                                      alignment: Alignment.topRight,
-                                      children: [
-                                        Image.network(
-                                          status,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          height: 310,
-                                        ),
-                                        InkWell(
-                                            onTap: () {
-                                              ApiManager.delRegiserationForm(
-                                                  id!);
-                                              setState(() {
-                                                status = '';
-                                              });
-                                            },
-                                            child: Icon(
-                                              Icons.clear,
-                                              color: Colors.red,
-                                            ))
-                                      ],
+                                    Expanded(
+                                      child: Stack(
+                                        alignment: Alignment.topRight,
+                                        children: [
+                                          CachedNetworkImage(
+                                            imageUrl: status!,
+                                            height: 310,
+                                            placeholder: (context, url) => Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
+                                          ),
+                                          InkWell(
+                                              onTap: () async{
+                                                final pref=await SharedPreferences.getInstance();
+                                               var s=await ApiManager.delRegiserationFormre(id!
+                                               );
+                                               if(s.statusCode==200){
+                                                 imageFile=null;
+                                                 status='';
+                                                 pref.setString('status'+email, '');
+                                                 pref.setString('imageAS'+email, '');
+                                                setState(() {
+
+                                                });}
+                                              },
+                                              child: Icon(
+                                                Icons.clear,
+                                                color: Colors.red,
+                                              ))
+                                        ],
+                                      ),
                                     ),
-                                    Stack(
-                                      alignment: Alignment.topRight,
-                                      children: [
-                                        Image.network(
-                                          imageAS,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          height: 310,
-                                        ),
-                                        InkWell(
-                                            onTap: () {
-                                              ApiManager.delRegiserationForm(
-                                                  id!);
-                                              setState(() {
-                                                selected = '';
-                                                imageAS = '';
-                                                status = '';
-                                              });
-                                            },
-                                            child: Icon(
-                                              Icons.clear,
-                                              color: Colors.red,
-                                            ))
-                                      ],
+                                    Expanded(
+                                      child: Stack(
+                                        alignment: Alignment.topRight,
+                                        children: [
+                                          CachedNetworkImage(
+                                            imageUrl: imageAS!,
+                                            height: 310,
+                                            placeholder: (context, url) => Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
+                                          ),
+                                          InkWell(
+                                              onTap: () async{
+                                                final pref=await SharedPreferences.getInstance();
+                                                var s=await ApiManager.delRegiserationFormda(id!);
+                                                print(s.statusCode);
+                                                if(s.statusCode==200){
+                                                  pref.setString('status'+email, '');
+                                                  pref.setString('imageAS'+email, '');
+                                                  setState(() {
+                                                    imageAddSub=null;
+                                                    imageAS='';
+                                                  });}
+                                              },
+                                              child: Icon(
+                                                Icons.clear,
+                                                color: Colors.red,
+                                              ))
+                                        ],
+                                      ),
                                     )
                                   ],
                                 ),
@@ -310,11 +361,18 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                                     .semester1),
                                               ],
                                             ),
-                                            onTap: () {
-                                              setState(() {
-                                                selected = '1';
+                                            onTap: () async{
+                                              final pref =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                              pref.setInt('semester' + email,
+                                                  int.parse(year + '1'));
+                                              SY=pref.getInt('semester' + email);
+                                              selected = '1';
+                                              setState(()  {
+
                                               });
-                                              Navigator.pop(context, selected);
+                                              Navigator.pop(context);
                                             }),
                                         SizedBox(
                                           height: 8,
@@ -327,10 +385,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                                     .semester2),
                                               ],
                                             ),
-                                            onTap: () {
+                                            onTap: () async {
+                                              final pref =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              pref.setInt('semester' + email,
+                                                  int.parse(year + '2'));
+                                              SY=pref.getInt('semester' + email);
                                               selected = '2';
                                               setState(() {});
-                                              Navigator.pop(context, selected);
+                                              Navigator.pop(context);
                                             }),
                                       ],
                                     );
@@ -338,10 +402,24 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           setState(() {});
                         },
                         child: Center(
-                            child: Text('Semester is : ${year + selected}')),
+                            child: Text(
+                                'Semester is : ${SY != null ? SY.toString() : year + selected}')),
                       ),
                       OutlinedButton(
                         onPressed: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => StatefulBuilder(
+                                      builder: (context, StateSetter setState) {
+                                    return SimpleDialog(
+                                        title: Container(
+                                            padding: EdgeInsets.all(10),
+                                            child: Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )));
+                                  }));
                           validate();
                         },
                         child: Text(AppLocalizations.of(context)!.upload_img),
@@ -376,9 +454,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
               children: [
                 ...List.generate(4, (index) {
                   return InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      final pref = await SharedPreferences.getInstance();
                       setState(() {
                         year = (1 + index).toString();
+                        pref.setInt(
+                            'semester' + email, int.parse(year + selected));
+                        SY=pref.getInt('semester' + email);
                         Navigator.pop(context, year);
                       });
                     },
@@ -400,19 +482,55 @@ class _RegistrationFormState extends State<RegistrationForm> {
     );
   }
 
-  void validate() async {
-    RegisterationFormModel data = await ApiManager.storeRegisterationForm(
-        imageFile!, year + selected, imageAddSub);
-    if (data.success == true) {
+  void vaildateAdd_Sub() async {
+    if (imageAddSub == null) {
+      Navigator.pop(context);
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('image is uploaded')));
-      id = data.payload!.id;
-      print('===============>data send ${data.payload!.id}');
-      showImage();
+          .showSnackBar(SnackBar(content: Text('No image exist')));
     } else {
+      RegisterationFormModel data = await ApiManager.storeRegisterationFormda(
+          imageAddSub!, year + selected);
+      if (data.success == true) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('image is uploaded')));
+        id = data.payload!.id;
+        print('===============>data send ${data.payload!.id}');
+        showImage();
+        setState(() {});
+      } else {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('something error')));
+        print('===============>errorData ${data.message}');
+      }
+    }
+  }
+
+  void validate() async {
+    if (imageFile == null) {
+      Navigator.pop(context);
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('something error')));
-      print('===============>errorData ${data.message}');
+          .showSnackBar(SnackBar(content: Text('No image exist')));
+    } else {
+      RegisterationFormModel data = await ApiManager.storeRegisterationFormre(
+          imageFile!, year + selected);
+      if (data.success == true) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('image is uploaded')));
+        id = data.payload!.id;
+        print('===============>data send ${data.payload!.id}');
+        showImage();
+        setState(() {});
+      } else {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('something error')));
+        print('===============>errorData ${data.message}');
+      }
     }
   }
 }

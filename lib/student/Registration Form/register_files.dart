@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import'dart:io';
 
 class RegisterFiles extends StatelessWidget {
 String fileName;
@@ -12,7 +12,11 @@ RegisterFiles(this.fileName,this.callBack,this.index);
     return Stack(
         alignment: Alignment.topRight,
         children: [
-          Image.network(fileName,),
+          CachedNetworkImage(
+            imageUrl: fileName,
+            placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
         InkWell(
             onTap:() {
             callBack(index);

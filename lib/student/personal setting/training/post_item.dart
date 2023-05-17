@@ -17,7 +17,6 @@ class PostItem extends StatelessWidget {
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),
         decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(blurRadius: 5, color: Colors.grey.withOpacity(0.5))
@@ -118,8 +117,6 @@ class PostItem extends StatelessWidget {
                 )),
                 CachedNetworkImage(
                   imageUrl: 'https://' + ApiManager.base + '/' + img!,
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  width: MediaQuery.of(context).size.width * 0.35,
                   placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),

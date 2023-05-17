@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/student/Settingst/setting.dart';
 import 'package:project/student/login&signUp/student_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'account_seeting.dart';
 import 'resetPassWord.dart';
 
@@ -12,13 +13,26 @@ class SettingsPageSt extends StatefulWidget {
   _SettingsPageStState createState() => _SettingsPageStState();
 }
 
+
 class _SettingsPageStState extends State<SettingsPageSt> {
+  @override
+  String? name;
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    inti();
+  }
+  inti()async{
+    final pref= await SharedPreferences.getInstance();
+    name=pref.getString('email')??"";
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title:   Text(
-          AppLocalizations.of(context)!.setting,
+         AppLocalizations.of(context)!.setting
         ),
       ),
       body: Container(
@@ -34,10 +48,13 @@ class _SettingsPageStState extends State<SettingsPageSt> {
                 SizedBox(
                   width: 8,
                 ),
-                Text(
-                AppLocalizations.of(context)!.account,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                  AppLocalizations.of(context)!.account,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
+                Text(name??"")
               ],
             ),
             Divider(

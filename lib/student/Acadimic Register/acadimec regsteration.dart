@@ -23,7 +23,8 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   String selected = '1';
   String year = '1';
   File? imageFile;
-  String lastfile ='';
+  List<String> lastfile =[];
+  List<int> idss =[];
   String status = '';
   var pickedFile;
   int? id;
@@ -47,9 +48,11 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   GetAcademicRegistryApi data = GetAcademicRegistryApi();
 
   void showImage() async {
+    final pref= await SharedPreferences.getInstance();
     data = await ApiManager.getShowAcademicRegistry(id ?? 0);
     print('---------------------->${data.payload!.id!}');
-    status = 'https://' + ApiManager.base + '/' + data.payload!.image!;
+    status = pref.getString('acadimic'+email)??'';
+    lastfile=pref.getStringList('imagelist')??[];
     setState(() {});
   }
 
@@ -65,6 +68,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     token = pref.getString('token') ?? '0';
     email = pref.getString('email')!;
     password = pref.getString('password')!;
+    lastfile=pref.getStringList('imagelist')??[];
   }
 
   @override
@@ -107,31 +111,46 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
                       ),
                       label: Text(AppLocalizations.of(context)!.gallery_img),
                     ),
-                    imageFile==null
+                    imageFile==null&&status==''&&lastfile.isEmpty
                         ? Center(child: Text(AppLocalizations.of(context)!.no_img))
-                        :status.isEmpty?Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                        : status==''&&lastfile.isEmpty
+                        ?
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Seleted image :'),
+                        Icon(Icons.check_circle,color: Colors.green,)
+                      ],
+                    ):
+                    Expanded(child: ListView.builder(
+                      scrollDirection: Axis.horizontal,itemCount: lastfile.length,
+                      itemBuilder: (_,index){
+                        return Row(
                           children: [
-                            Text('Image selection : '),
-                            Icon(Icons.check_circle,color: Colors.green,),
+                            RegisterFiles(lastfile[index].split('#')[0],(c)async{
+                              final pref=await SharedPreferences.getInstance();
+                              print('data===============>{}');
+                              print(lastfile[index]);
+                             var ddddd=await ApiManager.delAcadimicRegistery( int.parse(lastfile[index].split('#')[1]));
+                             if(ddddd==200){
+                               print('dele    ${ApiManager.imagesAc[index].split('#')[1]}');
+                             setState(() {
+                                lastfile.removeAt(index);
+                                ApiManager.imagesAc.removeAt(index);
+                                if(lastfile.length==0){
+                              imageFile=null;
+                              status='';
+                                }
+                                pref.setStringList('imagelist', lastfile);
+                              });}
+                             else {
+                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error when deletion')));
+                             }
+                            },index),
+                            SizedBox(width: 8,)
                           ],
-                        ):
-                    Expanded(
-                        child: Row(
-                          children: [
-                            RegisterFiles(status, (id)async {
-                            int sc= await ApiManager.delAcadimicRegistery(id);
-                            if(sc==200){
-                              setState(() {
-                                status='';
-                              });
-                            }}, id??0),
-                            SizedBox(
-                              width: 8,
-                            )
-                          ],
-                        )
-                    ),
+                        );
+                      },
+                    )),
                     SizedBox(
                       height: 10.0,
                     ),

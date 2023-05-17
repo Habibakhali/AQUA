@@ -55,9 +55,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final pref = await SharedPreferences.getInstance();
   home = (pref.getString('category') == 'student' &&
-          pref.getString('token') != null)
+          pref.getString('token') != "")
       ? HomeScreenStudent.routeName
-      : HomeScreenGrd.routeName;
+      : (pref.getString('category') == 'graduated' &&
+      pref.getString('token') != "")?HomeScreenGrd.routeName: (pref.getString('category') == 'student' &&
+      pref.getString('token') == "")?StudentLogin.routeName:GraduatedLogIn.routeName;
   runApp(ChangeNotifierProvider<SettingProvider>(
       create: (buildContext) {
         return SettingProvider();
