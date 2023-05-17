@@ -146,20 +146,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               SizedBox(
                 height: 10,
               ),
-              BuildTextField(
-                  AppLocalizations.of(context)!.prof_name,
-                  AppLocalizations.of(context)!.hint_prof_name,
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  AppLocalizations.of(context)!.email_label,
-                  "30010548@sci.asu.edu.eg",
-                  false,
-                  true,
-                  TextInputType.emailAddress),
-              BuildTextField(AppLocalizations.of(context)!.password_label,
-                  "**********", false, true, TextInputType.visiblePassword),
+
               BuildTextField(AppLocalizations.of(context)!.phone, "0100057256",
     false, false, TextInputType.number),
               BuildTextField(
@@ -174,6 +161,48 @@ class _ProfileGrdState extends State<ProfileGrd> {
                 onTap: _selDatePicker,
                 controller: txtController,
               ),
+              BuildTextField(
+                  "graduation batch",
+                 "Enter your graduation batch",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "department",
+                  "Enter your department",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "specialization",
+                  "Enter your specialization",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "scientific degree",
+                  "Enter scientific degree",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "Gpa",
+                  "Enter your gpa",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "courses",
+                  "Enter your courses",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "awards",
+                  "Enter your awards",
+                  false,
+                  false,
+                  TextInputType.text),
               Container(
                 margin: EdgeInsets.only(top: 20),
                 child :InkWell(
@@ -196,23 +225,54 @@ class _ProfileGrdState extends State<ProfileGrd> {
                 ),),
     SizedBox(height: 20,),
     BuildTextField(
-    AppLocalizations.of(context)!.current_job,
-    AppLocalizations.of(context)!.hint_current_job,
+    AppLocalizations.of(context)!.job_title,
+    AppLocalizations.of(context)!.job_title_hint,
     false,
     false,
     TextInputType.text),
     BuildTextField(
-    AppLocalizations.of(context)!.employer,
-    AppLocalizations.of(context)!.hint_employer,
+    AppLocalizations.of(context)!.start_date,
+    AppLocalizations.of(context)!.start_date_hint,
     false,
     false,
     TextInputType.text),
     BuildTextField(
-    AppLocalizations.of(context)!.last_job,
-    AppLocalizations.of(context)!.hint_last_job,
+    AppLocalizations.of(context)!.end_date,
+    AppLocalizations.of(context)!.end_date_hint,
     false,
     false,
     TextInputType.text),
+              BuildTextField(
+              "company name",
+                  "company name",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "company email",
+                  "company email",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "company name",
+                  "company name",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "company address",
+                  "company address",
+                  false,
+                  false,
+                  TextInputType.text),
+              BuildTextField(
+                  "company type",
+                  "company type",
+                  false,
+                  false,
+                  TextInputType.text),
+
               TextButton(
                 onPressed: () async {
                   const url = 'https://docs.google.com/forms/d/e/1FAIpQLSc9AXGfkkO0AJzTdPPh5iQwpKEs0O51FW96BAHemQ8pcdg91A/viewform';

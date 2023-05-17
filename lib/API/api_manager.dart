@@ -166,8 +166,10 @@ return r;
     );
     print('---------------->${res.statusCode}');
     print('---------------->${res.body}');
+
 return res;
   }
+
   //to know account which i send code to this
   static Future<ForgetPassStudent> RequestCodeToForgetPassStudent(String email)async{
     var url=Uri.https(base,'/api/auth/requestPinCode');
@@ -533,6 +535,29 @@ static void storeCourses(String cCode,String cName,int cHour,String cPrereq,int 
     }));
     return response;
   }
+  /*static Future<StoreGradExper> storeGraduateEperience(String jobTitle, String startDate, String endDate,String companyId){
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.https(base,'/api/graduateExperiences');
+    http.Response response=await http.post(url,headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')}"
+
+    },
+        body: jsonEncode({
+          "job_title":jobTitle,
+          "start_date":startDate,
+          "end_date":endDate,
+          "company_id":companyId,
+
+        }));
+
+    print('refresh ===============> ${response.statusCode}');
+    var json=jsonDecode(response.body);
+    var res=StoreGradExper.fromJson(json);
+    return res;
+  }*/
+
   static Future<List<PayloadcourseReservation>?> getCourseReservation()async{
     final pref=await SharedPreferences.getInstance();
     var url=Uri.parse('https://'+base+'/api/courseReservation');
