@@ -194,5 +194,13 @@
   "age": "Age",
   "age_hint": "Enter your age",
   "data":"Data",
-  "office_hours":"Office Hours"
+  "office_hours":"Office Hours",
+  "job_title":"Job title",
+    "start_date":"Start date",
+      "end_date":"End date",
+      "company_id":"Company id",
+       "job_title_hint":"Enter Job title",
+          "start_date_hint":"Enter Start date",
+            "end_date_hint":"Enter End date",
+            "company_id_hint":"Enter Company id"
 }
