@@ -3,6 +3,7 @@ import 'package:project/student/Acadimic%20Register/acadimec%20regsteration.dart
 import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../personal setting/setting_page.dart';
 import '../personal setting/training/training.dart';
 
@@ -27,7 +28,9 @@ int index=0;
             icon: Icon(
               Icons.more_vert,
             ),
-            onPressed: () {
+            onPressed: () async{
+final pref=await SharedPreferences.getInstance();
+pref.setString('token', "");
               Navigator.pushNamed(context, SettingsPageSt.routeName);
             },
           ),

@@ -23,6 +23,8 @@ import 'Models/get_curses.dart';
 
 class ApiManager{
   static String base='aqua.larasci.site';
+  static int id=0;
+  static List<String>imagesAc=[];
   static Future<Register> postRegisterStud(String userName, String email, String pass, String confi_pass,String id,String phone,String year) async {
     var URL = Uri.https(base, '/api/auth/register');
     http.Response signUp = await http.post(
@@ -274,6 +276,7 @@ return res;
       print('acess_token: ${data.accessToken}');
       pref.setString('token', data.accessToken!);
     }
+    print(response.body);
     var json=jsonDecode(response.body);
     var res=PostAcademicRegistryApi.fromJson(json);
     return res;
@@ -292,6 +295,17 @@ return res;
     }
     var json=jsonDecode(respons.body);
 var res=GetAcademicRegistryApi.fromJson(json);
+    if(respons.statusCode==200){
+      pref.setString( 'acadimic'+pref.getString('email')!, 'https://' + ApiManager.base + '/' + res.payload!.image!);
+      pref.setInt('semester'+pref.getString('email')!,res.payload!.semester! );
+      pref.setInt('idacadimic'+pref.getString('email')!,res.payload!.id!);
+      String image=pref.getString( 'acadimic'+pref.getString('email')!)??'';
+      String iid=res.payload!.id!.toString();
+      String value=image+'#'+iid;
+      imagesAc=pref.getStringList('imagelist')??[];
+      imagesAc.insert(imagesAc.length,  value);
+      pref.setStringList('imagelist', imagesAc);
+    }
 return res;
   }
   static Future<int> delAcadimicRegistery(int id)async{
@@ -307,24 +321,50 @@ return res;
       LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
       pref.setString('token',data.accessToken!);
     }
+
     return response.statusCode;
   }
-  static Future<RegisterationFormModel> storeRegisterationForm(File imageFile,String semester,File? imageAddSub)async{
-    var uri=Uri.https(base,'/api/registertionForms');
+  static Future<RegisterationFormModel> storeRegisterationFormre(File imageFile,String semester)async{
+    var uri=Uri.https(base,'/api/registertionForms',{
+    'mode':'re'
+    });
     final pref=await SharedPreferences.getInstance();
     var multipartFile =  await http.MultipartFile.fromPath('re_image', imageFile.path);
-    var deImage =  imageAddSub!=null?await http.MultipartFile.fromPath('da_image', imageAddSub.path):null;
     Map<String, String> headers = {
       "Accept": "application/json",
       "Authorization": "Bearer ${pref.getString('token')??""}"
     };
     var request = http.MultipartRequest('POST',uri)
-
+      ..fields.addAll({
+        'semester':semester,})
+      ..headers.addAll(headers)
+      ..files.add(multipartFile);
+    http.Response response = await http.Response.fromStream( await request.send());
+    print('status Code: ${response.statusCode}');
+    print ('body :${response.body}');
+    var json=jsonDecode(response.body);
+    var res=RegisterationFormModel.fromJson(json);
+    if(response.statusCode==401){
+      LoginStudentApi ss=await ApiManager.RefrsghJWT(pref.getString('email')!, pref.getString('password')!, pref.getString('token')!);
+      pref.setString('token',ss.accessToken??'');
+    }
+    return res;
+  }
+  static Future<RegisterationFormModel> storeRegisterationFormda(File imageFile,String semester)async{
+    var uri=Uri.https(base,'/api/registertionForms',{
+    'mode':'da'
+    });
+    final pref=await SharedPreferences.getInstance();
+    var multipartFile =  await http.MultipartFile.fromPath('da_image', imageFile.path);
+    Map<String, String> headers = {
+      "Accept": "application/json",
+      "Authorization": "Bearer ${pref.getString('token')??""}"
+    };
+    var request = http.MultipartRequest('POST',uri)
       ..fields.addAll({
         'semester':semester,
       })..headers.addAll(headers)
         ..files.add(multipartFile);
-    (deImage!=null)? request.files.add(deImage!): print('');
     http.Response response = await http.Response.fromStream( await request.send());
     print('status Code: ${response.statusCode}');
     var json=jsonDecode(response.body);
@@ -345,16 +385,52 @@ return res;
     }
     var json=jsonDecode(respons.body);
     var res=GetRegisterationFormModel.fromJson(json);
+    if(respons.statusCode==200){
+      pref.setString( 'status'+pref.getString('email')!, 'https://' + ApiManager.base + '/' + res.payload!.reImage!);
+      pref.setInt('semester'+pref.getString('email')!,res.payload!.semester??11 );
+      res.payload!.daImage != null
+          ? pref.setString('imageAS'+pref.getString('email')!,
+          'https://' + ApiManager.base + '/' + res.payload!.daImage!)
+          : print('');
+      pref.setInt('id'+pref.getString('email')!,res.payload!.id!);
+      print( pref.getInt('id'+pref.getString('email')!));
+    }
     return res;
   }
-  static Future<http.Response> delRegiserationForm(int id)async{
-    var url=Uri.https(base,'/api/registertionForms/$id');
+  static Future<http.Response> delRegiserationFormre(int id)async{
+    var url=Uri.https(base,'/api/registertionForms/$id',{
+      'mode':'re'
+    });
     final pref=await SharedPreferences.getInstance();
     http.Response response=await http.delete(url,
         headers: {
           "Accept": "application/json",
           "Authorization": "Bearer ${pref.getString('token')??""}"
         });
+    if(response.statusCode==200){
+      pref.setString( 'status'+pref.getString('email')!, '');
+      pref.setString('imageAS'+pref.getString('email')!,'');
+    }
+    if(response.statusCode==401){
+      LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
+      pref.setString('token',data.accessToken!);
+    }
+    return response;
+  }
+  static Future<http.Response> delRegiserationFormda(int id)async{
+    var url=Uri.https(base,'/api/registertionForms/$id',{
+      'mode':'da'
+    });
+    final pref=await SharedPreferences.getInstance();
+    http.Response response=await http.delete(url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer ${pref.getString('token')??""}"
+        });
+    if(response.statusCode==200){
+      pref.setString( 'status'+pref.getString('email')!, '');
+      pref.setString('imageAS'+pref.getString('email')!,'');
+    }
     if(response.statusCode==401){
       LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
       pref.setString('token',data.accessToken!);
@@ -387,11 +463,7 @@ return res;
       "Accept": "application/json",
       "Content-Type": "application/json",
       "Authorization": "Bearer $token"
-    },
-    body: jsonEncode({
-      'email':email,
-      'password':pass
-    }));
+    },);
     print('refresh ===============> ${response.statusCode}');
     var json=jsonDecode(response.body);
     var res=LoginStudentApi.fromJson(json);
@@ -407,10 +479,12 @@ http.Response respons=await http.get(url,headers: {
 });
 if(respons.statusCode==401){
   LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
-  pref.setString('token', data.accessToken!);
+  pref.setString('token', data.accessToken??'');
 }
 print(respons.statusCode);
-List<Payloadd> name = GetCourses.fromJson(jsonDecode(respons!.body)).payload!;
+List<Payloadd> name=[];
+if(respons.statusCode==200)
+name = GetCourses.fromJson(jsonDecode(respons!.body)).payload!;
 return name;
 }
 // i add any course and not need usse response

@@ -11,7 +11,6 @@ import '../../../API/api_manager.dart';
 
 class ContentBottomSheet extends StatefulWidget {
   bool visible = false;
-
   ContentBottomSheet();
 
   @override
@@ -137,8 +136,9 @@ validate()async{
   if (formKey.currentState?.validate() == true) {
     http.Response data=await ApiManager.storeActivity(title.text, description.text, imageFile);
     print(data.body);
-    if(data.statusCode==200)
+    if(data.statusCode==200){
     Navigator.pop(context);
+    }
     else{
       var json=jsonDecode(data.body);
       StoreActivity res=StoreActivity.fromJson(json);

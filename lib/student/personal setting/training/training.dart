@@ -18,9 +18,7 @@ class _TrainingState extends State<Training> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
             BottomSheetInsertion();
-          });
         },
         child: Icon(Icons.add),
       ),
@@ -50,7 +48,7 @@ class _TrainingState extends State<Training> {
                           ),
                         );
                       else {
-                        Future.delayed(Duration(seconds: 15),(){
+                        Future.delayed(Duration(seconds: 20),(){
                           setState(() {
 
                           });
