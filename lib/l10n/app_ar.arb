@@ -190,6 +190,15 @@
   "age": "السن",
   "age_hint": "ادخل سنك",
     "data":"البيانات",
-    "office_hours":"الساعات المكتبة"
+    "office_hours":"الساعات المكتبة",
+    "job_title":"عنوان العمل",
+    "start_date":"بداية العمل",
+    "end_date":"نهاية العمل",
+    "company_id":"هوية الشركة",
+      "job_title_hint":"ادخل عنوان العمل",
+        "start_date_hint":"ادخل بداية العمل",
+        "end_date_hint":"ادخل نهاية العمل",
+        "company_id_hint":"ادخل هوية الشركة"
+
 
 }
