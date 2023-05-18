@@ -50,310 +50,263 @@ class _ProfileGrdState extends State<ProfileGrd> {
   @override
   Widget build(BuildContext context) {
     FilePickerResult? fileload;
-    return  Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: ListView(
-            children: [
-              /*Text(
+    return Container(
+      padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: ListView(
+          children: [
+            /*Text(
                 "Edit Profile",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
               ),
               SizedBox(
                 height: 15,
               ),*/
-              Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor),
-                        boxShadow: [
-                          BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1),
-                              offset: Offset(0, 10))
-                        ],
-                        shape: BoxShape.circle,
-                        /*image: DecorationImage(
+            Center(
+              child: Stack(
+                children: [
+                  Container(
+                    width: 130,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 4,
+                          color: Theme.of(context).scaffoldBackgroundColor),
+                      boxShadow: [
+                        BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10))
+                      ],
+                      shape: BoxShape.circle,
+                      /*image: DecorationImage(
                               fit: BoxFit.cover,
              image: Image.asset('assets/images/boy.png'),
                     ),*/
-                      ),
-                      child: _image != null
-                          ? CircleAvatar(
-                              backgroundImage: FileImage(File(_image!.path)))
-                          : Image.asset('assets/images/qa.png'),
                     ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
-                            color: Colors.blue,
+                    child: _image != null
+                        ? CircleAvatar(
+                            backgroundImage: FileImage(File(_image!.path)))
+                        : Image.asset('assets/images/qa.png'),
+                  ),
+                  Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 4,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                           ),
-                          child: IconButton(
-                            color: Colors.white,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Expanded(
-                                    child: SimpleDialog(
-                                      title: const Text('Choose Image'),
-                                      children: <Widget>[
-                                        SimpleDialogOption(
-                                          onPressed: () {
-                                            pickImage(ImageSource.gallery);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('From gallery'),
-                                        ),
-                                        SimpleDialogOption(
-                                          onPressed: () {
-                                            pickImage(ImageSource.camera);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('From camera'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            icon: Icon(Icons.edit),
-                          ),
-                        )),
-                  ],
+                          color: Colors.blue,
+                        ),
+                        child: IconButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Expanded(
+                                  child: SimpleDialog(
+                                    title: const Text('Choose Image'),
+                                    children: <Widget>[
+                                      SimpleDialogOption(
+                                        onPressed: () {
+                                          pickImage(ImageSource.gallery);
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('From gallery'),
+                                      ),
+                                      SimpleDialogOption(
+                                        onPressed: () {
+                                          pickImage(ImageSource.camera);
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('From camera'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(Icons.edit),
+                        ),
+                      )),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            BuildTextField(AppLocalizations.of(context)!.phone, "0100057256",
+                false, false, TextInputType.number),
+            BuildTextField(
+                AppLocalizations.of(context)!.location,
+                AppLocalizations.of(context)!.address,
+                false,
+                false,
+                TextInputType.streetAddress),
+            TextField(
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.birth_date),
+              onTap: _selDatePicker,
+              controller: txtController,
+            ),
+            BuildTextField("graduation batch", "Enter your graduation batch",
+                false, false, TextInputType.text),
+            BuildTextField("department", "Enter your department", false, false,
+                TextInputType.text),
+            BuildTextField("specialization", "Enter your specialization", false,
+                false, TextInputType.text),
+            BuildTextField("scientific degree", "Enter scientific degree",
+                false, false, TextInputType.text),
+            BuildTextField(
+                "Gpa", "Enter your gpa", false, false, TextInputType.text),
+            BuildTextField("courses", "Enter your courses", false, false,
+                TextInputType.text),
+            BuildTextField("awards", "Enter your awards", false, false,
+                TextInputType.text),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: InkWell(
+                onTap: () async {
+                  fileload = await FilePicker.platform.pickFiles(
+                    type: FileType.custom,
+                    allowedExtensions: ['pdf', 'doc'],
+                  );
+                },
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    enabled: false,
+                    errorStyle: TextStyle(color: Colors.red),
+                    labelText: AppLocalizations.of(context)!.cv,
+                    labelStyle: Theme.of(context).textTheme.bodyMedium,
+                    prefixIcon: Icon(Icons.upload_outlined),
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 10,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            BuildTextField(
+                AppLocalizations.of(context)!.job_title,
+                AppLocalizations.of(context)!.job_title_hint,
+                false,
+                false,
+                TextInputType.text),
+            BuildTextField(
+                AppLocalizations.of(context)!.start_date,
+                AppLocalizations.of(context)!.start_date_hint,
+                false,
+                false,
+                TextInputType.text),
+            BuildTextField(
+                AppLocalizations.of(context)!.end_date,
+                AppLocalizations.of(context)!.end_date_hint,
+                false,
+                false,
+                TextInputType.text),
+            BuildTextField("company name", "company name", false, false,
+                TextInputType.text),
+            BuildTextField("company email", "company email", false, false,
+                TextInputType.text),
+            BuildTextField("company name", "company name", false, false,
+                TextInputType.text),
+            BuildTextField("company address", "company address", false, false,
+                TextInputType.text),
+            BuildTextField("company type", "company type", false, false,
+                TextInputType.text),
+            TextButton(
+              onPressed: () async {
+                const url =
+                    'https://docs.google.com/forms/d/e/1FAIpQLSc9AXGfkkO0AJzTdPPh5iQwpKEs0O51FW96BAHemQ8pcdg91A/viewform';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+              child: Text(
+                AppLocalizations.of(context)!.qa,
+                style: Theme.of(context).textTheme.headlineMedium,
+                textAlign: TextAlign.center,
               ),
-
-              BuildTextField(AppLocalizations.of(context)!.phone, "0100057256",
-    false, false, TextInputType.number),
-              BuildTextField(
-                  AppLocalizations.of(context)!.location,
-                  AppLocalizations.of(context)!.address,
-                  false,
-                  false,
-                  TextInputType.streetAddress),
-              TextField(
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.birth_date),
-                onTap: _selDatePicker,
-                controller: txtController,
-              ),
-              BuildTextField(
-                  "graduation batch",
-                 "Enter your graduation batch",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "department",
-                  "Enter your department",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "specialization",
-                  "Enter your specialization",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "scientific degree",
-                  "Enter scientific degree",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "Gpa",
-                  "Enter your gpa",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "courses",
-                  "Enter your courses",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "awards",
-                  "Enter your awards",
-                  false,
-                  false,
-                  TextInputType.text),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child :InkWell(
-                  onTap: ()async {
-                    fileload=await FilePicker.platform.pickFiles(
-                      type: FileType.custom,
-                      allowedExtensions: ['pdf', 'doc'],
-                    );
-                  },
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      enabled: false,
-                      errorStyle: TextStyle(color: Colors.red),
-                      labelText: AppLocalizations.of(context)!.cv,
-                      labelStyle: Theme.of(context).textTheme.bodyMedium,
-                      prefixIcon: Icon(Icons.upload_outlined),
-
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    elevation: MaterialStateProperty.all(1),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
                     ),
                   ),
-                ),),
-    SizedBox(height: 20,),
-    BuildTextField(
-    AppLocalizations.of(context)!.job_title,
-    AppLocalizations.of(context)!.job_title_hint,
-    false,
-    false,
-    TextInputType.text),
-    BuildTextField(
-    AppLocalizations.of(context)!.start_date,
-    AppLocalizations.of(context)!.start_date_hint,
-    false,
-    false,
-    TextInputType.text),
-    BuildTextField(
-    AppLocalizations.of(context)!.end_date,
-    AppLocalizations.of(context)!.end_date_hint,
-    false,
-    false,
-    TextInputType.text),
-              BuildTextField(
-              "company name",
-                  "company name",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "company email",
-                  "company email",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "company name",
-                  "company name",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "company address",
-                  "company address",
-                  false,
-                  false,
-                  TextInputType.text),
-              BuildTextField(
-                  "company type",
-                  "company type",
-                  false,
-                  false,
-                  TextInputType.text),
-
-              TextButton(
-                onPressed: () async {
-                  const url = 'https://docs.google.com/forms/d/e/1FAIpQLSc9AXGfkkO0AJzTdPPh5iQwpKEs0O51FW96BAHemQ8pcdg91A/viewform';
-                  if (await canLaunch(url)) {
-                  await launch(url);
-                  } else {
-                  throw 'Could not launch $url';}},
-                child: Text(
-                  AppLocalizations.of(context)!.qa,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  textAlign: TextAlign.center,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(AppLocalizations.of(context)!.cancel,
+                      style: TextStyle(
+                          fontSize: 14,
+                          letterSpacing: 2.2,
+                          color: Colors.blue)),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
+                ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                      elevation: MaterialStateProperty.all(1),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
+                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                        elevation: MaterialStateProperty.all(1),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                        ),
-                      ),
-                    ),
+                        ))),
                     onPressed: () {
-                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Text(
+                                AppLocalizations.of(context)!.dialog_sucesse),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.ok,
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
-                    child: Text(AppLocalizations.of(context)!.cancel,
+                    child: Text(AppLocalizations.of(context)!.save,
                         style: TextStyle(
                             fontSize: 14,
                             letterSpacing: 2.2,
-                            color: Colors.blue)),
-                  ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.blue),
-                          elevation: MaterialStateProperty.all(1),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ))),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Text(
-                                  AppLocalizations.of(context)!.dialog_sucesse),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-
-                                  },
-                                  child: Text(
-                                    AppLocalizations.of(context)!.ok,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: Text(AppLocalizations.of(context)!.save,
-                          style: TextStyle(
-                              fontSize: 14,
-                              letterSpacing: 2.2,
-                              color: Colors.white))),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              )
-            ],
-          ),
+                            color: Colors.white))),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            )
+          ],
         ),
+      ),
     );
   }
 
@@ -405,4 +358,5 @@ class _ProfileGrdState extends State<ProfileGrd> {
             )),
       ),
     );
-  }}
+  }
+}

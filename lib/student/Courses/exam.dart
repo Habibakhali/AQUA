@@ -10,8 +10,7 @@ class Exam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:SafeArea(
-            child:
+        body:SafeArea(child:
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: SingleChildScrollView(

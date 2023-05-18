@@ -237,6 +237,17 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
                         ]),
                     OutlinedButton(
                       onPressed: () {
+                        showDialog(context: context, barrierDismissible: false,
+                            builder: (context) => StatefulBuilder(
+                                builder: (context, StateSetter setState) {
+                                  return SimpleDialog(
+                                      title: Container(
+                                          padding: EdgeInsets.all(10),
+                                          child: Center(
+                                            child:
+                                            CircularProgressIndicator(),
+                                          )));
+                                }));
                         validate();
                       },
                       child: Text(AppLocalizations.of(context)!.upload_img),
@@ -304,13 +315,15 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
       data = await ApiManager.storeAcademicRegistry(imageFile!, year+selected);
     else
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('something error')));
+          .showSnackBar(SnackBar(content: Text('Image not exist')));
     if (data.success == true) {
+      Navigator.pop(context);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('image is uploaded')));
       id = data.payload!.id;
       showImage();
     } else {
+      Navigator.pop(context);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('something error')));
     }

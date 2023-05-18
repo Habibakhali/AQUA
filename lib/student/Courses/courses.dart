@@ -346,7 +346,6 @@ class _CoursesState extends State<Courses> {
                                         context,
                                         CourseSelected.routeName,
                                       );
-//                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("something went wrong")));
                                     },
                                     child: Text(
                                         AppLocalizations.of(context)!.select)),

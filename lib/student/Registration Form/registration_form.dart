@@ -407,9 +407,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       ),
                       OutlinedButton(
                         onPressed: () {
-                          showDialog(
-                              context: context,
-                              barrierDismissible: false,
+                          showDialog(context: context, barrierDismissible: false,
                               builder: (context) => StatefulBuilder(
                                       builder: (context, StateSetter setState) {
                                     return SimpleDialog(

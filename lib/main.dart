@@ -54,12 +54,20 @@ String? home;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final pref = await SharedPreferences.getInstance();
-  home = (pref.getString('category') == 'student' &&
-          pref.getString('token') != "")
-      ? HomeScreenStudent.routeName
+  home = (pref.getString('category') == 'graduated' &&
+          pref.getString('token') == "")
+      ? GraduatedLogIn.routeName
       : (pref.getString('category') == 'graduated' &&
-      pref.getString('token') != "")?HomeScreenGrd.routeName: (pref.getString('category') == 'student' &&
-      pref.getString('token') == "")?StudentLogin.routeName:GraduatedLogIn.routeName;
+              pref.getString('token') != '')
+          ? HomeScreenGrd.routeName
+          : (pref.getString('category') == 'student' &&
+                  pref.getString('token') == "")
+              ? StudentLogin.routeName
+              : (pref.getString('category') == 'student' &&
+                      pref.getString('token') != "" &&
+                      pref.getStringList('courses'+pref.getString('email')!) == [])
+                  ? HomeScreenStudent.routeName
+                  : CourseSelected.routeName;
   runApp(ChangeNotifierProvider<SettingProvider>(
       create: (buildContext) {
         return SettingProvider();
