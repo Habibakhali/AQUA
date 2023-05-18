@@ -25,6 +25,8 @@ class _SeleCtedITemCoureState extends State<SeleCtedITemCoure> {
 List<int> fgh=[];
   _getSelectedCourses() async {
     final pref = await SharedPreferences.getInstance();
+    print(pref.getString('email'));
+    print(pref.getString('token'));
     play = await ApiManager.getCourseReservation();
     for (int i = 0; i < play!.length; i++) {
       ShowCourseDetails data = await ApiManager.showCourses(play![i].cCode!);

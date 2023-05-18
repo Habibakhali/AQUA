@@ -48,7 +48,7 @@ class _TrainingState extends State<Training> {
                           ),
                         );
                       else {
-                        Future.delayed(Duration(seconds: 20),(){
+                        Future.delayed(Duration(seconds: 5),(){
                           setState(() {
 
                           });

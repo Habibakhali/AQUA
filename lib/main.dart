@@ -54,7 +54,9 @@ String? home;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final pref = await SharedPreferences.getInstance();
-  home = (pref.getString('category') == 'graduated' &&
+  home = pref.getString('category')==null?
+  Programs.routeName:
+  (pref.getString('category') == 'graduated' &&
           pref.getString('token') == "")
       ? GraduatedLogIn.routeName
       : (pref.getString('category') == 'graduated' &&
@@ -95,7 +97,7 @@ class MyApp extends StatelessWidget {
           Locale('ar', ''), // arabic, no country code
         ],
         locale: Locale(pro.currentLang),
-        initialRoute: home ?? Programs.routeName,
+        initialRoute: home,
         routes: {
           Training.routName: (_) => Training(),
           ForgetMyPasswordDr.routeName: (_) => ForgetMyPasswordDr(),

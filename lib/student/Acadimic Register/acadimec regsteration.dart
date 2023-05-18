@@ -141,7 +141,9 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
                               status='';
                                 }
                                 pref.setStringList('imagelist', lastfile);
-                              });}
+                              });
+                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deletion success')));
+                             }
                              else {
                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error when deletion')));
                              }

@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:project/API/Models/Student/register.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/Styling/icon.dart';
@@ -43,8 +44,12 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.user_name}';
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .user_name}';
                           return null;
                         },
                         controller: userName,
@@ -52,21 +57,33 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.person,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
                             label:
-                                Text(AppLocalizations.of(context)!.user_name),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            Text(AppLocalizations.of(context)!.user_name),
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
                             hintText:
-                                AppLocalizations.of(context)!.user_name_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            AppLocalizations.of(context)!.user_name_hint,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -74,9 +91,13 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.id}';
-                          if(text.length!=14)
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .id}';
+                          if (text.length != 14)
                             return '${AppLocalizations.of(context)!
                                 .id} ${AppLocalizations.of(context)!
                                 .validation_id}';
@@ -86,19 +107,31 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.perm_identity_outlined,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
                             label: Text(AppLocalizations.of(context)!.id),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
                             hintText: AppLocalizations.of(context)!.id_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -106,9 +139,13 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.email_label}';
-                          if(!text.contains('@sci.asu.edu.eg'))
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .email_label}';
+                          if (!text.contains('@sci.asu.edu.eg'))
                             return '${AppLocalizations.of(context)!
                                 .please_enter} ${AppLocalizations.of(context)!
                                 .university_email}';
@@ -119,19 +156,33 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
-                            label: Text(AppLocalizations.of(context)!.university_email,),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            label: Text(
+                              AppLocalizations.of(context)!.university_email,
+                            ),
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
                             hintText: AppLocalizations.of(context)!.email_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -139,9 +190,13 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.phone}';
-                          if(text.length!=11)
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .phone}';
+                          if (text.length != 11)
                             return AppLocalizations.of(context)!
                                 .validation_phone;
                           return null;
@@ -150,19 +205,33 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.phone,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
-                            label: Text(AppLocalizations.of(context)!.phone,),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            label: Text(
+                              AppLocalizations.of(context)!.phone,
+                            ),
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
                             hintText: AppLocalizations.of(context)!.phone_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -170,27 +239,45 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.age}';
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .age}';
                           return null;
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.calendar_today,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
-                            label: Text(AppLocalizations.of(context)!.age,),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            label: Text(
+                              AppLocalizations.of(context)!.age,
+                            ),
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
                             hintText: AppLocalizations.of(context)!.age_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -198,27 +285,46 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.address_label}';
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .address_label}';
                           return null;
                         },
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             prefixIcon: Icon(
                               Icons.location_history,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
-                            label: Text(AppLocalizations.of(context)!.address_label,),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
-                            hintText: AppLocalizations.of(context)!.address_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            label: Text(
+                              AppLocalizations.of(context)!.address_label,
+                            ),
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
+                            hintText:
+                            AppLocalizations.of(context)!.address_hint,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -226,27 +332,46 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.grad_batch}';
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .grad_batch}';
                           return null;
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            prefixIcon:  Icon(
+                            prefixIcon: Icon(
                               MyFlutterApp.graduation_cap,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
-                            label: Text(AppLocalizations.of(context)!.grad_batch,),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
-                            hintText: AppLocalizations.of(context)!.grad_baatch_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            label: Text(
+                              AppLocalizations.of(context)!.grad_batch,
+                            ),
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
+                            hintText:
+                            AppLocalizations.of(context)!.grad_baatch_hint,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -254,27 +379,46 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: TextFormField(
                         validator: (text) {
-                          if (text == null || text.trim().isEmpty)
-                            return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.scientific_degree}';
+                          if (text == null || text
+                              .trim()
+                              .isEmpty)
+                            return '${AppLocalizations.of(context)!
+                                .please_enter} ${AppLocalizations.of(context)!
+                                .scientific_degree}';
                           return null;
                         },
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                            prefixIcon:  Icon(
-                             Icons.grade,
-                              color: Theme.of(context).canvasColor,
+                            prefixIcon: Icon(
+                              Icons.grade,
+                              color: Theme
+                                  .of(context)
+                                  .canvasColor,
                             ),
-                            label: Text(AppLocalizations.of(context)!.scientific_degree,),
-                            labelStyle: Theme.of(context).textTheme.bodyMedium,
-                            hintText: AppLocalizations.of(context)!.scientific_degree_hint,
-                            hintStyle: Theme.of(context).textTheme.bodySmall,
+                            label: Text(
+                              AppLocalizations.of(context)!.scientific_degree,
+                            ),
+                            labelStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyMedium,
+                            hintText: AppLocalizations.of(context)!
+                                .scientific_degree_hint,
+                            hintStyle: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context).canvasColor),
+                                  color: Theme
+                                      .of(context)
+                                      .canvasColor),
                               borderRadius: BorderRadius.circular(10),
                             ))),
                   ),
@@ -305,11 +449,14 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                             borderSide: BorderSide(color: Colors.red),
                           ),
                           labelText: cv,
-                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                          labelStyle: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyMedium,
                           prefixIcon: Icon(Icons.upload_outlined),
                           border: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.grey, width: 2),
+                            BorderSide(color: Colors.grey, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -318,9 +465,9 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                   ),
                   widget.fileload != null
                       ? Text(
-                          widget.fileload?.names.first! ?? "",
-                          textAlign: TextAlign.start,
-                        )
+                    widget.fileload?.names.first! ?? "",
+                    textAlign: TextAlign.start,
+                  )
                       : Text(""),
                   SizedBox(
                     height: 20,
@@ -356,32 +503,56 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
                   ),
                   widget.visible
                       ? Column(
-                          children: [
-                            MyTextField(
-                                AppLocalizations.of(context)!.hint_current_job,
-                                AppLocalizations.of(context)!.current_job,
-                                TextInputType.text,
-                                Icon(Icons.work)),
-                            MyTextField(
-                                AppLocalizations.of(context)!.hint_employer,
-                                AppLocalizations.of(context)!.employer,
-                                TextInputType.text,
-                                Icon(Icons.perm_contact_cal_rounded)),
-                            MyTextField(
-                                AppLocalizations.of(context)!.hint_last_job,
-                                AppLocalizations.of(context)!.last_job,
-                                TextInputType.text,
-                                Icon(Icons.work_history)),
-                          ],
-                        )
+                    children: [
+                      MyTextField(
+                          AppLocalizations.of(context)!.hint_current_job,
+                          AppLocalizations.of(context)!.current_job,
+                          TextInputType.text,
+                          Icon(Icons.work)),
+                      MyTextField(
+                          AppLocalizations.of(context)!.hint_employer,
+                          AppLocalizations.of(context)!.employer,
+                          TextInputType.text,
+                          Icon(Icons.perm_contact_cal_rounded)),
+                      MyTextField(
+                          AppLocalizations.of(context)!.hint_last_job,
+                          AppLocalizations.of(context)!.last_job,
+                          TextInputType.text,
+                          Icon(Icons.work_history)),
+                    ],
+                  )
                       : Text(""),
                   Container(
                       margin: EdgeInsets.all(10),
                       padding: EdgeInsets.all(5),
-                      width: MediaQuery.of(context).size.width * .5,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * .5,
                       child: ElevatedButton(
-                          onPressed: () {
-                            validation();
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              bool result = await InternetConnectionChecker()
+                                  .hasConnection;
+                              if (result) {
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) =>
+                                        StatefulBuilder(builder:
+                                            (context, StateSetter setState) {
+                                          return SimpleDialog(
+                                              title: Container(
+                                                  padding: EdgeInsets.all(10),
+                                                  child: Center(
+                                                    child:
+                                                    CircularProgressIndicator(),
+                                                  )));
+                                        }));
+                              }
+
+                              validation();
+                            }
                           },
                           child: Text(
                             AppLocalizations.of(context)!.register,
@@ -395,26 +566,34 @@ class _SignUpGraduatedState extends State<SignUpGraduated> {
       ),
     );
   }
-  void validation() async{
-    if (formKey.currentState!.validate()) {
-      Register data=await ApiManager.postRegisterGrd(userName.text, email.text, password.text, confirm.text);
-      if (data.errors==null) {
-        Navigator.pushReplacementNamed(context, OtpFormEmailGraduated.routeName,
-            arguments: email.text);
-        return showDialog(context: context, builder: (context) =>
+
+  void validation() async {
+    Navigator.pop(context);
+    Register data = await ApiManager.postRegisterGrd(
+        userName.text, email.text, password.text, confirm.text);
+    if (data.errors == null) {
+      Navigator.pushReplacementNamed(context, OtpFormEmailGraduated.routeName,
+          arguments: email.text);
+      return showDialog(
+        context: context,
+        builder: (context) =>
             AlertDialog(
                 title: Text("completed🥳"),
                 // To display the title it is optional
                 content: Text('procced to verify your email')),
-        );
-      }
-      else {
-        return showDialog(context: context, builder: (context) =>
-            AlertDialog(
-                title: Text("Error"),
-                // To display the title it is optional
-                content: Text(data.message!)));
-      }
+      );
+    } else {
+      return showDialog(
+          context: context,
+          builder: (context)
+      =>
+          AlertDialog(
+            title: Text("Error"),
+            // To display the title it is optional
+            content: data.errors!.email != null ? Text(
+                data.errors!.email!.first ?? "") : data.errors!.name != null
+                ? Text(data.errors!.name!.first ?? "")
+                : Text(data.message!),));
     }
   }
 }

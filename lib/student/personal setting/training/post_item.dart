@@ -17,10 +17,13 @@ class PostItem extends StatelessWidget {
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(blurRadius: 5, color: Colors.grey.withOpacity(0.5))
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 5,
+                color: Colors.grey.withOpacity(0.5)),
+          ],),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

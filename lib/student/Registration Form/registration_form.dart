@@ -229,8 +229,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                             status='';
                                             imageFile=null;
                                             pref.setString('status'+email, '');
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deletion success')));
                                           setState(() {
                                           });}
+                                          else{
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Something went wrong')));
+                                          }
                                         },
                                         child: Icon(
                                           Icons.clear,
@@ -264,9 +268,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                                  status='';
                                                  pref.setString('status'+email, '');
                                                  pref.setString('imageAS'+email, '');
-                                                setState(() {
+                                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deletion success')));
+                                                 setState(() {
 
                                                 });}
+                                               else {
+                                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Something went wrong')));
+                                               }
                                               },
                                               child: Icon(
                                                 Icons.clear,

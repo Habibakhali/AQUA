@@ -364,7 +364,8 @@ class ApiManager {
         await http.MultipartFile.fromPath('re_image', imageFile.path);
     Map<String, String> headers = {
       "Accept": "application/json",
-      "Authorization": "Bearer ${pref.getString('token') ?? ""}"
+    "Content-Type": "application/json",
+    "Authorization": "Bearer ${pref.getString('token') ?? ""}"
     };
     var request = http.MultipartRequest('POST', uri)
       ..fields.addAll({
