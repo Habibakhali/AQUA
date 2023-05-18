@@ -43,8 +43,6 @@ dependencies:
   responsive_table: ^0.2.0+2
   http: ^0.13.5
   cached_network_image: ^3.2.3
-
-
   syncfusion_flutter_pdfviewer: ^20.3.59
   shared_preferences: ^2.1.0
   internet_connection_checker: ^1.0.0+1

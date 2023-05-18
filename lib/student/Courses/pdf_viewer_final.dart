@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -8,8 +9,8 @@ class FinalPdfViewer extends StatelessWidget {
   double zoom = 0.0;
   TextEditingController controller = TextEditingController();
   int pageNo = 0;
-  jumpTo(BuildContext context)
-  {
+  var fileName='assets/pdfs/Parallel 2021.pdf';
+  jumpTo(BuildContext context) {
     showDialog(context: context,
         builder: (context){
           return AlertDialog(
@@ -58,10 +59,10 @@ class FinalPdfViewer extends StatelessWidget {
               onPressed: () {
                 jumpTo(context);
               },
-              icon: Icon(Icons.search,))
+              icon: Icon(Icons.search,)),
         ],
       ),
-      body: SfPdfViewer.asset('assets/pdfs/Parallel 2021.pdf',controller: pdfViewerController,),
+      body: SfPdfViewer.asset(fileName,controller: pdfViewerController,),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

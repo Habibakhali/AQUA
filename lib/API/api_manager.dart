@@ -144,9 +144,10 @@ class ApiManager{
     );
     var json=jsonDecode(res.body);
 var r=LoginStudentApi.fromJson(json);
-pref.setString('token', r.accessToken??'');
+if(res.statusCode==200){
+pref.setString('token', r.accessToken!);
 pref.setString('email', email);
-pref.setString('password', password);
+pref.setString('password', password);}
 return r;
   }
   static Future<http.Response> loginGrd(String email,String password)async{
@@ -272,9 +273,10 @@ return res;
     http.Response response = await http.Response.fromStream( await request.send());
     print('===============>${response.statusCode}');
     if(response.statusCode==401){
-      LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
-      print('acess_token: ${data.accessToken}');
-      pref.setString('token', data.accessToken!);
+      LoginStudentApi data=await RefrsghJWT();
+      print('acess_token: ${pref.getString('token')}');
+      if(data.tokenType!=null){
+      pref.setString('token', data.accessToken!);}
     }
     print(response.body);
     var json=jsonDecode(response.body);
@@ -290,7 +292,7 @@ return res;
       "Authorization": "Bearer ${pref.getString('token')??""}"
     });
     if(respons.statusCode==401 ){
-      LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
+      LoginStudentApi data=await RefrsghJWT();
       pref.setString('token',data.accessToken!);
     }
     var json=jsonDecode(respons.body);
@@ -318,8 +320,7 @@ return res;
     });
     print('deletion is : ${response.statusCode}');
     if(response.statusCode==401){
-      LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
-      pref.setString('token',data.accessToken!);
+      LoginStudentApi data=await RefrsghJWT();
     }
 
     return response.statusCode;
@@ -345,7 +346,7 @@ return res;
     var json=jsonDecode(response.body);
     var res=RegisterationFormModel.fromJson(json);
     if(response.statusCode==401){
-      LoginStudentApi ss=await ApiManager.RefrsghJWT(pref.getString('email')!, pref.getString('password')!, pref.getString('token')!);
+      LoginStudentApi ss=await RefrsghJWT();
       pref.setString('token',ss.accessToken??'');
     }
     return res;
@@ -380,7 +381,7 @@ return res;
           "Authorization": "Bearer ${pref.getString('token')??""}"
         });
     if(respons.statusCode==401 ){
-      LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
+      LoginStudentApi data=await RefrsghJWT();
       pref.setString('token',data.accessToken!);
     }
     var json=jsonDecode(respons.body);
@@ -412,7 +413,7 @@ return res;
       pref.setString('imageAS'+pref.getString('email')!,'');
     }
     if(response.statusCode==401){
-      LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
+      LoginStudentApi data=await RefrsghJWT();
       pref.setString('token',data.accessToken!);
     }
     return response;
@@ -432,7 +433,7 @@ return res;
       pref.setString('imageAS'+pref.getString('email')!,'');
     }
     if(response.statusCode==401){
-      LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
+      LoginStudentApi data=await RefrsghJWT();
       pref.setString('token',data.accessToken!);
     }
     return response;
@@ -450,19 +451,20 @@ return res;
       "password": password,
     }));
     if(respons.statusCode==401){
-      LoginStudentApi data=await RefrsghJWT(email, password, token);
+      LoginStudentApi data=await RefrsghJWT();
       token=data.accessToken!;
     }
     var json=jsonDecode(respons.body);
     var res=MeJWT.fromJson(json);
     return res;
   }
-  static Future<LoginStudentApi>RefrsghJWT(String email,String pass,String token)async{
+  static Future<LoginStudentApi>RefrsghJWT()async{
+    final pref=await SharedPreferences.getInstance();
     var url =Uri.https(base,'/api/auth/refresh');
     http.Response response = await http.post(url,headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "Authorization": "Bearer $token"
+      "Authorization": "Bearer ${pref.getString('token')}"
     },);
     print('refresh ===============> ${response.statusCode}');
     var json=jsonDecode(response.body);
@@ -478,7 +480,7 @@ http.Response respons=await http.get(url,headers: {
   "Authorization": "Bearer ${pref.getString('token')}"
 });
 if(respons.statusCode==401){
-  LoginStudentApi data=await RefrsghJWT(pref.getString('email')??"", pref.getString('password')??"", pref.getString('token')??"");
+  LoginStudentApi data=await RefrsghJWT();
   pref.setString('token', data.accessToken??'');
 }
 print(respons.statusCode);

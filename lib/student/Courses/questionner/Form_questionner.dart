@@ -4,13 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:project/student/Courses/course_selected.dart';
 import 'package:project/student/Courses/courses.dart';
 import 'package:project/student/layout/homeScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../SelectedItem.dart';
 import 'model_question.dart';
 
 class Questionner extends StatefulWidget {
   static const String routeName = 'Questionner';
   int currentQuestion = 1;
-  bool visibale=true;
   @override
   State<Questionner> createState() => _QuestionnerState();
 }
@@ -24,20 +25,23 @@ class _QuestionnerState extends State<Questionner> {
     controller=PageController(initialPage: 0);
   }
   Widget build(BuildContext context) {
-    List<Question> questions = [
+    var arg=ModalRoute.of(context)!.settings.arguments;
+     List<Question> questions = [
       Question(AppLocalizations.of(context)!.q1, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q2, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q2, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q3, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q3, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -50,13 +54,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q5, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q5, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q6, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q6, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -69,13 +75,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q8, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q8, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q9, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q9, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -88,13 +96,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q11, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q11, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q12, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q12, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -107,13 +117,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q14, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q14, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q15, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q15, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -126,13 +138,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q17, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q17, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q18, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q18, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -145,13 +159,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q20, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q20, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q21, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q21, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -164,13 +180,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q23, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q23, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q24, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q24, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -183,13 +201,15 @@ class _QuestionnerState extends State<Questionner> {
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q26, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q26, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
         Option(AppLocalizations.of(context)!.ok),
         Option(AppLocalizations.of(context)!.totally_ok),
-      ],selected), Question(AppLocalizations.of(context)!.q27, [
+      ],selected),
+      Question(AppLocalizations.of(context)!.q27, [
         Option(AppLocalizations.of(context)!.totally_disagree),
         Option(AppLocalizations.of(context)!.not_agree),
         Option(AppLocalizations.of(context)!.to_some_extent),
@@ -198,9 +218,7 @@ class _QuestionnerState extends State<Questionner> {
       ],selected),
     ];
 
-
-
-    return widget.visibale?Container(
+    return Container(
           margin: EdgeInsets.symmetric(horizontal: 12),
           padding: EdgeInsets.all(8),
           child: Column(
@@ -225,7 +243,8 @@ class _QuestionnerState extends State<Questionner> {
                       })),
               Container(
                 alignment: Alignment.topRight,
-                  child: ElevatedButton(onPressed: (){
+                  child: ElevatedButton(
+                      onPressed: ()async{
                     if(selected==null)return;
                    else if(widget.currentQuestion<questions.length){
                      setState(() {
@@ -235,20 +254,16 @@ class _QuestionnerState extends State<Questionner> {
                       controller.nextPage(duration: Duration(microseconds: 250), curve: Curves.easeIn);
                     }
                    else {
-                     widget.visibale=!widget.visibale;
-                     setState(() {
-
-                     });
+                        final pref=await SharedPreferences.getInstance();
+                        pref.setInt(arg.toString()+pref.getString('email')!, 1);
+                        Navigator.pushReplacementNamed(context, CourseSelected.routeName);
                     }
 
                   }, child: widget.currentQuestion<questions.length?Text(AppLocalizations.of(context)!.next):Text(AppLocalizations.of(context)!.submit))),
                SizedBox(height: MediaQuery.of(context).size.height*.25,),
             ],
           ),
-        ):
-    Center(
-      child: Image.asset('assets/images/thanks.jpg'),
-    );
+        );
   }
 
 
