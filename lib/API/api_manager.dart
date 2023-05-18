@@ -176,19 +176,19 @@ class ApiManager {
   static Future<LoginStudentApi> loginGrd(String email, String password) async {
     final pref = await SharedPreferences.getInstance();
     var url = Uri.https(base, '/api/grad/auth/login');
-    http.Response res = await http.post(url,
+    http.Response response = await http.post(url,
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
         body: jsonEncode({
           "email": email,
           "password": password,
         }));
-    print('---------------->${res.statusCode}');
-    var json = jsonDecode(res.body);
+    print('---------------->${response.statusCode}');
+    var json = jsonDecode(response.body);
     var r = LoginStudentApi.fromJson(json);
-    if (res.statusCode == 200) {
+    if (response.statusCode == 200) {
       pref.setString('tokenGrd', r.accessToken!);
       pref.setString('emailGrd', email);
       pref.setString('passGrd', password);
@@ -798,4 +798,6 @@ class ApiManager {
       "Accept":"application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"});
   }
+
+  static Future<void>getCompanies()async{}
 }
