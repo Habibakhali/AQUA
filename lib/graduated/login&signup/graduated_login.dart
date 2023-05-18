@@ -3,6 +3,7 @@ import 'package:project/graduated/login&signup/signupGr.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import '../../API/Models/Student/login_student_api.dart';
 import '../../API/api_manager.dart';
 import 'package:http/http.dart' as http;
 import '../Layout/HomeScreen.dart';
@@ -159,8 +160,8 @@ class _GraduatedLogInState extends State<GraduatedLogIn> {
   }
 void validation()async{
     if(formKey.currentState!.validate()){
-      http.Response data=await ApiManager.loginGrd(textController.text, passController.text);
-      if(data.statusCode==200){
+      LoginStudentApi data=await ApiManager.loginGrd(textController.text, passController.text);
+      if(data.error==null){
         Navigator.pushReplacementNamed(context, HomeScreenGrd.routeName);
         return showDialog(context: context, builder: (context) =>
             AlertDialog(
