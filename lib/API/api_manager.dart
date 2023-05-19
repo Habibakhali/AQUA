@@ -799,6 +799,5 @@ class ApiManager {
       "Accept":"application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"});
   }
-
   static Future<void>getCompanies()async{}
 }
