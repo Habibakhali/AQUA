@@ -324,6 +324,48 @@ Row(
             decoration: InputDecoration(
               enabled: false,
               errorStyle: TextStyle(color: Colors.red),
+              labelText: 'Graduation certificate',
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
+              prefixIcon: Icon(Icons.upload_outlined),
+            ),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        child: InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Expanded(
+                  child: SimpleDialog(
+                    title: const Text('Choose Image'),
+                    children: <Widget>[
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.gallery);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From gallery'),
+                      ),
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.camera);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From camera'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          child: TextFormField(
+            decoration: InputDecoration(
+              enabled: false,
+              errorStyle: TextStyle(color: Colors.red),
               labelText: 'Academic Record',
               labelStyle: Theme.of(context).textTheme.bodyMedium,
               prefixIcon: Icon(Icons.upload_outlined),
