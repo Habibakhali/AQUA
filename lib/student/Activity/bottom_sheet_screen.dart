@@ -17,9 +17,9 @@ BottomSheetScreen(this.title,this.url1,this.url2);
         children: [
           Text(title,textAlign: TextAlign.center,style: Theme.of(context).textTheme.headlineSmall,),
           SizedBox(height: 10,),
-          Image.asset(url1
-            ,width: MediaQuery.of(context).size.width*.8
-            ,height: MediaQuery.of(context).size.height*.30,
+          Expanded(
+            child: Image.asset(url1
+            ),
           ),
           SizedBox(height: 10,),
           Image.asset(url2,width: MediaQuery.of(context).size.width*.8

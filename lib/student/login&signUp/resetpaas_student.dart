@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/student/login&signUp/student_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../API/Models/Student/reset_forget_pass_student.dart';
 import '../../MyDesign/password_textfield.dart';
@@ -28,13 +29,6 @@ Widget build(BuildContext context) {
   var all=ModalRoute.of(context)!.settings.arguments;
   pincode=all.toString();
   return Scaffold(
-    appBar: AppBar(
-      title: Text(
-        AppLocalizations.of(context)!.back,
-        style: TextStyle(color: Colors.white),
-      ),
-      leadingWidth: 30,
-    ),
     body: Padding(
         padding: EdgeInsets.all(16),
         child: Form(
@@ -79,10 +73,12 @@ Widget build(BuildContext context) {
 
 //
 void validation()async {
+  final pref=await SharedPreferences.getInstance();
   if(formKey.currentState!.validate()){
     ResetForgetPassStudent data=await ApiManager.resetForgetPassStudent(pincode, password.text, confirm.text);
     if(data.errors==null){
       Navigator.pushReplacementNamed(context, StudentLogin.routeName);
+      pref.setString('token', '');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("saved the new password")));
     }
     else{

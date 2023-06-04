@@ -1,13 +1,11 @@
 class GetActivity {
   bool? success;
-  String? message;
   List<PayloadActivity>? payload;
 
-  GetActivity({this.success, this.message, this.payload});
+  GetActivity({this.success, this.payload});
 
   GetActivity.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    message = json['message'];
     if (json['payload'] != null) {
       payload = <PayloadActivity>[];
       json['payload'].forEach((v) {
@@ -19,7 +17,6 @@ class GetActivity {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
-    data['message'] = this.message;
     if (this.payload != null) {
       data['payload'] = this.payload!.map((v) => v.toJson()).toList();
     }
@@ -34,9 +31,18 @@ class PayloadActivity {
   String? image;
   String? createdAt;
   String? stdId;
+  String? name;
+  String? email;
 
   PayloadActivity(
-      {this.id, this.title, this.des, this.image, this.createdAt, this.stdId});
+      {this.id,
+        this.title,
+        this.des,
+        this.image,
+        this.createdAt,
+        this.stdId,
+        this.name,
+        this.email});
 
   PayloadActivity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -45,6 +51,8 @@ class PayloadActivity {
     image = json['image'];
     createdAt = json['created_at'];
     stdId = json['std_id'];
+    name = json['name'];
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +63,8 @@ class PayloadActivity {
     data['image'] = this.image;
     data['created_at'] = this.createdAt;
     data['std_id'] = this.stdId;
+    data['name'] = this.name;
+    data['email'] = this.email;
     return data;
   }
 }

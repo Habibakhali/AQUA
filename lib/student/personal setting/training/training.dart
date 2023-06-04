@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/API/Models/Student/GetActivity.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/student/personal%20setting/training/post_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'content_bottom_sheet.dart';
 import 'data_activity_bottomSheet.dart';
 
@@ -13,6 +14,18 @@ class Training extends StatefulWidget {
 }
 
 class _TrainingState extends State<Training> {
+
+  var userNAme;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getName();
+  }
+  getName()async{
+    final oref=await SharedPreferences.getInstance();
+    userNAme  =oref.getString('usernameStu');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +43,7 @@ class _TrainingState extends State<Training> {
                   builder: (context, snap) {
                     if (snap.connectionState == ConnectionState.waiting)
                       return Center(child: CircularProgressIndicator());
-                    if (snap.hasError) {
-                      print(snap.error);
+                    else if (snap.hasError) {
                       return Center(
                         child: Text(
                           "Something went wrong",
@@ -40,24 +52,22 @@ class _TrainingState extends State<Training> {
                       );
                     } else {
                       var data = snap.data;
-                      if (data == null)
+                      if (data!.isEmpty)
                         return Center(
                           child: Text(
                             'No Activity 😕',
                             style: TextStyle(color: Colors.blue),
                           ),
                         );
-                      else {
-                        Future.delayed(Duration(seconds: 5),(){
-                          setState(() {
-
-                          });
-                        }) ;
+                     else {
+                        Future.delayed(Duration(seconds: 8),(){
+                                  setState(() {});
+                        });
                         return ListView.builder(
                             itemCount: data.length,
                             itemBuilder: (context, index) {
                               return InkWell(
-                                  onTap: () async {
+                                  onTap: (){
                                     showModalBottomSheet(
                                         context: context,
                                         builder: (context) {
@@ -68,10 +78,11 @@ class _TrainingState extends State<Training> {
                                         });
                                   },
                                   child: PostItem(
+                                   data[index].name!,
                                       data[index].title!,
-                                      data[index].des!,
+                                      data[index].createdAt!,
                                       data[index].image!,
-                                      data[index].id!));
+                                      data[index].id!, data[index].name==userNAme?true:false));
                             });
                       }
                     }

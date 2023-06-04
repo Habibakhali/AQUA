@@ -16,8 +16,7 @@ ExamItem(this.exam, this.date, this.routeName,this.path,);
       elevation:  MaterialStateProperty.all(0),
     ),
       onPressed: () {
-        Navigator.pushNamed(
-            context, routeName);
+        Navigator.pushNamed(context, routeName);
       },
       child: Container(
         padding: EdgeInsets.all(12),

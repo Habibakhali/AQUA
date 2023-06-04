@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../API/api_manager.dart';
@@ -16,9 +17,12 @@ DataOfActivityBottomSheet(this.title,this.des,this.image);
       child: Column(
         children: [
           Center(child: Text(title,style: TextStyle(fontWeight: FontWeight.w800),),),
-          Image.network('https://' + ApiManager.base + '/' + image,width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height*0.27,),
+          Expanded(child: CachedNetworkImage(
+            imageUrl:'https://' + ApiManager.base + '/' + image,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => CircularProgressIndicator(),)),
           SizedBox(height: 5,),
-          Text(des)
+          Center(child: Text(des))
         ],
       ),
     );

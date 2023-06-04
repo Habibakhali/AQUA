@@ -23,10 +23,15 @@ class _StudentLoginState extends State<StudentLogin> {
   TextEditingController textController=TextEditingController();
   TextEditingController passController=TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Future<bool> _onWillPop() async {
+    return false; //<-- SEE HERE
+  }
   @override
   Widget build(BuildContext context) {
     var pro = Provider.of<SettingProvider>(context);
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
       body: SafeArea(
         child: Form(
           key: formKey,
@@ -192,7 +197,7 @@ class _StudentLoginState extends State<StudentLogin> {
           ),
         ),
       ),
-    );
+      )  );
   }
   Future<dynamic> validation()async{
     var data =await ApiManager.loginStudent(textController.text, passController.text);
@@ -202,7 +207,7 @@ class _StudentLoginState extends State<StudentLogin> {
      );
      return showDialog(context: context, builder: (context) =>
          AlertDialog(
-             title: Text("completed"),
+             title: Text("Completed"),
              // To display the title it is optional
              content: Text("success")),
      );

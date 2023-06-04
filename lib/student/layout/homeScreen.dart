@@ -28,9 +28,7 @@ int index=0;
             icon: Icon(
               Icons.more_vert,
             ),
-            onPressed: () async{
-final pref=await SharedPreferences.getInstance();
-pref.setString('token', "");
+            onPressed: (){
               Navigator.pushNamed(context, SettingsPageSt.routeName);
             },
           ),

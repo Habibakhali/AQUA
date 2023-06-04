@@ -29,6 +29,7 @@ import 'package:project/student/Courses/exam.dart';
 import 'package:project/student/login&signUp/otp_Email_Sta.dart';
 import 'package:project/student/Registration%20Form/registration_form.dart';
 import 'package:project/student/personal%20setting/prof.dart';
+import 'package:project/student/personal%20setting/send_otp.dart';
 import 'package:project/student/personal%20setting/setting_page.dart';
 import 'package:project/student/personal%20setting/table.dart';
 import 'package:project/student/personal%20setting/training/training.dart';
@@ -67,7 +68,7 @@ void main() async {
               ? StudentLogin.routeName
               : (pref.getString('category') == 'student' &&
                       pref.getString('token') != "" &&
-                      pref.getStringList('courses'+pref.getString('email')!) == [])
+                      pref.getStringList('courses'+(pref.getString('email')??"")) == [])
                   ? HomeScreenStudent.routeName
                   : CourseSelected.routeName;
   runApp(ChangeNotifierProvider<SettingProvider>(
@@ -99,6 +100,7 @@ class MyApp extends StatelessWidget {
         locale: Locale(pro.currentLang),
         initialRoute: home,
         routes: {
+          OTpSettingPersonal.routeName:(_)=> OTpSettingPersonal(),
           Training.routName: (_) => Training(),
           ForgetMyPasswordDr.routeName: (_) => ForgetMyPasswordDr(),
           QUestionHome.routeName: (_) => QUestionHome(),

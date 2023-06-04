@@ -31,16 +31,14 @@ class Payloadd {
   String? cCode;
   String? cName;
   int? cHours;
-  List<String>? cPrereq;
   int? semester;
 
-  Payloadd({this.cCode, this.cName, this.cHours, this.cPrereq, this.semester});
+  Payloadd({this.cCode, this.cName, this.cHours, this.semester});
 
   Payloadd.fromJson(Map<String, dynamic> json) {
     cCode = json['c_code'];
     cName = json['c_name'];
     cHours = json['c_hours'];
-    cPrereq = json['c_prereq']==null?[]:List.from(json['c_prereq']);
     semester = json['semester'];
   }
 
@@ -49,7 +47,6 @@ class Payloadd {
     data['c_code'] = this.cCode;
     data['c_name'] = this.cName;
     data['c_hours'] = this.cHours;
-    data['c_prereq'] = this.cPrereq;
     data['semester'] = this.semester;
     return data;
   }

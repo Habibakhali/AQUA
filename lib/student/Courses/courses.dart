@@ -77,6 +77,7 @@ class _CoursesState extends State<Courses> {
     for (int i = 0; i < data.length; i++) {
       courseName.insert(i, data[i].cName! + '/' + data[i].cCode!);
     }
+    Navigator.pop(context);
     setState(() {});
     print('++++++++++++++++++++++> $courseName');
     print('++++++++++++++++++++++> ${courseName.length}');
@@ -116,7 +117,7 @@ class _CoursesState extends State<Courses> {
                               fontWeight: FontWeight.bold, fontSize: 25),
                         ),
                         Image.asset(
-                          'assets/images/boyy.png',
+                          'assets/images/52355.jpg',
                           height: 100,
                           width: 100,
                         ),
@@ -220,7 +221,7 @@ class _CoursesState extends State<Courses> {
                             ),
                           ),
                         )
-                      :  Expanded(
+                      :  courseName.isEmpty?Center(child: CircularProgressIndicator(),):Expanded(
                               child: GridView.builder(
                                   itemCount:
                                       _searchTextController!.text.isNotEmpty

@@ -3,10 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/student/Courses/questionnair_homeScreen.dart';
 import 'package:project/student/Courses/questionner/Form_questionner.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../API/Models/Student/show_course_details.dart';
 import '../../API/Models/get_course_reservation.dart';
+import '../../providers/setting_provider.dart';
 import '../layout/homeScreen.dart';
 import 'courses.dart';
 import 'exam.dart';
@@ -54,7 +56,16 @@ List<int> fgh=[];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    var pro = Provider.of<SettingProvider>(context);
+    pro.ConnectionState();
+    return !pro.result
+        ? AlertDialog(
+      title: Center(child: Text('No Internet')),
+      content: Image.asset('assets/images/wi-fi-disconnected.png'),
+    )
+        : Scaffold(
+        body:
+    Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
@@ -69,15 +80,8 @@ List<int> fgh=[];
           SizedBox(
             height: 20,
           ),
-          FutureBuilder<List<PayloadcourseReservation>?>(
-            future: ApiManager.getCourseReservation(),
-            builder: (context, snapShot) {
-              if (snapShot.connectionState == ConnectionState.waiting)
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              return Expanded(
-                child: GridView.builder(
+         Expanded(
+                child:coursesSelectedCourses.isEmpty?Center(child: CircularProgressIndicator()): GridView.builder(
                     itemCount: coursesSelectedCourses!.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         mainAxisSpacing: 8,
@@ -226,6 +230,7 @@ List<int> fgh=[];
                                                             .pushReplacementNamed(
                                                           context,
                                                           Exam.routeName,
+                                                            arguments: coursesSelectedCourses![index]
                                                         );
                                                       }),
                                                   SizedBox(
@@ -242,13 +247,22 @@ List<int> fgh=[];
                                                         ],
                                                       ),
                                                       onTap: () {
+                                                        if(fgh[index]!=1)
                                                         Navigator
                                                             .pushReplacementNamed(
                                                           context,
                                                           QUestionHome
                                                               .routeName,arguments: coursesSelectedCourses![index]
                                                         );
-                                                      }),
+                                                        else {
+                                                          ScaffoldMessenger.of(
+                                                              context)
+                                                              .showSnackBar(
+                                                              SnackBar(
+                                                                  content: Text(
+                                                                      "You questionnaire is done")));
+                                                          Navigator.pop(context);
+                                                        }}),
                                                 ],
                                               ));
                                     },
@@ -269,11 +283,9 @@ List<int> fgh=[];
                         ),
                       );
                     }),
-              );
-            },
           ),
         ],
       ),
-    );
+    ));
   }
 }

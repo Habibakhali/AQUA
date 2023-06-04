@@ -169,6 +169,7 @@ class ApiManager {
       pref.setString('token', r.accessToken!);
       pref.setString('email', email);
       pref.setString('password', password);
+      pref.setString('usernameStu', r.user!.name!);
     }
     return r;
   }
@@ -334,9 +335,9 @@ class ApiManager {
           pref.getString('acadimic' + pref.getString('email')!) ?? '';
       String iid = res.payload!.id!.toString();
       String value = image + '#' + iid;
-      imagesAc = pref.getStringList('imagelist') ?? [];
+      imagesAc = pref.getStringList('imagelist'+ pref.getString('email')!) ?? [];
       imagesAc.insert(imagesAc.length, value);
-      pref.setStringList('imagelist', imagesAc);
+      pref.setStringList('imagelist'+ pref.getString('email')!, imagesAc);
     }
     return res;
   }
@@ -660,6 +661,7 @@ class ApiManager {
   static Future<List<PayloadActivity>?> getActivity() async {
     var url = Uri.https(base, '/api/studentActivities');
     print('------------------- I\'am here');
+
     http.Response response = await http.get(url);
     List<PayloadActivity>? playload = [];
     var json = jsonDecode(response.body);
@@ -668,7 +670,6 @@ class ApiManager {
 
     return playload;
   }
-
   static Future<ShowActivity> showActivity(int id) async {
     var url = Uri.https(base, '/api/studentActivities/$id');
     http.Response response = await http.get(url);

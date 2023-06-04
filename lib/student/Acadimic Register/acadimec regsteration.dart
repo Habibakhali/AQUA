@@ -52,7 +52,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     data = await ApiManager.getShowAcademicRegistry(id ?? 0);
     print('---------------------->${data.payload!.id!}');
     status = pref.getString('acadimic'+email)??'';
-    lastfile=pref.getStringList('imagelist')??[];
+    lastfile=pref.getStringList('imagelist'+ pref.getString('email')!)??[];
     setState(() {});
   }
 
@@ -68,7 +68,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     token = pref.getString('token') ?? '0';
     email = pref.getString('email')!;
     password = pref.getString('password')!;
-    lastfile=pref.getStringList('imagelist')??[];
+    lastfile=pref.getStringList('imagelist'+ pref.getString('email')!)??[];
   }
 
   @override

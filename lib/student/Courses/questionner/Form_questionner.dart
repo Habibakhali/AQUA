@@ -11,14 +11,13 @@ import 'model_question.dart';
 
 class Questionner extends StatefulWidget {
   static const String routeName = 'Questionner';
-  int currentQuestion = 1;
   @override
   State<Questionner> createState() => _QuestionnerState();
 }
 
 class _QuestionnerState extends State<Questionner> {
   late  PageController controller;
-
+  int currentQuestion = 1;
   @override
   void  initState(){
     super.initState();
@@ -225,7 +224,7 @@ class _QuestionnerState extends State<Questionner> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                '${AppLocalizations.of(context)!.question} ${widget.currentQuestion} / ${questions.length}',
+                '${AppLocalizations.of(context)!.question} ${currentQuestion} / ${questions.length}',
                 textAlign: TextAlign.right,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
@@ -246,9 +245,9 @@ class _QuestionnerState extends State<Questionner> {
                   child: ElevatedButton(
                       onPressed: ()async{
                     if(selected==null)return;
-                   else if(widget.currentQuestion<questions.length){
+                   else if(currentQuestion<questions.length){
                      setState(() {
-                       widget.currentQuestion++;
+                       currentQuestion++;
                        selected=null;
                      });
                       controller.nextPage(duration: Duration(microseconds: 250), curve: Curves.easeIn);
@@ -259,7 +258,7 @@ class _QuestionnerState extends State<Questionner> {
                         Navigator.pushReplacementNamed(context, CourseSelected.routeName);
                     }
 
-                  }, child: widget.currentQuestion<questions.length?Text(AppLocalizations.of(context)!.next):Text(AppLocalizations.of(context)!.submit))),
+                  }, child: currentQuestion<questions.length?Text(AppLocalizations.of(context)!.next):Text(AppLocalizations.of(context)!.submit))),
                SizedBox(height: MediaQuery.of(context).size.height*.25,),
             ],
           ),

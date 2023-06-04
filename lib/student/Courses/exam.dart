@@ -9,6 +9,7 @@ class Exam extends StatelessWidget {
   static const String routeName = 'parallel';
   @override
   Widget build(BuildContext context) {
+    var arg=ModalRoute.of(context)!.settings.arguments;
     return Scaffold(
         body:SafeArea(child:
             Padding(
@@ -38,36 +39,10 @@ class Exam extends StatelessWidget {
                       textAlign:TextAlign.start ,
                     ),
                     SizedBox(height: 30.0),
-           ExamItem('Final parallel','2020',FinalPdfViewer.routeName,""),
+                    ExamItem('Final ${arg.toString()}','2020',FinalPdfViewer.routeName,""),
                     SizedBox(height: 10,),
-                    ExamItem('MidTerm parallel','2021',FinalPdfViewer.routeName,""),
+                    ExamItem('MidTerm ${arg.toString()}','2021',FinalPdfViewer.routeName,""),
                     SizedBox(height: 10,),
-                    Center(
-                      child: Text(
-                        "View all",
-                        style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 15.0),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Text(
-                      "Recent Answers",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 30.0),
-                ExamItem('Answer of final exam','2020',FinalPdfViewer.routeName,""),
-                    SizedBox(height: 10,),
-                    ExamItem('Answer of mid term','2021',FinalPdfViewer.routeName,""),
-                    SizedBox(height: 10,),
-
-                    Center(
-                      child: Text(
-                        "View all",
-                        style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 15.0),
-                      ),)
-
                   ]
                   ,
                 ),
