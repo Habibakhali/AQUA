@@ -9,6 +9,7 @@ import 'package:project/doctor/setting/setting.dart';
 import 'package:project/graduated/Layout/HomeScreen.dart';
 import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
+import 'package:project/graduated/personal%20setting/graduate_exper.dart';
 import 'package:project/providers/setting_provider.dart';
 import 'package:project/student/Courses/SelectedItem.dart';
 import 'package:project/student/Courses/questionnair_homeScreen.dart';
@@ -46,7 +47,7 @@ import 'graduated/login&signup/Otp_form_email.dart';
 import 'graduated/login&signup/forget_password_grd.dart';
 import 'graduated/login&signup/graduated_login.dart';
 import 'graduated/login&signup/signupGr.dart';
-import 'graduated/personal setting/profileGrd.dart';
+import 'graduated/personal setting/details.dart';
 import 'graduated/personal setting/settingProfGrd.dart';
 
 String? home;
@@ -142,7 +143,8 @@ class MyApp extends StatelessWidget {
           PasswordResetGra.routeName: (_) =>
               PasswordResetGra(GraduatedLogIn.routeName),
           SettingsPageDoc.routeName: (_) => SettingsPageDoc(),
-          PersonalSetting.routeName: (_) => PersonalSetting()
+          PersonalSetting.routeName: (_) => PersonalSetting(),
+          GraduateExperience.routeName:(_)=>GraduateExperience()
         });
   }
 }

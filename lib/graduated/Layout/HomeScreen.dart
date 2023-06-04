@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:project/graduated/personal%20setting/profileGrd.dart';
+import 'package:project/graduated/personal%20setting/details.dart';
 
 import '../../Styling/icon.dart';
 import '../Acadimic RegisterGrd/registration_form.dart';
-import '../Graduation_certificate/certificated.dart';
 import '../SettingGrd/setting.dart';
+import '../companies/companies.dart';
 import '../personal setting/settingProfGrd.dart';
 import '../questionnerGrd/Form_questionner.dart';
 
@@ -19,7 +19,7 @@ static const String routeName="homeScrrenGraduated";
 class _HomeScreenGrdState extends State<HomeScreenGrd> {
 int index=0;
 
-List<Widget>tabs=[RegistrationFormGrd(),GraduationCertificate(),ProfileGrd()];
+List<Widget>tabs=[GraduationCertificate(),ProfileGrd()];
 
 @override
 Widget build(BuildContext context) {
@@ -47,9 +47,9 @@ Widget build(BuildContext context) {
         },
         currentIndex: index,
         items: [
-          BottomNavigationBarItem(icon: ImageIcon(AssetImage('assets/images/acadimic_regstration.png'),),label: AppLocalizations.of(context)!.academic_register),
-          BottomNavigationBarItem(icon: Icon(MyFlutterApp.graduation_cap),label: AppLocalizations.of(context)!.garduation_certification),
-          BottomNavigationBarItem(icon: Icon(Icons.person,),label: AppLocalizations.of(context)!.edit_profile),
+
+          BottomNavigationBarItem(icon: Icon(Icons.business),label: 'Companies'),
+          BottomNavigationBarItem(icon: Icon(Icons.person,),label: 'Edit details'),
         ],
       ),
     ),
