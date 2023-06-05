@@ -27,16 +27,14 @@ class PayloadShowCourses {
   String? cCode;
   String? cName;
   int? cHours;
-  List<String>? cPrereq;
   int? semester;
 
-  PayloadShowCourses({this.cCode, this.cName, this.cHours, this.cPrereq, this.semester});
+  PayloadShowCourses({this.cCode, this.cName, this.cHours, this.semester});
 
   PayloadShowCourses.fromJson(Map<String, dynamic> json) {
     cCode = json['c_code'];
     cName = json['c_name'];
     cHours = json['c_hours'];
-    cPrereq = json['c_prereq']==null?[]:List.from(json['c_prereq']);
     semester = json['semester'];
   }
 
@@ -45,7 +43,6 @@ class PayloadShowCourses {
     data['c_code'] = this.cCode;
     data['c_name'] = this.cName;
     data['c_hours'] = this.cHours;
-    data['c_prereq'] = this.cPrereq;
     data['semester'] = this.semester;
     return data;
   }

@@ -23,8 +23,8 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   String selected = '1';
   String year = '1';
   File? imageFile;
-  List<String> lastfile =[];
-  List<int> idss =[];
+  List<String> lastfile = [];
+  List<int> idss = [];
   String status = '';
   var pickedFile;
   int? id;
@@ -48,11 +48,11 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   GetAcademicRegistryApi data = GetAcademicRegistryApi();
 
   void showImage() async {
-    final pref= await SharedPreferences.getInstance();
+    final pref = await SharedPreferences.getInstance();
     data = await ApiManager.getShowAcademicRegistry(id ?? 0);
     print('---------------------->${data.payload!.id!}');
-    status = pref.getString('acadimic'+email)??'';
-    lastfile=pref.getStringList('imagelist'+ pref.getString('email')!)??[];
+    status = pref.getString('acadimic' + email) ?? '';
+    lastfile = pref.getStringList('imagelist' + pref.getString('email')!) ?? [];
     setState(() {});
   }
 
@@ -60,7 +60,6 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
   void initState() {
     super.initState();
     initPref();
-
   }
 
   initPref() async {
@@ -68,7 +67,7 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     token = pref.getString('token') ?? '0';
     email = pref.getString('email')!;
     password = pref.getString('password')!;
-    lastfile=pref.getStringList('imagelist'+ pref.getString('email')!)??[];
+    lastfile = pref.getStringList('imagelist' + pref.getString('email')!) ?? [];
   }
 
   @override
@@ -77,189 +76,212 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
     pro.ConnectionState();
     return !pro.result
         ? AlertDialog(
-      title: Center(child: Text('No Internet')),
-      content: Image.asset('assets/images/wi-fi-disconnected.png'),
-    )
+            title: Center(child: Text('No Internet')),
+            content: Image.asset('assets/images/wi-fi-disconnected.png'),
+          )
         : Scaffold(
-      body: Container(
-          padding: EdgeInsets.all(30.0),
-          child: Center(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        chooseImage(ImageSource.camera);
-                      },
-                      icon: Icon(
-                        // <-- Icon
-                        Icons.camera_alt_outlined,
-                        size: 24.0,
-                      ),
-                      label:
-                      Text(AppLocalizations.of(context)!.capture_img), // <-- Text
-                    ),
-                    Center(child: Text(AppLocalizations.of(context)!.or)),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        chooseImage(ImageSource.gallery);
-                      },
-                      icon: Icon(
-                        // <-- Icon
-                        Icons.image,
-                        size: 24.0,
-                      ),
-                      label: Text(AppLocalizations.of(context)!.gallery_img),
-                    ),
-                    imageFile==null&&status==''&&lastfile.isEmpty
-                        ? Center(child: Text(AppLocalizations.of(context)!.no_img))
-                        : status==''&&lastfile.isEmpty
-                        ?
-                    Row(mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Seleted image :'),
-                        Icon(Icons.check_circle,color: Colors.green,)
-                      ],
-                    ):
-                    Expanded(child: ListView.builder(
-                      scrollDirection: Axis.horizontal,itemCount: lastfile.length,
-                      itemBuilder: (_,index){
-                        return Row(
-                          children: [
-                            RegisterFiles(lastfile[index].split('#')[0],(c)async{
-                              final pref=await SharedPreferences.getInstance();
-                              print('data===============>{}');
-                              print(lastfile[index]);
-                             var ddddd=await ApiManager.delAcadimicRegistery( int.parse(lastfile[index].split('#')[1]));
-                             if(ddddd==200){
-                               print('dele    ${ApiManager.imagesAc[index].split('#')[1]}');
-                             setState(() {
-                                lastfile.removeAt(index);
-                                ApiManager.imagesAc.removeAt(index);
-                                if(lastfile.length==0){
-                              imageFile=null;
-                              status='';
-                                }
-                                pref.setStringList('imagelist', lastfile);
-                              });
-                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Deletion success')));
-                             }
-                             else {
-                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error when deletion')));
-                             }
-                            },index),
-                            SizedBox(width: 8,)
-                          ],
-                        );
-                      },
-                    )),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+            body: Container(
+                padding: EdgeInsets.all(30.0),
+                child: Center(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {});
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) => StatefulBuilder(
-                                  builder: (context,
-                                      StateSetter setState) {
-                                    return SimpleDialog(
-                                      title: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .spaceBetween,
-                                            children: [
-                                              Text(AppLocalizations
-                                                  .of(context)!
-                                                  .select_semester),
-                                              InkWell(
-                                                  onTap: () {
-                                                    flutterYearPicker(
-                                                        context);
-                                                  },
-                                                  child: Text(
-                                                    'level: ${year}',
-                                                  ))
-                                            ],
-                                          ),
-                                          Divider(
-                                            thickness: 1,
-                                          )
-                                        ],
-                                      ),
-                                      contentPadding: EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          bottom: 20,
-                                          top: 5),
-                                      backgroundColor:
-                                      Theme.of(context)
-                                          .secondaryHeaderColor,
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          chooseImage(ImageSource.camera);
+                        },
+                        icon: Icon(
+                          // <-- Icon
+                          Icons.camera_alt_outlined,
+                          size: 24.0,
+                        ),
+                        label: Text(AppLocalizations.of(context)!
+                            .capture_img), // <-- Text
+                      ),
+                      Center(child: Text(AppLocalizations.of(context)!.or)),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          chooseImage(ImageSource.gallery);
+                        },
+                        icon: Icon(
+                          // <-- Icon
+                          Icons.image,
+                          size: 24.0,
+                        ),
+                        label: Text(AppLocalizations.of(context)!.gallery_img),
+                      ),
+                      imageFile == null && status == '' && lastfile.isEmpty
+                          ? Center(
+                              child: Text(AppLocalizations.of(context)!.no_img))
+                          : status == '' && lastfile.isEmpty
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('Seleted image :'),
+                                    Icon(
+                                      Icons.check_circle,
+                                      color: Colors.green,
+                                    )
+                                  ],
+                                )
+                              : Expanded(
+                                  child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: lastfile.length,
+                                  itemBuilder: (_, index) {
+                                    return Row(
                                       children: [
-                                        InkWell(
-                                            child: Text(AppLocalizations
-                                                .of(context)!
-                                                .semester1),
-                                            onTap: () {
-                                              setState(() {
-                                                selected = '1';
-                                                Navigator.pop(context,selected);
-                                              });
-
-                                            }),
+                                        RegisterFiles(
+                                            lastfile[index].split('#')[0],
+                                            (c) async {
+                                          final pref = await SharedPreferences
+                                              .getInstance();
+                                          print('data===============>{}');
+                                          print(lastfile[index]);
+                                          var ddddd = await ApiManager
+                                              .delAcadimicRegistery(int.parse(
+                                                  lastfile[index]
+                                                      .split('#')[1]));
+                                          if (ddddd == 200) {
+                                            print(
+                                                'dele    ${ApiManager.imagesAc[index].split('#')[1]}');
+                                            setState(() {
+                                              lastfile.removeAt(index);
+                                              ApiManager.imagesAc
+                                                  .removeAt(index);
+                                              if (lastfile.length == 0) {
+                                                imageFile = null;
+                                                status = '';
+                                              }
+                                              pref.setStringList(
+                                                  'imagelist', lastfile);
+                                            });
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        'Deletion success')));
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        'Error when deletion')));
+                                          }
+                                        }, index),
                                         SizedBox(
-                                          height: 8,
-                                        ),
-                                        InkWell(
-                                            child: Text(AppLocalizations
-                                                .of(context)!
-                                                .semester2),
-                                            onTap: () {
-                                              setState(() {
-                                                selected = '2';
-                                                Navigator.pop(context,selected);
-                                              });
-
-                                            }),
+                                          width: 8,
+                                        )
                                       ],
                                     );
-                                  },),);
-                              setState(() {});
-                            },
-                            child: Text(
-                                'Select semester: ${year + selected}'),
-                          ),
-                        ]),
-                    OutlinedButton(
-                      onPressed: () {
-                        showDialog(context: context, barrierDismissible: false,
-                            builder: (context) => StatefulBuilder(
-                                builder: (context, StateSetter setState) {
-                                  return SimpleDialog(
-                                      title: Container(
-                                          padding: EdgeInsets.all(10),
-                                          child: Center(
-                                            child:
-                                            CircularProgressIndicator(),
-                                          )));
-                                }));
-                        validate();
-                      },
-                      child: Text(AppLocalizations.of(context)!.upload_img),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                  ])
-          )),
-    );
+                                  },
+                                )),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                setState(() {});
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => StatefulBuilder(
+                                    builder: (context, StateSetter setState) {
+                                      return SimpleDialog(
+                                        title: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(AppLocalizations.of(
+                                                        context)!
+                                                    .select_semester),
+                                                InkWell(
+                                                    onTap: () {
+                                                      flutterYearPicker(
+                                                          context);
+                                                    },
+                                                    child: Text(
+                                                      'level: ${year}',
+                                                    ))
+                                              ],
+                                            ),
+                                            Divider(
+                                              thickness: 1,
+                                            )
+                                          ],
+                                        ),
+                                        contentPadding: EdgeInsets.only(
+                                            left: 20,
+                                            right: 20,
+                                            bottom: 20,
+                                            top: 5),
+                                        backgroundColor: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        children: [
+                                          InkWell(
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .semester1),
+                                              onTap: () {
+                                                setState(() {
+                                                  selected = '1';
+                                                  Navigator.pop(
+                                                      context, selected);
+                                                });
+                                              }),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          InkWell(
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .semester2),
+                                              onTap: () {
+                                                setState(() {
+                                                  selected = '2';
+                                                  Navigator.pop(
+                                                      context, selected);
+                                                });
+                                              }),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                );
+                                setState(() {});
+                              },
+                              child:
+                                  Text('Select semester: ${year + selected}'),
+                            ),
+                          ]),
+                      OutlinedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => StatefulBuilder(
+                                      builder: (context, StateSetter setState) {
+                                    return SimpleDialog(
+                                        title: Container(
+                                            padding: EdgeInsets.all(10),
+                                            child: Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )));
+                                  }));
+                          validate();
+                        },
+                        child: Text(AppLocalizations.of(context)!.upload_img),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                    ]))),
+          );
   }
 
   Future flutterYearPicker(BuildContext context) async {
@@ -311,10 +333,12 @@ class _AcadimecRegsterationState extends State<AcadimecRegsteration> {
       },
     );
   }
+
   void validate() async {
     PostAcademicRegistryApi data = PostAcademicRegistryApi();
     if (imageFile != null)
-      data = await ApiManager.storeAcademicRegistry(imageFile!, year+selected);
+      data =
+          await ApiManager.storeAcademicRegistry(imageFile!, year + selected);
     else
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Image not exist')));

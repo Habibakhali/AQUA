@@ -7,6 +7,9 @@ import 'package:project/student/login&signUp/forget_passwoord.dart';
 import 'package:project/student/login&signUp/signup_student.dart';
 import 'package:provider/provider.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Courses/course_selected.dart';
 
 
 
@@ -200,17 +203,20 @@ class _StudentLoginState extends State<StudentLogin> {
       )  );
   }
   Future<dynamic> validation()async{
+    final pref=await SharedPreferences.getInstance();
     var data =await ApiManager.loginStudent(textController.text, passController.text);
     if(data.error==null){
       Navigator.pop(context);
-     Navigator.pushReplacementNamed(context, HomeScreenStudent.routeName,
-     );
+      if(pref.getStringList('courses'+(pref.getString('email')??""))==[]){
+     Navigator.pushReplacementNamed(context, HomeScreenStudent.routeName,);
      return showDialog(context: context, builder: (context) =>
          AlertDialog(
              title: Text("Completed"),
              // To display the title it is optional
              content: Text("success")),
-     );
+     );}
+      else
+        Navigator.pushReplacementNamed(context, CourseSelected.routeName);
     }
     else {
       Navigator.pop(context);

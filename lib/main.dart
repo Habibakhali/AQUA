@@ -55,6 +55,7 @@ String? home;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final pref = await SharedPreferences.getInstance();
+  print(pref.getStringList('courses'+(pref.getString('email')??"")));
   home = pref.getString('category')==null?
   Programs.routeName:
   (pref.getString('category') == 'graduated' &&
@@ -67,10 +68,9 @@ void main() async {
                   pref.getString('token') == "")
               ? StudentLogin.routeName
               : (pref.getString('category') == 'student' &&
-                      pref.getString('token') != "" &&
                       pref.getStringList('courses'+(pref.getString('email')??"")) == [])
-                  ? HomeScreenStudent.routeName
-                  : CourseSelected.routeName;
+                  ?  HomeScreenStudent.routeName
+                  :CourseSelected.routeName;
   runApp(ChangeNotifierProvider<SettingProvider>(
       create: (buildContext) {
         return SettingProvider();
