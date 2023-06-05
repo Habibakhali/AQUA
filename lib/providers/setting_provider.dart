@@ -14,7 +14,7 @@ class SettingProvider extends ChangeNotifier{
   String passwordStudent='';
    bool result=false;
    bool selection=false;
-  ThemeMode currTheme=ThemeMode.system;
+  ThemeMode currTheme=ThemeMode.light;
 
   bool changeSelectedCourses(bool click){
     selection=!selection;

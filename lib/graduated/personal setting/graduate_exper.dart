@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../API/Models/graduated/grd_expr_data.dart';
+import '../companies/company_item.dart';
+import 'content_grd_exp.dart';
+import 'exp_item.dart';
 
 class GraduateExperience extends StatefulWidget {
   static const String routeName='graduate_exper';
@@ -10,140 +16,96 @@ class GraduateExperience extends StatefulWidget {
 }
 
 class _GraduateExperienceState extends State<GraduateExperience> {
-  TextEditingController jobTitle=TextEditingController();
-  TextEditingController startDate=TextEditingController();
-  TextEditingController endDate=TextEditingController();
-  TextEditingController companyId=TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  @override
+@override
+List<String>campaniesName=[];
+List<String>companiesId=[];
+List<String>idName=[];
+List<String>id=[];
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    iiiyt();
+  }
+iiiyt() async{
+  final pref=await SharedPreferences.getInstance();
+  campaniesName=pref.getStringList('companiesNamew')??[];
+  companiesId=pref.getStringList('companiesId')??[];
+  var data=await ApiManager.getGrdExperiences();
+  for(int i=0;i<campaniesName.length;i++){
+      if(companiesId[i]==data.payload![i].companyId)
+        idName.insert(idName.length, campaniesName[i]);
+  }
+;}
+@override
   Widget build(BuildContext context) {
    return Scaffold(
-     body: Container(
-
-       padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-       child:
-       Form(
-         key: formKey,
-         child: ListView(
-           children: [
-             Row(
-               children: [
-
-                 Text(
-                  "Your experience in company",
-                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                 ),
-               ],
-             ),
-             Divider(
-               height: 15,
-               thickness: 2,
-             ),
-             SizedBox(
-               height: 10,
-             ),
-             Container(
-               margin: EdgeInsets.symmetric(horizontal: 20),
-               child:  Column(
-                 children: [
-                   TextFormField(
-                     decoration: InputDecoration(
-                         hintText: "job_title"
-                     ),
-                     validator: (value) {
-                       if(value == null || value.trim().isEmpty) {
-                         return 'please enter job title';
-                       }
-                       return null;
-                     },
-                     controller: jobTitle,
-
-                   ),
-                   SizedBox(
-                     height: 20,
-                   ),
-                   TextFormField(
-                     decoration: InputDecoration(
-                         hintText: "Start date"
-                     ),
-                     validator: (value) {
-                       if(value == null || value.trim().isEmpty) {
-                         return 'please enter Start date';
-                       }
-                       return null;
-                     },
-                     controller: startDate,
-
-                   ),
-                   SizedBox(
-                     height: 20,
-                   ),
-                   TextFormField(
-                     decoration: InputDecoration(
-                         hintText: "End Date"
-                     ),
-                     validator: (value) {
-                       return null;
-                     },
-                     controller: endDate,
-
-                   ),
-                   SizedBox(
-                     height: 20,
-                   ),
-
-             Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 ElevatedButton(
-                   style: ButtonStyle(
-                     backgroundColor: MaterialStateProperty.all(Colors.white),
-                     elevation: MaterialStateProperty.all(1),
-                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                       RoundedRectangleBorder(
-                         borderRadius: BorderRadius.circular(18.0),
-                       ),
-                     ),
-                   ),
-                   onPressed: () {
-                   },
-                   child: Text('Delete',
-                       style: TextStyle(
-                           fontSize: 14,
-                           letterSpacing: 2.2,
-                           color: Colors.blue)),
-                 ),
-                 ElevatedButton(
-                     style: ButtonStyle(
-                         backgroundColor: MaterialStateProperty.all(Colors.blue),
-                         elevation: MaterialStateProperty.all(1),
-                         shape:
-                         MaterialStateProperty.all<RoundedRectangleBorder>(
-                             RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(18.0),
-                             ))),
-                     onPressed: () {
-                       storeData();
-                     },
-                     child: Text("save",
-                         style: TextStyle(
-                             fontSize: 14,
-                             letterSpacing: 2.2,
-                             color: Colors.white))),
-                 ],
-               ),]
-
-             ),
-
-       ),
-           ],
-         ),
-
+     floatingActionButton: FloatingActionButton(
+       onPressed:(){
+         showModalwllw();
+       }
+       ,child: Icon(Icons.add),
      ),
-   ));
-  }
-  void storeData()async{
+     body:Column(
+       crossAxisAlignment: CrossAxisAlignment.stretch,
+       mainAxisAlignment: MainAxisAlignment.start,
+       children: [
+         Expanded(
+           child: FutureBuilder<getGrdExp>(
+             future: ApiManager.getGrdExperiences(),
+             builder: (context, snapShot) {
+               if (snapShot.connectionState == ConnectionState.waiting)
+                 return Center(child: CircularProgressIndicator());
+               if (snapShot.hasError)
+                 return Center(
+                     child: Text(
+                       'Some thing went wrong',
+                       style: TextStyle(color: Colors.red),
+                     ));
+               else {
+                 var data = snapShot.data;
+                 if (data!.payload!.isNotEmpty) {
+                   Future.delayed(Duration(seconds: 8),(){
+                     setState(() {});
+                   });
+                   return ListView.builder(
+                       itemCount: snapShot.data!.payload!.length!,
+                       itemBuilder:(context,index){
+                         return ExprItem(
+                             data.payload![index]!.jobTitle!,
+                             data.payload![index]!.startDate!,
+                           data.payload![index]!.endDate!,
+                            'vodavon',
+                           data.payload![index]!.id!
+                         );
+                       });
 
-    }
+                 }
+                 else {
+                   return Center(
+                     child: Text(
+                       'No Companies Found 😕',
+                       style: TextStyle(color: Colors.blue),
+                     ),
+                   );
+                 }
+               }
+             },
+           ),
+         ),
+       ],
+     ));
+  }
+  showModalwllw(){
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context, builder: (context){
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom
+            ),
+            child: ContentOfGrdEx(),
+          );
+    });
+  }
 }
 

@@ -2,6 +2,7 @@ import 'package:project/API/Models/Student/me_jwt.dart';
 import 'package:project/API/Models/Student/post_acadimic_registration.dart';
 import 'package:project/API/Models/Student/registeration_form_model.dart';
 import 'package:project/API/Models/Student/update_activity.dart';
+import 'package:project/API/Models/graduated/companies_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'Models/Student/GetActivity.dart';
@@ -9,6 +10,7 @@ import 'Models/Student/ShowActivity.dart';
 import 'Models/Student/academic_registry_api.dart';
 import 'Models/Student/forget_pass_student.dart';
 import 'Models/Student/get_registeration_forn.dart';
+import 'Models/graduated/grd_expr_data.dart';
 import 'Models/Student/login_student_api.dart';
 import 'Models/Student/pincode_forgetpass_student.dart';
 import 'Models/Student/register.dart';
@@ -777,15 +779,14 @@ class ApiManager {
       "Accept":"application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"});
   }
-static Future<void> storeGraduateEperience(String jobTitle, String startDate, String endDate,String companyId)
+static Future<http.Response> storeGraduateEperience(String jobTitle, String startDate, String endDate,String companyId)
 async{
     final pref=await SharedPreferences.getInstance();
     var url=Uri.https(base,'/api/graduateExperiences');
     http.Response response=await http.post(url,headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "Authorization": "Bearer ${pref.getString('token')}"
-
+      "Authorization": "Bearer ${pref.getString('tokenGrd')}"
     },
         body: jsonEncode({
           "job_title":jobTitle,
@@ -795,30 +796,37 @@ async{
 
         }));
 
-    print('refresh ===============> ${response.statusCode}');
-    var json=jsonDecode(response.body);
+    print('refresh ===============> ${response.body}');
+   return response;
   }
-  static Future<void>getGrdExperiences()async{
+  static Future<getGrdExp>getGrdExperiences()async{
+    final pref=await SharedPreferences.getInstance();
     var url=Uri.https(base,'/api/graduateExperiences');
-    http.Response response=await http.get(url);
+    http.Response response=await http.get(url,headers: {
+      "Authorization": "Bearer ${pref.getString('tokenGrd')}"
+    });
+    var json=jsonDecode(response.body);
+    var res=getGrdExp.fromJson(json);
+    return res;
+
   }
-  static Future<void>delGrdExperiences(int id)async{
+  static Future<http.Response>delGrdExperiences(int id)async{
     final pref=await SharedPreferences.getInstance();
     var url=Uri.https(base,'/api/companies/$id');
     http.Response response=await http.delete(url,headers: {
       "Accept":"application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"});
+    return response;
   }
 
 
-  static Future<void> storeCompanies(String Name, String Email, String Address,String Type)
-  async{
+  static Future<http.Response> storeCompanies(String Name, String Email, String Address,String Type) async{
     final pref=await SharedPreferences.getInstance();
     var url=Uri.https(base,'/api/companies');
     http.Response response=await http.post(url,headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "Authorization": "Bearer ${pref.getString('token')}"
+      "Authorization": "Bearer ${pref.getString('tokenGrd')}"
 
     },
         body: jsonEncode({
@@ -828,9 +836,8 @@ async{
           "type":Type,
 
         }));
-
-    print('refresh ===============> ${response.statusCode}');
-    var json=jsonDecode(response.body);
+    print(response.statusCode);
+    return response;
   }
   static Future<void> updateCompanies(String Name, String Email, String Address,String Type)
   async{
@@ -854,15 +861,23 @@ async{
     var json=jsonDecode(response.body);
   }
 
-  static Future<void>getCompanies(int id)async{
-    var url=Uri.https(base,'/api/graduateExperiences');
-    http.Response response=await http.get(url);
+  static Future<getCompaniesDate>getCompanies()async{
+    final pref=await SharedPreferences.getInstance();
+    var url=Uri.https(base,'/api/companies');
+    http.Response response=await http.get(url,headers: {
+      "Authorization": "Bearer ${pref.getString('tokenGrd')}"
+    });
+    var json=jsonDecode(response.body);
+    print(response.statusCode);
+    var res=getCompaniesDate.fromJson(json);
+    return res;
   }
-  static Future<void>delGrdExperien(int id)async{
+  static Future<http.Response>delCompany(int id)async{
     final pref=await SharedPreferences.getInstance();
     var url=Uri.https(base,'/api/companies/$id');
     http.Response response=await http.delete(url,headers: {
       "Accept":"application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"});
+    return response;
   }
 }

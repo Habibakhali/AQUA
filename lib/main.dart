@@ -49,6 +49,7 @@ import 'graduated/login&signup/forget_password_grd.dart';
 import 'graduated/login&signup/graduated_login.dart';
 import 'graduated/login&signup/signupGr.dart';
 import 'graduated/personal setting/details.dart';
+import 'graduated/personal setting/otp_change_password.dart';
 import 'graduated/personal setting/settingProfGrd.dart';
 
 String? home;
@@ -101,6 +102,7 @@ class MyApp extends StatelessWidget {
         locale: Locale(pro.currentLang),
         initialRoute: home,
         routes: {
+          OTpSettingPersonalGrd.routeName:(_)=>OTpSettingPersonalGrd(),
           OTpSettingPersonal.routeName:(_)=> OTpSettingPersonal(),
           Training.routName: (_) => Training(),
           ForgetMyPasswordDr.routeName: (_) => ForgetMyPasswordDr(),

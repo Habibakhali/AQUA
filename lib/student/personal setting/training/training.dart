@@ -95,8 +95,11 @@ class _TrainingState extends State<Training> {
   void BottomSheetInsertion() {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (context) {
-          return ContentBottomSheet();
+          return Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: ContentBottomSheet());
         });
   }
 }

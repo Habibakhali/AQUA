@@ -32,6 +32,7 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
       key: formKey,
       child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
                 margin: EdgeInsets.only(top: 20, left: 20, right: 20),
