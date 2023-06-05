@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../MyDesign/buildTextField.dart';
-import '../../graduated/personal setting/profileGrd.dart';
+import '../../graduated/personal setting/details.dart';
 
 class PersonalSetting extends StatefulWidget {
   static const String routeName = 'profgrd';

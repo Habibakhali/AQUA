@@ -12,11 +12,26 @@ import '../../MyDesign/buildTextField.dart';
 class ProfileGrd extends StatefulWidget {
   static const String routeName = 'profgrd';
 
+  bool visible = true;
   @override
   State<ProfileGrd> createState() => _ProfileGrdState();
 }
 
 class _ProfileGrdState extends State<ProfileGrd> {
+  TextEditingController dob=TextEditingController();
+  TextEditingController phone=TextEditingController();
+  TextEditingController address=TextEditingController();
+  TextEditingController gradBatch=TextEditingController();
+  TextEditingController department=TextEditingController();
+  TextEditingController specialzation=TextEditingController();
+  TextEditingController scientificDegree=TextEditingController();
+  TextEditingController academicCer=TextEditingController();
+  TextEditingController academicRec=TextEditingController();
+  TextEditingController gpa=TextEditingController();
+  TextEditingController cv=TextEditingController();
+  TextEditingController courses=TextEditingController();
+  TextEditingController awards=TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Image x = Image.asset('assets/images/qa.png');
 
   bool showPassword = false;
@@ -24,6 +39,9 @@ class _ProfileGrdState extends State<ProfileGrd> {
   final txtController = TextEditingController();
 
   File? _image;
+  File? imageFile;
+  var pickedFile;
+  String status = '';
 
   Future pickImage(ImageSource source) async {
     try {
@@ -38,6 +56,18 @@ class _ProfileGrdState extends State<ProfileGrd> {
     } on Exception catch (e) {
       print('failed to pick image');
     }
+  }
+  chooseImage(ImageSource source) async {
+    pickedFile = await ImagePicker().pickImage(
+      source: source,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+    print('statius: $status');
+    setState(() {
+      widget.visible = true;
+      imageFile = File(pickedFile!.path);
+    });
   }
 
   Future<File?> _cropImage({required File imageFile}) async {
@@ -146,55 +176,249 @@ class _ProfileGrdState extends State<ProfileGrd> {
             SizedBox(
               height: 10,
             ),
-            BuildTextField(AppLocalizations.of(context)!.phone, "0100057256",
-                false, false, TextInputType.number),
-            BuildTextField(
-                AppLocalizations.of(context)!.location,
-                AppLocalizations.of(context)!.address,
-                false,
-                false,
-                TextInputType.streetAddress),
-            TextField(
+        Form(child: Container(
+    margin: EdgeInsets.symmetric(horizontal: 20),
+    child:  Column(
+    children: [
+            TextFormField(
               decoration: InputDecoration(
+    labelStyle: TextStyle(color: Colors.grey),
                   labelText: AppLocalizations.of(context)!.birth_date),
               onTap: _selDatePicker,
-              controller: txtController,
+              controller: dob,
             ),
-            BuildTextField("graduation batch", "Enter your graduation batch",
-                false, false, TextInputType.text),
-            BuildTextField("department", "Enter your department", false, false,
-                TextInputType.text),
-            BuildTextField("specialization", "Enter your specialization", false,
-                false, TextInputType.text),
-            BuildTextField("scientific degree", "Enter scientific degree",
-                false, false, TextInputType.text),
-            BuildTextField(
-                "Gpa", "Enter your gpa", false, false, TextInputType.text),
-            BuildTextField("courses", "Enter your courses", false, false,
-                TextInputType.text),
-            BuildTextField("awards", "Enter your awards", false, false,
-                TextInputType.text),
+            SizedBox(height: 10,),
+
+      buildTextField("phone","Enter your phone number",TextInputType.phone,phone,"please enter your phone number"),
+      buildTextField("address","Enter your address",TextInputType.text,address,"please enter your phone address"),
+      buildTextField("graduation batch", "Enter your graduation batch",
+              TextInputType.text,gradBatch,"please enter your graduation batch"),
+            buildTextField("department", "Enter your department",
+                TextInputType.text,department,"please enter your department"),
+            buildTextField("specialization", "Enter your specialization", TextInputType.text,specialzation
+            ,"please enter your specialization"),
+            buildTextField("scientific degree", "Enter scientific degree",
+                TextInputType.number,scientificDegree,"please enter scientific degree"),
+            buildTextField(
+                "gpa", "Enter your gpa",TextInputType.number,gpa,"please enter your gpa"),
+Row(
+  children: [
+    Expanded(
+      child: TextFormField(
+        decoration: InputDecoration(
+          labelText: 'field',
+          border: OutlineInputBorder(),
+        ),
+      ),
+    ),
+    SizedBox(width:5),
+    Expanded(
+      child: TextFormField(
+        controller: courses,
+        decoration: InputDecoration(
+          labelText: 'Courses',
+          border: OutlineInputBorder(),
+        ),
+      ),
+    ),
+
+
+  ],
+),
+      SizedBox(height: 10,),
+      Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'field',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          SizedBox(width: 5,),
+          Expanded(
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'awards',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+        ],
+      ),
             Container(
               margin: EdgeInsets.only(top: 20),
               child: InkWell(
-                onTap: () async {
-                  fileload = await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    allowedExtensions: ['pdf', 'doc'],
-                  );
-                },
+    onTap: () {
+    showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    return Expanded(
+    child: SimpleDialog(
+    title: const Text('Choose Image'),
+    children: <Widget>[
+    SimpleDialogOption(
+    onPressed: () {
+    chooseImage(ImageSource.gallery);
+    Navigator.pop(context);
+    },
+    child: const Text('From gallery'),
+    ),
+    SimpleDialogOption(
+    onPressed: () {
+      chooseImage(ImageSource.camera);
+    Navigator.pop(context);
+    },
+    child: const Text('From camera'),
+    ),
+    ],
+    ),
+    );
+    },
+    );
+    },
                 child: TextFormField(
                   decoration: InputDecoration(
                     enabled: false,
                     errorStyle: TextStyle(color: Colors.red),
-                    labelText: AppLocalizations.of(context)!.cv,
+                    labelText: 'Academic certificates',
                     labelStyle: Theme.of(context).textTheme.bodyMedium,
                     prefixIcon: Icon(Icons.upload_outlined),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        child: InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Expanded(
+                  child: SimpleDialog(
+                    title: const Text('Choose Image'),
+                    children: <Widget>[
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.gallery);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From gallery'),
+                      ),
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.camera);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From camera'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          child: TextFormField(
+            decoration: InputDecoration(
+              enabled: false,
+              errorStyle: TextStyle(color: Colors.red),
+              labelText: 'Graduation certificate',
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
+              prefixIcon: Icon(Icons.upload_outlined),
+            ),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        child: InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Expanded(
+                  child: SimpleDialog(
+                    title: const Text('Choose Image'),
+                    children: <Widget>[
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.gallery);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From gallery'),
+                      ),
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.camera);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From camera'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          child: TextFormField(
+            decoration: InputDecoration(
+              enabled: false,
+              errorStyle: TextStyle(color: Colors.red),
+              labelText: 'Academic Record',
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
+              prefixIcon: Icon(Icons.upload_outlined),
+            ),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 20),
+        child: InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Expanded(
+                  child: SimpleDialog(
+                    title: const Text('Choose Image'),
+                    children: <Widget>[
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.gallery);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From gallery'),
+                      ),
+                      SimpleDialogOption(
+                        onPressed: () {
+                          chooseImage(ImageSource.camera);
+                          Navigator.pop(context);
+                        },
+                        child: const Text('From camera'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          child: TextFormField(
+            decoration: InputDecoration(
+              enabled: false,
+              errorStyle: TextStyle(color: Colors.red),
+              labelText: 'CV',
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
+              prefixIcon: Icon(Icons.upload_outlined),
+            ),
+          ),
+        ),
+      ),
+
+
+  ]),)),
+           /* SizedBox(
               height: 20,
             ),
             BuildTextField(
@@ -225,6 +449,8 @@ class _ProfileGrdState extends State<ProfileGrd> {
                 TextInputType.text),
             BuildTextField("company type", "company type", false, false,
                 TextInputType.text),
+
+            */
             TextButton(
               onPressed: () async {
                 const url =
@@ -327,34 +553,26 @@ class _ProfileGrdState extends State<ProfileGrd> {
   }
 
   Widget buildTextField(String labelText, String placeholder,
-      bool isPasswordTextField, bool read, TextInputType type) {
+     TextInputType type,TextEditingController cont, String x) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
+      child: TextFormField(
+        validator: (value) {
+          if(value == null || value.trim().isEmpty) {
+            return x;
+          }
+          return null;
+        },
+        controller: cont,
         keyboardType: type,
-        readOnly: read,
-        obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(
-            suffixIcon: isPasswordTextField
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        showPassword = !showPassword;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.grey,
-                    ),
-                  )
-                : null,
             contentPadding: EdgeInsets.only(bottom: 3),
             labelText: labelText,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             hintText: placeholder,
             hintStyle: TextStyle(
               fontSize: 16,
-              color: Colors.black,
+              color: Colors.grey,
             )),
       ),
     );
