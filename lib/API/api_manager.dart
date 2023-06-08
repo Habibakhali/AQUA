@@ -289,8 +289,7 @@ class ApiManager {
       File imageFile, String semester) async {
     var uri = Uri.parse("https://aqua.larasci.site/api/academicRegistry");
     final pref = await SharedPreferences.getInstance();
-    var multipartFile =
-        await http.MultipartFile.fromPath('image', imageFile.path);
+    var multipartFile = await http.MultipartFile.fromPath('image', imageFile.path);
     Map<String, String> headers = {
       "Accept": "application/json",
       "Authorization": "Bearer ${pref.getString('token')}"

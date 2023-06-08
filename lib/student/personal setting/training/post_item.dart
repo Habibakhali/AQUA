@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:project/providers/setting_provider.dart';
 import 'package:project/student/personal%20setting/training/update_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PostItem extends StatefulWidget {
   String name;
   String title;
+  String createat;
   String description;
   String? img;
   int id;
   bool vv;
 
-  PostItem(this.name,this.title, this.description, this.img, this.id,this.vv);
+  PostItem(this.name,this.title,this.createat, this.description, this.img, this.id,this.vv);
 
   @override
   State<PostItem> createState() => _PostItemState();
 }
 
 class _PostItemState extends State<PostItem> {
-
   @override
+  late SettingProvider pro;
   Widget build(BuildContext context) {
+    pro=Provider.of<SettingProvider>(context);
     return Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),
@@ -42,20 +46,21 @@ class _PostItemState extends State<PostItem> {
                 Visibility(
                   visible: widget.vv,
                   child: Row(
-                  children: [InkWell(
+                  children: [
+                    InkWell(
                       onTap: () {
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
                               print(widget.id);
-                              return UpdateBottomSheet(widget.id);
+                              return UpdateBottomSheet(widget.title, widget.description, widget.img, widget.id);
                             });
                       },
                       child: Icon(
                         Icons.edit,
                         color: Colors.blue,
                       )),
-                  InkWell(
+                    InkWell(
                       onTap: () {
                         showDialog(
                             context: context,
@@ -93,8 +98,10 @@ class _PostItemState extends State<PostItem> {
                                               bool? del =
                                                   await ApiManager.delActivity(
                                                       widget.id);
-                                              if (del == true)
+                                              if (del == true){
+                                                pro.checkUpdateActivity('del');
                                                 Navigator.pop(context);
+                                              }
                                             },
                                             child: Row(
                                               children: [
@@ -142,7 +149,7 @@ class _PostItemState extends State<PostItem> {
             ),
             SizedBox(height: 5,),
             Text(
-              widget.description,
+              widget.createat,
               style: Theme.of(context).textTheme.bodySmall,
               textAlign: TextAlign.end,
             )

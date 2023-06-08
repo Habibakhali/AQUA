@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:project/API/api_manager.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../API/Models/Student/GetActivity.dart';
 import '../graduated/Layout/HomeScreen.dart';
 import '../student/layout/homeScreen.dart';
 
@@ -15,7 +17,10 @@ class SettingProvider extends ChangeNotifier{
    bool result=false;
    bool selection=false;
   ThemeMode currTheme=ThemeMode.light;
-
+checkUpdateActivity( String activityState){
+  if(activityState =='del'||activityState=='up'||activityState=='post')
+  notifyListeners();
+}
   bool changeSelectedCourses(bool click){
     selection=!selection;
     notifyListeners();

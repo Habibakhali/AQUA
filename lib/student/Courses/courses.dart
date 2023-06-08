@@ -5,6 +5,7 @@ import 'package:project/student/Courses/course_selected.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../API/Models/Student/store_course_re.dart';
 import '../../providers/setting_provider.dart';
@@ -73,11 +74,15 @@ class _CoursesState extends State<Courses> {
 
 
   _readCourses() async {
+    final pref = await SharedPreferences.getInstance();
     var data = await ApiManager.getCourse();
     for (int i = 0; i < data.length; i++) {
       courseName.insert(i, data[i].cName! + '/' + data[i].cCode!);
     }
-    Navigator.pop(context);
+   if(pref.getInt('loginState')==1){
+     pref.setInt('loginState', 0);
+     Navigator.pop(context);
+   }
     setState(() {});
     print('++++++++++++++++++++++> $courseName');
     print('++++++++++++++++++++++> ${courseName.length}');

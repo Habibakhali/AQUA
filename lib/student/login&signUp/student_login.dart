@@ -208,6 +208,7 @@ class _StudentLoginState extends State<StudentLogin> {
     if(data.error==null){
       Navigator.pop(context);
       if(pref.getStringList('courses'+(pref.getString('email')??""))==[]){
+        pref.setInt('loginState', 1);
      Navigator.pushReplacementNamed(context, HomeScreenStudent.routeName,);
      return showDialog(context: context, builder: (context) =>
          AlertDialog(

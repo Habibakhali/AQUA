@@ -4,26 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../../API/api_manager.dart';
+import '../../../providers/setting_provider.dart';
 
 class UpdateBottomSheet extends StatefulWidget {
   bool visible = false;
+  String title;
+  String description;
+  String? img;
   int id;
 
-  UpdateBottomSheet(this.id);
+  UpdateBottomSheet(this.title, this.description, this.img, this.id);
 
   @override
   State<UpdateBottomSheet> createState() => _UpdateBottomSheetState();
 }
 
 class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
-  var title = TextEditingController();
+  var titleController = TextEditingController();
   File? imageFile;
 
-  var description = TextEditingController();
+  var descriptionController = TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  @override
+  late SettingProvider pro;
   Widget build(BuildContext context) {
+    titleController.text=widget.title;
+    descriptionController.text=widget.description;
+    pro=Provider.of<SettingProvider>(context);
     return Container(
         child: Form(
           key: formKey,
@@ -38,7 +47,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
                             return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.title}';
                           return null;
                         },
-                        controller: title,
+                        controller: titleController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.edit),
@@ -65,7 +74,7 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
                             return '${AppLocalizations.of(context)!.please_enter} ${AppLocalizations.of(context)!.description}';
                           return null;
                         },
-                        controller: description,
+                        controller: descriptionController,
                         maxLines: 3,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
@@ -133,9 +142,10 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
   }
   validate()async{
     if (formKey.currentState?.validate() == true) {
-      bool? data=await ApiManager.updateActivity(widget.id,title.text, description.text, imageFile);
-      if(data==true)
-        Navigator.pop(context);
+      bool? data=await ApiManager.updateActivity(widget.id,titleController.text, descriptionController.text, imageFile);
+      if(data==true){
+        pro.checkUpdateActivity('up');
+        Navigator.pop(context);}
       else{
         return showDialog(context: context, builder: (context) =>
             AlertDialog(

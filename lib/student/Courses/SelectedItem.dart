@@ -42,9 +42,9 @@ List<int> fgh=[];
       print('hi');
       Navigator.pushReplacementNamed(context, HomeScreenStudent.routeName);
     }
-    if(coursesSelectedCourses.isNotEmpty)setState(() {
-
-    });
+    // if(coursesSelectedCourses.isNotEmpty)setState(() {
+    //
+    // });
   }
 
   @override
@@ -144,16 +144,13 @@ List<int> fgh=[];
                                                                 idCourse[
                                                                     index]);
                                                         if (data) {
-                                                          coursesSelectedCourses
-                                                              .removeAt(index);
-                                                          pref.setStringList(
-                                                              'courses' +
-                                                                  pref.getString(
-                                                                      'email')!,
-                                                              coursesSelectedCourses);
+                                                          coursesSelectedCourses.removeAt(index);
+                                                          pref.setStringList('courses' + pref.getString('email')!, coursesSelectedCourses);
+                                                          if (coursesSelectedCourses.isEmpty) {
+                                                            Navigator.pushReplacementNamed(context, HomeScreenStudent.routeName);
+                                                          }
                                                           setState(() {});
-                                                          Navigator.pop(
-                                                              context);
+                                                          Navigator.pop(context);
                                                         } else {
                                                           ScaffoldMessenger.of(
                                                                   context)
@@ -191,86 +188,89 @@ List<int> fgh=[];
                                 )),
                             Expanded(
                                 flex: 4,
-                                child: InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => SimpleDialog(
-                                                title: Column(
-                                                  children: [
-                                                    Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .select,
-                                                    ),
-                                                    Divider(
-                                                      thickness: 1,
-                                                    )
-                                                  ],
-                                                ),
-                                                contentPadding: EdgeInsets.only(
-                                                    left: 20,
-                                                    right: 20,
-                                                    bottom: 20,
-                                                    top: 5),
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .secondaryHeaderColor,
-                                                children: [
-                                                  InkWell(
-                                                      child: Row(
-                                                        children: [
-                                                          Text(AppLocalizations
-                                                                  .of(context)!
-                                                              .exam),
-                                                        ],
+                                child: Align(
+                                  alignment:Alignment.center,
+                                  child: InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => SimpleDialog(
+                                                  title: Column(
+                                                    children: [
+                                                      Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .select,
                                                       ),
-                                                      onTap: () {
-                                                        Navigator
-                                                            .pushReplacementNamed(
-                                                          context,
-                                                          Exam.routeName,
-                                                            arguments: coursesSelectedCourses![index]
-                                                        );
-                                                      }),
-                                                  SizedBox(
-                                                    height: 8,
+                                                      Divider(
+                                                        thickness: 1,
+                                                      )
+                                                    ],
                                                   ),
-                                                  InkWell(
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text(AppLocalizations
-                                                                  .of(context)!
-                                                              .questioner),
-                                                          fgh[index]==1?Icon(Icons.check_circle,color: Colors.green,):Text("")
-                                                        ],
-                                                      ),
-                                                      onTap: () {
-                                                        if(fgh[index]!=1)
-                                                        Navigator
-                                                            .pushReplacementNamed(
-                                                          context,
-                                                          QUestionHome
-                                                              .routeName,arguments: coursesSelectedCourses![index]
-                                                        );
-                                                        else {
-                                                          ScaffoldMessenger.of(
-                                                              context)
-                                                              .showSnackBar(
-                                                              SnackBar(
-                                                                  content: Text(
-                                                                      "You questionnaire is done")));
-                                                          Navigator.pop(context);
-                                                        }}),
-                                                ],
-                                              ));
-                                    },
-                                    child: Image.asset(
-                                      'assets/images/ocourse.png',
-                                      width: 150,
-                                      height: 150,
-                                    ))),
+                                                  contentPadding: EdgeInsets.only(
+                                                      left: 20,
+                                                      right: 20,
+                                                      bottom: 20,
+                                                      top: 5),
+                                                  backgroundColor:
+                                                      Theme.of(context)
+                                                          .secondaryHeaderColor,
+                                                  children: [
+                                                    InkWell(
+                                                        child: Row(
+                                                          children: [
+                                                            Text(AppLocalizations
+                                                                    .of(context)!
+                                                                .exam),
+                                                          ],
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator
+                                                              .pushReplacementNamed(
+                                                            context,
+                                                            Exam.routeName,
+                                                              arguments: coursesSelectedCourses![index]
+                                                          );
+                                                        }),
+                                                    SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    InkWell(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(AppLocalizations
+                                                                    .of(context)!
+                                                                .questioner),
+                                                            fgh[index]==1?Icon(Icons.check_circle,color: Colors.green,):Text("")
+                                                          ],
+                                                        ),
+                                                        onTap: () {
+                                                          if(fgh[index]!=1)
+                                                          Navigator
+                                                              .pushReplacementNamed(
+                                                            context,
+                                                            QUestionHome
+                                                                .routeName,arguments: coursesSelectedCourses![index]
+                                                          );
+                                                          else {
+                                                            ScaffoldMessenger.of(
+                                                                context)
+                                                                .showSnackBar(
+                                                                SnackBar(
+                                                                    content: Text(
+                                                                        "You questionnaire is done")));
+                                                            Navigator.pop(context);
+                                                          }}),
+                                                  ],
+                                                ));
+                                      },
+                                      child: Image.asset(
+                                        'assets/images/ocourse.png',
+                                        width: 150,
+                                        height: 150,
+                                      )),
+                                )),
                             Expanded(
                                 child: Center(
                               child: Text(

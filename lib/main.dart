@@ -69,8 +69,7 @@ void main() async {
           : (pref.getString('category') == 'student' &&
                   pref.getString('token') == "")
               ? StudentLogin.routeName
-              : (pref.getString('category') == 'student' &&
-                      pref.getStringList('courses'+(pref.getString('email')??"")) == [])
+              : (pref.getString('category') == 'student' && pref.getStringList('courses'+(pref.getString('email')??"")) == [])
                   ?  HomeScreenStudent.routeName
                   :CourseSelected.routeName;
   runApp(ChangeNotifierProvider<SettingProvider>(

@@ -7,7 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/API/Models/Student/StoreActivity.dart';
+import 'package:provider/provider.dart';
 import '../../../API/api_manager.dart';
+import '../../../providers/setting_provider.dart';
 
 class ContentBottomSheet extends StatefulWidget {
   bool visible = false;
@@ -24,9 +26,10 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
 
   var description = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  late SettingProvider pro;
   @override
   Widget build(BuildContext context) {
+     pro=Provider.of<SettingProvider>(context);
     return Container(
         child: Form(
       key: formKey,
@@ -155,6 +158,7 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
           title.text, description.text, imageFile);
       print(data.body);
       if (data.statusCode == 200) {
+        pro.checkUpdateActivity('post');
         Navigator.pop(context);
       } else {
         var json = jsonDecode(data.body);
