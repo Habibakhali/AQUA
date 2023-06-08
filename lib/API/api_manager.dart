@@ -765,16 +765,23 @@ class ApiManager {
     var res=Details.fromJson(json);
     return res;
   }
-  static Future<void>getGrdDetailes()async{
-    var url=Uri.https(base,'/api/graduateDetailes');
-    http.Response response=await http.get(url);
+  static Future<Details>getGrdDetailes()async{
+    final pref=await SharedPreferences.getInstance();
+    var url=(Uri.https(base,'/api/graduateDetailes'));
+    http.Response response=await http.get(url,headers: {
+      "Authorization": "Bearer ${pref.getString('tokenGrd')}"
+    });
+    var json=jsonDecode(response.body);
+    var res=Details.fromJson(json);
+    return res;
   }
-  static Future<void>delGrdDetailes(int id)async{
+  static Future<http.Response>delGrdDetailes(int id)async{
     final pref=await SharedPreferences.getInstance();
     var url=Uri.https(base,'/api/graduateDetailes/$id');
     http.Response response=await http.delete(url,headers: {
       "Accept":"application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"});
+    return response;
   }
   static Future<void>showGrdDetailes(int id)async{
     final pref=await SharedPreferences.getInstance();

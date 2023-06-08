@@ -15,7 +15,10 @@ import '../../MyDesign/buildTextField.dart';
 class ProfileGrd extends StatefulWidget {
   static const String routeName = 'profgrd';
 
+
   bool visible = true;
+
+
   @override
   State<ProfileGrd> createState() => _ProfileGrdState();
 }
@@ -38,6 +41,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
   Image x = Image.asset('assets/images/qa.png');
 
   bool showPassword = false;
+  int id=0;
 
   final txtController = TextEditingController();
 
@@ -54,6 +58,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) {
         return;
+
       }
       File? imageTemporary = File(image.path);
       _image = await _cropImage(imageFile: imageTemporary);
@@ -199,7 +204,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
           controller: dob, //editing controller of this TextField
           decoration: const InputDecoration(
               icon: Icon(Icons.calendar_today), //icon of text field
-              labelText: "Enter Date" //label text of field
+              labelText: "Birth date" //label text of field
           ),
           readOnly: true,  // when true user cannot edit text
           onTap: () async {
@@ -487,7 +492,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               child: Text(
                 AppLocalizations.of(context)!.qa,
                 style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
+                //textAlign: TextAlign.center,
               ),
             ),
             Row(
@@ -504,12 +509,16 @@ class _ProfileGrdState extends State<ProfileGrd> {
                     ),
                   ),
                   onPressed: () async {
-                    var delete = await ApiManager
-                        .delGrdDetailes(1);
+                    var index=0;
+                    var data = await ApiManager.getGrdExperiences();
+                    var delete=await ApiManager
+                        .delGrdDetailes(data.payload![index]!.id!);
+index++;
+          if(delete==200){
+    clearAll();
 
+    }},
 
-
-                  },
                   child: Text('Delete',
                       style: TextStyle(
                           fontSize: 14,
@@ -548,7 +557,7 @@ storeData();
     DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(), //get today's date
-        firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
+        firstDate:DateTime(1980), //DateTime.now() - not to allow to choose before today.
         lastDate: DateTime(2101)
     );
     if(pickedDate != null ){
@@ -629,6 +638,22 @@ storeData();
         },
       );
     }
+
+  }
+  void clearAll(){
+    dob.clear();
+    phone.clear();
+    address.clear();
+    _image=null;
+    gradBatch.clear();
+    scientificDegree.clear();
+    Academic=null;
+    Certificate=null;
+    Record=null;
+    gpa.clear();
+    CV=null;
+    courses.clear();
+    awards.clear();
 
   }
 
