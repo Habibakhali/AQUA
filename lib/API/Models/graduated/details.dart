@@ -143,19 +143,19 @@ class Errors {
         this.courses});
 
   Errors.fromJson(Map<String, dynamic> json) {
-    dob = json['dob'].cast<String>();
-    phone = json['phone'].cast<String>();
-    address = json['address'].cast<String>();
-    gradBatch = json['grad_batch'].cast<String>();
-    department = json['department'].cast<String>();
-    specialization = json['specialization'].cast<String>();
-    scientificDegree = json['scientific_degree'].cast<String>();
-    academicCertificates = json['academic_certificates'].cast<String>();
-    graduationCertificate = json['graduation_certificate'].cast<String>();
-    academicRecord = json['academic_record'].cast<String>();
-    gpa = json['gpa'].cast<String>();
-    cv = json['cv'].cast<String>();
-    courses = json['courses'].cast<String>();
+    dob = json['dob']==null?[]:List.from(json['dob']);
+    phone = json['phone']==null?[]:List.from(json['phone']);
+    address = json['address']==null?[]:List.from(json['address']);
+    gradBatch = json['grad_batch']==null?[]:List.from(json['grad_batch']);
+    department = json['department']==null?[]:List.from(json['department']);
+    specialization = json['specialization']==null?[]:List.from(json['specialization']);
+    scientificDegree = json['scientific_degree']==null?[]:List.from(json['scientific_degree']);
+    academicCertificates = json['academic_certificates']==null?[]:List.from(json['academic_certificates']);
+    graduationCertificate = json['graduation_certificate']==null?[]:List.from(json['graduation_certificate']);
+    academicRecord = json['academic_record']==null?[]:List.from(json['academic_record']);
+    gpa = json['gpa']==null?[]:List.from(json['gpa']);
+    cv = json['cv']==null?[]:List.from(json['cv']);
+    courses = json['courses']==null?[]:List.from(json['courses']);
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

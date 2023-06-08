@@ -107,7 +107,8 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
                               return 'please upload image';
                             return null;
                           },
-                          enabled: false,                  decoration: InputDecoration(
+                          enabled: false,
+                          decoration: InputDecoration(
                           errorStyle: TextStyle(color: Colors.red),
                           label: Text('Image'),
                           suffixIcon: imageFile==null?Icon(Icons.add,):Icon(Icons.check_circle,color: Colors.green,),

@@ -700,7 +700,9 @@ class ApiManager {
       File acadimicRecord,
       String gpa,
       File cv,
+      String fieldCourse,
       String courses,
+      String dieldAwards,
       String awardes) async {
     final pref = await SharedPreferences.getInstance();
     var url = Uri.https(base, '/api/graduateDetailes');
@@ -713,14 +715,18 @@ class ApiManager {
         await http.MultipartFile.fromPath('academic_record', acadimicRecord.path);
     Map<String, String> headers = {
       "Accept": "application/json",
+      "Content-Type": "application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"
     };
-
     var request;
     if (image != null) {
       var immage = await http.MultipartFile.fromPath('image', image.path);
       request = http.MultipartRequest('POST', url)
         ..fields.addAll({
+          'awards':jsonEncode({dieldAwards:awardes}),
+          'courses':jsonEncode({
+            fieldCourse:courses
+          }),
           'dob': bod,
           'phone': phone,
           'address': address,
@@ -729,8 +735,6 @@ class ApiManager {
           'specialization': 'CS',
           'scientific_degree': sciDegree,
           'gpa': gpa,
-          'courses': courses,
-          'awards': awardes
         })
         ..headers.addAll(headers)
         ..files.add(immage)
@@ -749,8 +753,10 @@ class ApiManager {
           'specialization': 'CS',
           'scientific_degree': sciDegree,
           'gpa': gpa,
-          'courses': courses,
-          'awards': awardes
+          'awards':jsonEncode({dieldAwards:awardes}),
+          'courses':jsonEncode({
+            fieldCourse:courses
+          }),
         })
         ..headers.addAll(headers)
         ..files.add(ccv)
