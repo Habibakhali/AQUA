@@ -812,7 +812,7 @@ async{
   }
   static Future<http.Response>delGrdExperiences(int id)async{
     final pref=await SharedPreferences.getInstance();
-    var url=Uri.https(base,'/api/companies/$id');
+    var url=Uri.https(base,'/api/graduateExperiences/$id');
     http.Response response=await http.delete(url,headers: {
       "Accept":"application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"});
