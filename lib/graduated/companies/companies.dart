@@ -6,9 +6,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:project/graduated/companies/company_item.dart';
 import 'package:project/graduated/personal%20setting/graduate_exper.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../API/Models/graduated/companies_data.dart';
+import '../../providers/setting_provider.dart';
 import '../../student/Registration Form/register_files.dart';
 import 'content_companies.dart';
 
@@ -43,8 +45,10 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
     pref.setStringList('companiesNamew', companiesNamew);
     pref.setStringList('companiesId', ids);
   }
+  late SettingProvider pro;
   @override
   Widget build(BuildContext context) {
+    pro=Provider.of<SettingProvider>(context);
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: (){
@@ -71,9 +75,7 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
               else {
                 var data = snapShot.data;
                 if (data!.payload!.isNotEmpty) {
-                  Future.delayed(Duration(seconds: 6),(){
-                    setState(() {});
-                  });
+
                   return ListView.builder(
                     itemCount: snapShot.data!.payload!.length!,
                       itemBuilder:(context,index){
@@ -82,8 +84,7 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
                           data.payload![index]!.email!,
                           data.payload![index]!.address!,
                           data.payload![index]!.type!,
-                          data.payload![index]!.id!,
-                          data.payload!.length
+                          data.payload![index]!.id!
                       );
                 });
 
@@ -110,12 +111,5 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
           padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: ContentOfCompanies());
     });
-  }
-  fn()async{
-    final pref=await SharedPreferences.getInstance();
-    len= pref.getInt('lenCompanies')!;
-      setState(() {
-
-      });
   }
 }

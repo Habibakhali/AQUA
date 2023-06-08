@@ -17,6 +17,10 @@ class SettingProvider extends ChangeNotifier{
    bool result=false;
    bool selection=false;
   ThemeMode currTheme=ThemeMode.light;
+  checkCompaniesState(String x){
+    if(x =='del'||x=='up'||x=='post')
+      notifyListeners();
+  }
 checkUpdateActivity( String activityState){
   if(activityState =='del'||activityState=='up'||activityState=='post')
   notifyListeners();

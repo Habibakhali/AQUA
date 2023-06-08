@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
+import 'package:project/providers/setting_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContentOfCompanies extends StatefulWidget {
@@ -19,8 +21,10 @@ TextEditingController address=TextEditingController();
 
 TextEditingController type=TextEditingController();
 
+late SettingProvider pro;
   @override
   Widget build(BuildContext context) {
+    pro=Provider.of<SettingProvider>(context);
     return Container(
       padding: EdgeInsets.only(top: 10),
       child: Form(
@@ -130,12 +134,9 @@ TextEditingController type=TextEditingController();
   }
 
   validate()async{
-    final pref=await SharedPreferences.getInstance();
-    int x=pref.getInt('lenCompanies')??0;
     var data=await ApiManager.storeCompanies(name.text,email.text,address.text,type.text);
     if(data.statusCode==200){
-      x++;
-      pref.setInt('lenCompanies', x);
+      pro.checkCompaniesState('post');
       Navigator.pop(context);
       return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Store companies data is success')));
     }

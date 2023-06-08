@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/setting_provider.dart';
 import 'companies.dart';
 import 'content_companies.dart';
 
@@ -11,8 +13,7 @@ class CompanyItem extends StatefulWidget {
   String email;
   String type;
   int id;
-int len;
-  CompanyItem(this.name, this.email, this.address, this.type, this.id,this.len);
+  CompanyItem(this.name, this.email, this.address, this.type, this.id);
 
   @override
   State<CompanyItem> createState() => _CompanyItemState();
@@ -20,9 +21,10 @@ int len;
 
 class _CompanyItemState extends State<CompanyItem> {
 
+  late SettingProvider pro;
   @override
-
   Widget build(BuildContext context) {
+    pro=Provider.of<SettingProvider>(context);
     return Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),
@@ -83,8 +85,7 @@ class _CompanyItemState extends State<CompanyItem> {
                                           final pref=await SharedPreferences.getInstance();
                                          var data=await ApiManager.delCompany(widget.id);
                                          if(data.statusCode==200){
-                                           widget.len--;
-                                           pref.setInt('lenCompanies', widget.len);
+                                           pro.checkCompaniesState('del');
                                            ScaffoldMessenger.of(
                                                context)
                                                .showSnackBar(SnackBar(
