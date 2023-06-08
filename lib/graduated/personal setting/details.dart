@@ -143,7 +143,8 @@ class _ProfileGrdState extends State<ProfileGrd> {
                           ),
                           color: Colors.blue,
                         ),
-                        child: IconButton(
+                        child:
+                        IconButton(
                           color: Colors.white,
                           onPressed: () {
                             showDialog(
@@ -303,6 +304,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
                     labelText: 'Academic certificates',
                     labelStyle: Theme.of(context).textTheme.bodyMedium,
                     prefixIcon: Icon(Icons.upload_outlined),
+                    suffixIcon: Academic==null?Icon(Icons.add,):Icon(Icons.check_circle,color: Colors.green,),
                   ),
                 ),
               ),
@@ -344,6 +346,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               errorStyle: TextStyle(color: Colors.red),
               labelText: 'Graduation certificate',
               labelStyle: Theme.of(context).textTheme.bodyMedium,
+              suffixIcon: Certificate==null?Icon(Icons.add,):Icon(Icons.check_circle,color: Colors.green,),
               prefixIcon: Icon(Icons.upload_outlined),
             ),
           ),
@@ -386,6 +389,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               errorStyle: TextStyle(color: Colors.red),
               labelText: 'Academic Record',
               labelStyle: Theme.of(context).textTheme.bodyMedium,
+              suffixIcon: Record==null?Icon(Icons.add,):Icon(Icons.check_circle,color: Colors.green,),
               prefixIcon: Icon(Icons.upload_outlined),
             ),
           ),
@@ -429,6 +433,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               labelText: 'CV',
               labelStyle: Theme.of(context).textTheme.bodyMedium,
               prefixIcon: Icon(Icons.upload_outlined),
+              suffixIcon: CV==null?Icon(Icons.add,):Icon(Icons.check_circle,color: Colors.green,),
             ),
           ),
         ),
