@@ -42,9 +42,12 @@ class _ProfileGrdState extends State<ProfileGrd> {
   final txtController = TextEditingController();
 
   File? _image;
-  File? imageFile;
   var pickedFile;
   String status = '';
+  File? CV;
+  File? Academic;
+  File? Record;
+  File? Certificate;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -60,7 +63,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
       print('failed to pick image');
     }
   }
-  chooseImage(ImageSource source) async {
+  chooseImage(ImageSource source,  File? imageFile  ) async {
     pickedFile = await ImagePicker().pickImage(
       source: source,
       maxHeight: 1080,
@@ -191,7 +194,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               controller: dob,
             ),
             SizedBox(height: 10,),*/
-      TextField(
+      TextFormField(
           controller: dob, //editing controller of this TextField
           decoration: const InputDecoration(
               icon: Icon(Icons.calendar_today), //icon of text field
@@ -199,9 +202,10 @@ class _ProfileGrdState extends State<ProfileGrd> {
           ),
           readOnly: true,  // when true user cannot edit text
           onTap: () async {
-         _selDatePicker();
+            _selDatePicker();
           }
       ),
+      SizedBox(height: 20,),
 
       buildTextField("phone","Enter your phone number",TextInputType.phone,phone,"please enter your phone number"),
       buildTextField("address","Enter your address",TextInputType.text,address,"please enter your phone address"),
@@ -215,30 +219,30 @@ class _ProfileGrdState extends State<ProfileGrd> {
                 TextInputType.number,scientificDegree,"please enter scientific degree"),
             buildTextField(
                 "gpa", "Enter your gpa",TextInputType.number,gpa,"please enter your gpa"),
-Row(
-  children: [
-    Expanded(
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: 'field',
-          border: OutlineInputBorder(),
-        ),
-      ),
-    ),
-    SizedBox(width:5),
-    Expanded(
-      child: TextFormField(
-        controller: courses,
-        decoration: InputDecoration(
-          labelText: 'Courses',
-          border: OutlineInputBorder(),
-        ),
-      ),
-    ),
+      Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'field',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          SizedBox(width:5),
+          Expanded(
+            child: TextFormField(
+              controller: courses,
+              decoration: InputDecoration(
+                labelText: 'Courses',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
 
 
-  ],
-),
+        ],
+      ),
       SizedBox(height: 10,),
       Row(
         children: [
@@ -274,14 +278,14 @@ Row(
     children: <Widget>[
     SimpleDialogOption(
     onPressed: () {
-    chooseImage(ImageSource.gallery);
+    chooseImage(ImageSource.gallery,Academic);
     Navigator.pop(context);
     },
     child: const Text('From gallery'),
     ),
     SimpleDialogOption(
     onPressed: () {
-      chooseImage(ImageSource.camera);
+      chooseImage(ImageSource.camera,Academic);
     Navigator.pop(context);
     },
     child: const Text('From camera'),
@@ -316,14 +320,14 @@ Row(
                     children: <Widget>[
                       SimpleDialogOption(
                         onPressed: () {
-                          chooseImage(ImageSource.gallery);
+                          chooseImage(ImageSource.gallery,Certificate);
                           Navigator.pop(context);
                         },
                         child: const Text('From gallery'),
                       ),
                       SimpleDialogOption(
                         onPressed: () {
-                          chooseImage(ImageSource.camera);
+                          chooseImage(ImageSource.camera,Certificate);
                           Navigator.pop(context);
                         },
                         child: const Text('From camera'),
@@ -358,14 +362,14 @@ Row(
                     children: <Widget>[
                       SimpleDialogOption(
                         onPressed: () {
-                          chooseImage(ImageSource.gallery);
+                          chooseImage(ImageSource.gallery,Record);
                           Navigator.pop(context);
                         },
                         child: const Text('From gallery'),
                       ),
                       SimpleDialogOption(
                         onPressed: () {
-                          chooseImage(ImageSource.camera);
+                          chooseImage(ImageSource.camera,Record);
                           Navigator.pop(context);
                         },
                         child: const Text('From camera'),
@@ -400,14 +404,14 @@ Row(
                     children: <Widget>[
                       SimpleDialogOption(
                         onPressed: () {
-                          chooseImage(ImageSource.gallery);
+                          chooseImage(ImageSource.gallery,CV);
                           Navigator.pop(context);
                         },
                         child: const Text('From gallery'),
                       ),
                       SimpleDialogOption(
                         onPressed: () {
-                          chooseImage(ImageSource.camera);
+                          chooseImage(ImageSource.camera,CV);
                           Navigator.pop(context);
                         },
                         child: const Text('From camera'),
@@ -494,10 +498,14 @@ Row(
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    var delete = await ApiManager
+                        .delGrdDetailes(1);
+
+
+
                   },
-                  child: Text(AppLocalizations.of(context)!.cancel,
+                  child: Text('Delete',
                       style: TextStyle(
                           fontSize: 14,
                           letterSpacing: 2.2,
@@ -513,27 +521,7 @@ Row(
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     onPressed: () {
-                      storeData();
-                   /*   showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            content: Text(
-                                AppLocalizations.of(context)!.dialog_sucesse),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!.ok,
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );*/
+storeData();
                     },
                     child: Text(AppLocalizations.of(context)!.save,
                         style: TextStyle(
@@ -573,18 +561,68 @@ Row(
   }
   void storeData() async {
     Details data=Details();
+    if(Academic==null)    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Academic certificate  not exist')));
+       if (Certificate==null )
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('graduation certificate not exist')));
+         if (Record==null )
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Academic records not exist')));
+     if (CV==null)
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Cv not exist')));
+      else
+     if (formKey.currentState!.validate())
     data =
         await ApiManager.storeGrddDetailes(dob.text,phone.text,address.text,_image,gradBatch.text,
-            scientificDegree.text,imageFile!,imageFile!,imageFile!,gpa.text,imageFile!,courses.text,awards.text
-        );
+            scientificDegree.text,Academic!,Certificate!,Record!,gpa.text,CV!,courses.text,awards.text)
+        ;
+
     if (data.success == true) {
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('data is saved succes')));
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+                AppLocalizations.of(context)!.dialog_sucesse),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.ok,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ],
+          );
+        },
+      );
     } else {
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('something error')));
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+               "error occured"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.ok,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ],
+          );
+        },
+      );
     }
 
   }
