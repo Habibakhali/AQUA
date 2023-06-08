@@ -1,11 +1,11 @@
-/*
+
 class Details {
   String? message;
   Errors? errors;
   bool? success;
   Payload? payload;
 
- Details({this.success, this.payload,this.message, this.errors});
+ Details({this.success, this.payload});
 
 
   Details .fromJson(Map<String, dynamic> json) {
@@ -36,6 +36,7 @@ class Payload {
   String? dob;
   String? phone;
   String? address;
+  String? image;
   String? gradBatch;
   String? department;
   String? specialization;
@@ -54,6 +55,7 @@ class Payload {
       {this.dob,
         this.phone,
         this.address,
+        this.image,
         this.gradBatch,
         this.department,
         this.specialization,
@@ -67,10 +69,12 @@ class Payload {
         this.awards,
         this.gradId,
         this.id});
+
   Payload.fromJson(Map<String, dynamic> json) {
     dob = json['dob'];
     phone = json['phone'];
     address = json['address'];
+    image = json['image'];
     gradBatch = json['grad_batch'];
     department = json['department'];
     specialization = json['specialization'];
@@ -84,51 +88,91 @@ class Payload {
     awards = json['awards'];
     gradId = json['grad_id'];
     id = json['id'];
-  }}
-
-class Errors {
-  List<String>? phone;
-  List<String>? image;
-  List<String>? academicCertificates;
-  List<String>? graduationCertificate;
-  List<String>? academicRecord;
-  List<String>? cv;
-  List<String>? courses;
-  List<String>? awards;
-
-  Errors(
-      {this.phone,
-        this.image,
-        this.academicCertificates,
-        this.graduationCertificate,
-        this.academicRecord,
-        this.cv,
-        this.courses,
-        this.awards});
-
-  Errors.fromJson(Map<String, dynamic> json) {
-    phone = json['phone'].cast<String>();
-    image = json['image'].cast<String>();
-    academicCertificates = json['academic_certificates'].cast<String>();
-    graduationCertificate = json['graduation_certificate'].cast<String>();
-    academicRecord = json['academic_record'].cast<String>();
-    cv = json['cv'].cast<String>();
-    courses = json['courses'].cast<String>();
-    awards = json['awards'].cast<String>();
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dob'] = this.dob;
     data['phone'] = this.phone;
+    data['address'] = this.address;
     data['image'] = this.image;
+    data['grad_batch'] = this.gradBatch;
+    data['department'] = this.department;
+    data['specialization'] = this.specialization;
+    data['scientific_degree'] = this.scientificDegree;
     data['academic_certificates'] = this.academicCertificates;
     data['graduation_certificate'] = this.graduationCertificate;
     data['academic_record'] = this.academicRecord;
+    data['gpa'] = this.gpa;
     data['cv'] = this.cv;
     data['courses'] = this.courses;
     data['awards'] = this.awards;
+    data['grad_id'] = this.gradId;
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+class Errors {
+  List<String>? dob;
+  List<String>? phone;
+  List<String>? address;
+  List<String>? gradBatch;
+  List<String>? department;
+  List<String>? specialization;
+  List<String>? scientificDegree;
+  List<String>? academicCertificates;
+  List<String>? graduationCertificate;
+  List<String>? academicRecord;
+  List<String>? gpa;
+  List<String>? cv;
+  List<String>? courses;
+
+  Errors(
+      {this.dob,
+        this.phone,
+        this.address,
+        this.gradBatch,
+        this.department,
+        this.specialization,
+        this.scientificDegree,
+        this.academicCertificates,
+        this.graduationCertificate,
+        this.academicRecord,
+        this.gpa,
+        this.cv,
+        this.courses});
+
+  Errors.fromJson(Map<String, dynamic> json) {
+    dob = json['dob'].cast<String>();
+    phone = json['phone'].cast<String>();
+    address = json['address'].cast<String>();
+    gradBatch = json['grad_batch'].cast<String>();
+    department = json['department'].cast<String>();
+    specialization = json['specialization'].cast<String>();
+    scientificDegree = json['scientific_degree'].cast<String>();
+    academicCertificates = json['academic_certificates'].cast<String>();
+    graduationCertificate = json['graduation_certificate'].cast<String>();
+    academicRecord = json['academic_record'].cast<String>();
+    gpa = json['gpa'].cast<String>();
+    cv = json['cv'].cast<String>();
+    courses = json['courses'].cast<String>();
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dob'] = this.dob;
+    data['phone'] = this.phone;
+    data['address'] = this.address;
+    data['grad_batch'] = this.gradBatch;
+    data['department'] = this.department;
+    data['specialization'] = this.specialization;
+    data['scientific_degree'] = this.scientificDegree;
+    data['academic_certificates'] = this.academicCertificates;
+    data['graduation_certificate'] = this.graduationCertificate;
+    data['academic_record'] = this.academicRecord;
+    data['gpa'] = this.gpa;
+    data['cv'] = this.cv;
+    data['courses'] = this.courses;
     return data;
   }
 
 }
-*/

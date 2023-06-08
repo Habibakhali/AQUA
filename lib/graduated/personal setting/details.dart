@@ -6,7 +6,10 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project/API/Models/graduated/details.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../API/api_manager.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import '../../MyDesign/buildTextField.dart';
 
 class ProfileGrd extends StatefulWidget {
@@ -180,14 +183,25 @@ class _ProfileGrdState extends State<ProfileGrd> {
     margin: EdgeInsets.symmetric(horizontal: 20),
     child:  Column(
     children: [
-            TextFormField(
+          /*  TextFormField(
               decoration: InputDecoration(
     labelStyle: TextStyle(color: Colors.grey),
                   labelText: AppLocalizations.of(context)!.birth_date),
               onTap: _selDatePicker,
               controller: dob,
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10,),*/
+      TextField(
+          controller: dob, //editing controller of this TextField
+          decoration: const InputDecoration(
+              icon: Icon(Icons.calendar_today), //icon of text field
+              labelText: "Enter Date" //label text of field
+          ),
+          readOnly: true,  // when true user cannot edit text
+          onTap: () async {
+         _selDatePicker();
+          }
+      ),
 
       buildTextField("phone","Enter your phone number",TextInputType.phone,phone,"please enter your phone number"),
       buildTextField("address","Enter your address",TextInputType.text,address,"please enter your phone address"),
@@ -499,7 +513,8 @@ Row(
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     onPressed: () {
-                      showDialog(
+                      storeData();
+                   /*   showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
@@ -518,7 +533,7 @@ Row(
                             ],
                           );
                         },
-                      );
+                      );*/
                     },
                     child: Text(AppLocalizations.of(context)!.save,
                         style: TextStyle(
@@ -536,20 +551,42 @@ Row(
     );
   }
 
-  void _selDatePicker() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(1990),
-            lastDate: DateTime.now())
-        .then((pickedDate) {
-      if (pickedDate == null) {
-        return;
-      }
+  void _selDatePicker()async {
+    DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(), //get today's date
+        firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
+        lastDate: DateTime(2101)
+    );
+    if(pickedDate != null ){
+      print(pickedDate);  //get the picked date in the format => 2022-07-04 00:00:00.000
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+      print(formattedDate); //formatted date output using intl package =>  2022-07-04
+      //You can format date as per your need
+
       setState(() {
-        txtController.text = DateFormat.yMd().format(pickedDate);
+        dob.text = formattedDate; //set foratted date to TextField value.
       });
-    });
+    }else{
+      print("Date is not selected");
+    }
+  }
+  void storeData() async {
+    Details data=Details();
+    data =
+        await ApiManager.storeGrddDetailes(dob.text,phone.text,address.text,_image,gradBatch.text,
+            scientificDegree.text,imageFile!,imageFile!,imageFile!,gpa.text,imageFile!,courses.text,awards.text
+        );
+    if (data.success == true) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('data is saved succes')));
+    } else {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('something error')));
+    }
+
   }
 
   Widget buildTextField(String labelText, String placeholder,
