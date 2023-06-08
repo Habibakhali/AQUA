@@ -10,6 +10,7 @@ import 'Models/Student/ShowActivity.dart';
 import 'Models/Student/academic_registry_api.dart';
 import 'Models/Student/forget_pass_student.dart';
 import 'Models/Student/get_registeration_forn.dart';
+import 'Models/graduated/details.dart';
 import 'Models/graduated/grd_expr_data.dart';
 import 'Models/Student/login_student_api.dart';
 import 'Models/Student/pincode_forgetpass_student.dart';
@@ -688,7 +689,7 @@ class ApiManager {
     UpdateActivity res = UpdateActivity.fromJson(json);
     return res.success;
   }
-  static Future<void> storeGrddDetailes(
+  static Future<Details> storeGrddDetailes(
       String bod,
       String phone,
       String address,
@@ -760,6 +761,9 @@ class ApiManager {
     }
     http.Response response =
         await http.Response.fromStream(await request.send());
+    var json=jsonDecode(response.body);
+    var res=Details.fromJson(json);
+    return res;
   }
   static Future<void>getGrdDetailes()async{
     var url=Uri.https(base,'/api/graduateDetailes');
