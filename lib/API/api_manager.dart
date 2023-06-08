@@ -707,11 +707,11 @@ class ApiManager {
     var url = Uri.https(base, '/api/graduateDetailes');
     var ccv = await http.MultipartFile.fromPath('cv', cv.path);
     var acadimic_certific =
-        await http.MultipartFile.fromPath('academic_certificates', cv.path);
+        await http.MultipartFile.fromPath('academic_certificates', acadCertificates.path);
     var grd_certific =
-        await http.MultipartFile.fromPath('graduation_certificate', cv.path);
+        await http.MultipartFile.fromPath('graduation_certificate', grdCertificates.path);
     var acadimic_record =
-        await http.MultipartFile.fromPath('academic_record', cv.path);
+        await http.MultipartFile.fromPath('academic_record', acadimicRecord.path);
     Map<String, String> headers = {
       "Accept": "application/json",
       "Authorization": "Bearer ${pref.getString('tokenGrd') ?? ""}"
