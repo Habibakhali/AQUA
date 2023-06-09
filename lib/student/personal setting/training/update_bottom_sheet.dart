@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project/providers/state_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../API/api_manager.dart';
 import '../../../providers/setting_provider.dart';
@@ -28,11 +29,11 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
   var descriptionController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late SettingProvider pro;
+  late StateProvider pro;
   Widget build(BuildContext context) {
     titleController.text=widget.title;
     descriptionController.text=widget.description;
-    pro=Provider.of<SettingProvider>(context);
+    pro=Provider.of<StateProvider>(context);
     return Container(
         child: Form(
           key: formKey,

@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/API/Models/Student/StoreActivity.dart';
+import 'package:project/providers/state_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../API/api_manager.dart';
 import '../../../providers/setting_provider.dart';
@@ -26,10 +27,10 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
 
   var description = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late SettingProvider pro;
+  late StateProvider pro;
   @override
   Widget build(BuildContext context) {
-     pro=Provider.of<SettingProvider>(context);
+     pro=Provider.of<StateProvider>(context);
     return Container(
         child: Form(
       key: formKey,

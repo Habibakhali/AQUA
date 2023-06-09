@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:project/API/api_manager.dart';
+import 'package:project/providers/setting_provider.dart';
+import 'package:project/providers/state_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContentOfGrdEx extends StatefulWidget {
@@ -8,23 +12,25 @@ class ContentOfGrdEx extends StatefulWidget {
 }
 
 class _ContentOfGrdExState extends State<ContentOfGrdEx> {
-
+int i=0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initcompanyfun();
   }
-  String dropdownValue = 'Company\'s name';
   List<String> campaniesName=[];
-
+  String dropdownValue='';
   List<String> companiesId=[];
   initcompanyfun()async{
    final pref=await SharedPreferences.getInstance();
    campaniesName=pref.getStringList('companiesNamew')??[];
+    dropdownValue = campaniesName[0];
    companiesId=pref.getStringList('companiesId')??[];
-  }
+   setState(() {
 
+   });
+  }
   TextEditingController jobTitle=TextEditingController();
 
   TextEditingController startDate=TextEditingController();
@@ -34,9 +40,10 @@ class _ContentOfGrdExState extends State<ContentOfGrdEx> {
   TextEditingController companyId=TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+late StateProvider pro;
   @override
   Widget build(BuildContext context) {
+    pro=Provider.of<StateProvider>(context);
     return  Container(
       padding: EdgeInsets.only(left: 16, top: 8, right: 16,bottom: 10),
       child:
@@ -78,6 +85,10 @@ class _ContentOfGrdExState extends State<ContentOfGrdEx> {
                         return null;
                       },
                       controller: startDate,
+                      onTap: (){
+                        i=1;
+                        _selDatePicker();
+                      },
                     ),
                     SizedBox(
                       height: 20,
@@ -90,6 +101,10 @@ class _ContentOfGrdExState extends State<ContentOfGrdEx> {
                         return null;
                       },
                       controller: endDate,
+                      onTap: (){
+                        i=2;
+                        _selDatePicker();
+                      },
                     ),
                   ]
 
@@ -160,6 +175,7 @@ class _ContentOfGrdExState extends State<ContentOfGrdEx> {
   if(dropdownValue=='Company\'s name')
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Select Company')));
   if(data.statusCode==200){
+    pro.UpdateCompaniesState();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Your experiances is added')));
   Navigator.pop(context);
   }
@@ -169,4 +185,28 @@ else {
 Navigator.pop(context);
 }
   }
+  void _selDatePicker() async {
+    DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        //get today's date
+        firstDate: DateTime(1980),
+        //DateTime.now() - not to allow to choose before today.
+        lastDate: DateTime(2101));
+    if (pickedDate != null) {
+      print(
+          pickedDate); //get the picked date in the format => 2022-07-04 00:00:00.000
+      String formattedDate = DateFormat('yyyy-MM-dd').format(
+          pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+      print(
+          formattedDate); //formatted date output using intl package =>  2022-07-04
+      //You can format date as per your need
+
+      setState(() {
+        if(i==2)
+        endDate.text = formattedDate;
+        else if(i==1)
+          startDate.text=formattedDate;//set foratted date to TextField value.
+      });
+    }}
 }

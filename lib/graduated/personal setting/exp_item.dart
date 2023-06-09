@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
+import 'package:project/providers/state_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ExprItem extends StatefulWidget {
@@ -17,8 +19,9 @@ class ExprItem extends StatefulWidget {
 class _ExprItemState extends State<ExprItem> {
 
   @override
-
+late StateProvider pro;
   Widget build(BuildContext context) {
+    pro=Provider.of<StateProvider>(context);
     return Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),
@@ -79,6 +82,7 @@ class _ExprItemState extends State<ExprItem> {
                                           final pref=await SharedPreferences.getInstance();
                                           var data=await ApiManager.delGrdExperiences(widget.id);
                                           if(data.statusCode==200){
+                                            pro.UpdateCompaniesState();
                                             ScaffoldMessenger.of(
                                                 context)
                                                 .showSnackBar(SnackBar(

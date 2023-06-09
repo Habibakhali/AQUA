@@ -11,6 +11,7 @@ import 'package:project/Styling/mytheme.dart';
 import 'package:project/Layout/programs.dart';
 import 'package:project/graduated/personal%20setting/graduate_exper.dart';
 import 'package:project/providers/setting_provider.dart';
+import 'package:project/providers/state_provider.dart';
 import 'package:project/student/Courses/SelectedItem.dart';
 import 'package:project/student/Courses/questionnair_homeScreen.dart';
 import 'package:project/student/Courses/questionner/Form_questionner.dart';
@@ -72,10 +73,17 @@ void main() async {
               : (pref.getString('category') == 'student' && pref.getStringList('courses'+(pref.getString('email')??"")) == [])
                   ?  HomeScreenStudent.routeName
                   :CourseSelected.routeName;
-  runApp(ChangeNotifierProvider<SettingProvider>(
-      create: (buildContext) {
-        return SettingProvider();
-      },
+  runApp(MultiProvider(
+      providers: [
+  ChangeNotifierProvider<SettingProvider>(
+  create: (buildContext) {
+  return SettingProvider();
+  },),
+  ChangeNotifierProvider<StateProvider>(
+  create: (buildContext) {
+  return StateProvider();
+  },)
+      ],
       child: MyApp()));
 }
 

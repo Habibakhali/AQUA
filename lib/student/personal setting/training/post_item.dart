@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:project/providers/setting_provider.dart';
+import 'package:project/providers/state_provider.dart';
 import 'package:project/student/personal%20setting/training/update_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,9 +24,9 @@ class PostItem extends StatefulWidget {
 
 class _PostItemState extends State<PostItem> {
   @override
-  late SettingProvider pro;
+  late StateProvider pro;
   Widget build(BuildContext context) {
-    pro=Provider.of<SettingProvider>(context);
+    pro=Provider.of<StateProvider>(context);
     return Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),

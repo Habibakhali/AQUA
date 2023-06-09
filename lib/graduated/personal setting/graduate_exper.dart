@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
+import 'package:project/providers/state_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../API/Models/graduated/grd_expr_data.dart';
-import '../companies/company_item.dart';
+import '../../providers/setting_provider.dart';
 import 'content_grd_exp.dart';
 import 'exp_item.dart';
 
@@ -24,7 +26,7 @@ List<String>id=[];
   void initState() {
     // TODO: implement initState
     super.initState();
-    iiiyt();
+   // iiiyt();
   }
 iiiyt() async{
   final pref=await SharedPreferences.getInstance();
@@ -37,63 +39,65 @@ iiiyt() async{
   }
 ;}
 @override
-  Widget build(BuildContext context) {
-   return Scaffold(
-     floatingActionButton: FloatingActionButton(
-       onPressed:(){
-         showModalwllw();
-       }
-       ,child: Icon(Icons.add),
-     ),
-     body:Column(
-       crossAxisAlignment: CrossAxisAlignment.stretch,
-       mainAxisAlignment: MainAxisAlignment.start,
-       children: [
-         Expanded(
-           child: FutureBuilder<getGrdExp>(
-             future: ApiManager.getGrdExperiences(),
-             builder: (context, snapShot) {
-               if (snapShot.connectionState == ConnectionState.waiting)
-                 return Center(child: CircularProgressIndicator());
-               if (snapShot.hasError)
-                 return Center(
-                     child: Text(
-                       'Some thing went wrong',
-                       style: TextStyle(color: Colors.red),
-                     ));
-               else {
-                 var data = snapShot.data;
-                 if (data!.payload!.isNotEmpty) {
-                   Future.delayed(Duration(seconds: 8),(){
-                     setState(() {});
-                   });
-                   return ListView.builder(
-                       itemCount: snapShot.data!.payload!.length!,
-                       itemBuilder:(context,index){
-                         return ExprItem(
-                             data.payload![index]!.jobTitle!,
-                             data.payload![index]!.startDate!,
-                           data.payload![index]!.endDate!,
-                            'vodavon',
-                           data.payload![index]!.id!
-                         );
-                       });
-
-                 }
-                 else {
+Widget build(BuildContext context) {
+  return ChangeNotifierProvider<StateProvider>(
+    create: (_){
+      return StateProvider();
+    },
+    child: Scaffold(
+       floatingActionButton: FloatingActionButton(
+         onPressed:(){
+           showModalwllw();
+         }
+         ,child: Icon(Icons.add),
+       ),
+       body:Column(
+         crossAxisAlignment: CrossAxisAlignment.stretch,
+         mainAxisAlignment: MainAxisAlignment.start,
+         children: [
+           Expanded(
+             child: FutureBuilder<getGrdExp>(
+               future: ApiManager.getGrdExperiences(),
+               builder: (context, snapShot) {
+                 if (snapShot.connectionState == ConnectionState.waiting)
+                   return Center(child: CircularProgressIndicator());
+                 if (snapShot.hasError)
                    return Center(
-                     child: Text(
-                       'No Experiance Found 😕',
-                       style: TextStyle(color: Colors.blue),
-                     ),
-                   );
+                       child: Text(
+                         'Some thing went wrong',
+                         style: TextStyle(color: Colors.red),
+                       ));
+                 else {
+                   var data = snapShot.data;
+                   if (data!.payload!.isNotEmpty) {
+                     return ListView.builder(
+                         itemCount: snapShot.data!.payload!.length!,
+                         itemBuilder:(context,index){
+                           return ExprItem(
+                               data.payload![index]!.jobTitle!,
+                               data.payload![index]!.startDate!,
+                             data.payload![index]!.endDate??"0",
+                              'vodavon',
+                             data.payload![index]!.id!
+                           );
+                         });
+
+                   }
+                   else {
+                     return Center(
+                       child: Text(
+                         'No Experiance Found 😕',
+                         style: TextStyle(color: Colors.blue),
+                       ),
+                     );
+                   }
                  }
-               }
-             },
+               },
+             ),
            ),
-         ),
-       ],
-     ));
+         ],
+       )),
+  );
   }
   showModalwllw(){
     showModalBottomSheet(
