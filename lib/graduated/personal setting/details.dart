@@ -49,7 +49,8 @@ class _ProfileGrdState extends State<ProfileGrd> {
   File? Academic;
   File? Record;
   File? Certificate;
-int i=0;
+  int i = 0;
+
   Future pickImage(ImageSource source) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
@@ -73,14 +74,13 @@ int i=0;
     );
     setState(() {
       widget.visible = true;
-      if(i==1)
-      Academic = File(pickedFile!.path);
-      else if(i==2)
-        Certificate  = File(pickedFile!.path);
-      else if(i==3)
+      if (i == 1)
+        Academic = File(pickedFile!.path);
+      else if (i == 2)
+        Certificate = File(pickedFile!.path);
+      else if (i == 3)
         Record = File(pickedFile!.path);
-      else if(i==4)
-        CV = File(pickedFile!.path);
+      else if (i == 4) CV = File(pickedFile!.path);
     });
   }
 
@@ -120,10 +120,6 @@ int i=0;
                             offset: Offset(0, 10))
                       ],
                       shape: BoxShape.circle,
-                      /*image: DecorationImage(
-                              fit: BoxFit.cover,
-             image: Image.asset('assets/images/boy.png'),
-                    ),*/
                     ),
                     child: _image != null
                         ? CircleAvatar(
@@ -184,367 +180,379 @@ int i=0;
               height: 10,
             ),
             Form(
-              key: formKey,
+                key: formKey,
                 child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(children: [
-                TextFormField(
-                  validator: (text){
-                    if(text==null || text.trim().isEmpty)
-                      return 'please enter your birth date';
-                    return null;
-                  },
-                    controller: dob, //editing controller of this TextField
-                    decoration: const InputDecoration(
-                        //icon of text field
-                        labelText: "Birth date" //label text of field
-                        ),
-                    readOnly: true, // when true user cannot edit text
-                    onTap: () async {
-                      _selDatePicker();
-                    }),
-                SizedBox(
-                  height: 20,
-                ),
-                buildTextField("phone","Enter your phone number",TextInputType.phone,phone,"please enter your phone number"),
-                buildTextField(
-                    "address",
-                    "Enter your address",
-                    TextInputType.text,
-                    address,
-                    "please enter your phone address"),
-                buildTextField(
-                    "graduation batch",
-                    "Enter your graduation batch",
-                    TextInputType.number,
-                    gradBatch,
-                    "please enter your graduation batch"),
-                buildTextField(
-                    "department",
-                    "Enter your department",
-                    TextInputType.text,
-                    department,
-                    "please enter your department"),
-                buildTextField(
-                    "specialization",
-                    "Enter your specialization",
-                    TextInputType.text,
-                    specialzation,
-                    "please enter your specialization"),
-                buildTextField("scientific degree", "Enter scientific degree", TextInputType.number, scientificDegree, "please enter scientific degree"),
-                buildTextField("gpa", "Enter your gpa", TextInputType.number, gpa, "please enter your gpa"),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return "Enter field";
-                          }
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(children: [
+                    TextFormField(
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty)
+                            return 'please enter your birth date';
                           return null;
                         },
-                        controller: fildCourses,
-                        decoration: InputDecoration(
-                          labelText: 'field',
-                          border: OutlineInputBorder(),
-
+                        controller: dob,
+                        //editing controller of this TextField
+                        decoration: const InputDecoration(
+                          //icon of text field
+                          labelText: "Birth date",
+                          hintText: 'Enter your Birth date',
+                          //label text of field,
                         ),
-                      ),
+                        readOnly: true,
+                        // when true user cannot edit text
+                        onTap: () async {
+                          _selDatePicker();
+                        }),
+                    SizedBox(
+                      height: 20,
                     ),
-                    SizedBox(width: 5),
-                    Expanded(
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return "Enter your courses";
-                          }
-                          return null;
-                        },
-                        controller: courses,
-                        decoration: InputDecoration(
-                          labelText: 'Courses',
-                          border: OutlineInputBorder(),
+                    buildTextField(
+                        "phone",
+                        "Enter your phone number",
+                        TextInputType.phone,
+                        phone,
+                        "please enter your phone number"),
+                    buildTextField(
+                        "address",
+                        "Enter your address",
+                        TextInputType.text,
+                        address,
+                        "please enter your phone address"),
+                    buildTextField(
+                        "graduation batch",
+                        "Enter your graduation batch",
+                        TextInputType.number,
+                        gradBatch,
+                        "please enter your graduation batch"),
+                    buildTextField(
+                        "department",
+                        "Enter your department",
+                        TextInputType.text,
+                        department,
+                        "please enter your department"),
+                    buildTextField(
+                        "specialization",
+                        "Enter your specialization",
+                        TextInputType.text,
+                        specialzation,
+                        "please enter your specialization"),
+                    buildTextField(
+                        "scientific degree",
+                        "Enter scientific degree",
+                        TextInputType.number,
+                        scientificDegree,
+                        "please enter scientific degree"),
+                    buildTextField("gpa", "Enter your gpa",
+                        TextInputType.number, gpa, "please enter your gpa"),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return "Enter field";
+                              }
+                              return null;
+                            },
+                            controller: fildCourses,
+                            decoration: InputDecoration(
+                              labelText: 'field',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return "Enter field";
-                          }
-                          return null;
-                        },
-                        controller: fildAward,
-                        decoration: InputDecoration(
-                          labelText: 'field',
-                          border: OutlineInputBorder(),
+                        SizedBox(width: 5),
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return "Enter your courses";
+                              }
+                              return null;
+                            },
+                            controller: courses,
+                            decoration: InputDecoration(
+                              labelText: 'Courses',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     SizedBox(
-                      width: 5,
+                      height: 10,
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return "Enter your awards";
-                          }
-                          return null;
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return "Enter field";
+                              }
+                              return null;
+                            },
+                            controller: fildAward,
+                            decoration: InputDecoration(
+                              labelText: 'field',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return "Enter your awards";
+                              }
+                              return null;
+                            },
+                            controller: awards,
+                            decoration: InputDecoration(
+                              labelText: 'awards',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return SimpleDialog(
+                                title: const Text('Choose Image'),
+                                children: <Widget>[
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      setState(() {});
+                                      i = 1;
+                                      chooseImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From gallery'),
+                                  ),
+                                  SimpleDialogOption(
+                                    onPressed: () async {
+                                      i = 1;
+                                      chooseImage(ImageSource.camera);
+                                      setState(() {});
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From camera'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
-                        controller: awards,
-                        decoration: InputDecoration(
-                          labelText: 'awards',
-                          border: OutlineInputBorder(),
+                        child: TextFormField(
+                          validator: (_) {
+                            if (Academic == null) {
+                              return "Enter your Academic certificates";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            enabled: false,
+                            errorStyle: TextStyle(color: Colors.red),
+                            labelText: 'Academic certificates',
+                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            prefixIcon: Icon(Icons.upload_outlined),
+                            suffixIcon: Academic == null
+                                ? Icon(
+                                    Icons.add,
+                                  )
+                                : Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                  ),
+                          ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SimpleDialog(
-                            title: const Text('Choose Image'),
-                            children: <Widget>[
-                              SimpleDialogOption(
-                                onPressed: () {
-                                  setState(() {});
-                                  i=1;
-                                  chooseImage(ImageSource.gallery);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('From gallery'),
-                              ),
-                              SimpleDialogOption(
-                                onPressed: ()async {
-                                  i=1;
-                                  chooseImage(ImageSource.camera);
-                                  setState(() {});
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('From camera'),
-                              ),
-                            ],
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Expanded(
+                                child: SimpleDialog(
+                                  title: const Text('Choose Image'),
+                                  children: <Widget>[
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        i = 2;
+                                        chooseImage(ImageSource.gallery);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From gallery'),
+                                    ),
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        i = 2;
+                                        chooseImage(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From camera'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: TextFormField(
-                      validator: (_) {
-                        if (Academic==null) {
-                          return "Enter your Academic certificates";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        enabled: false,
-                        errorStyle: TextStyle(color: Colors.red),
-                        labelText: 'Academic certificates',
-                        labelStyle: Theme.of(context).textTheme.bodyMedium,
-                        prefixIcon: Icon(Icons.upload_outlined),
-                        suffixIcon: Academic == null
-                            ? Icon(
-                                Icons.add,
-                              )
-                            : Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                              ),
+                        child: TextFormField(
+                          validator: (_) {
+                            if (Certificate == null) {
+                              return "Enter your Graduation certificate";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            enabled: false,
+                            errorStyle: TextStyle(color: Colors.red),
+                            labelText: 'Graduation certificate',
+                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            suffixIcon: Certificate == null
+                                ? Icon(
+                                    Icons.add,
+                                  )
+                                : Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                  ),
+                            prefixIcon: Icon(Icons.upload_outlined),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Expanded(
-                            child: SimpleDialog(
-                              title: const Text('Choose Image'),
-                              children: <Widget>[
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    i=2;
-                                    chooseImage(
-                                        ImageSource.gallery);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('From gallery'),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Expanded(
+                                child: SimpleDialog(
+                                  title: const Text('Choose Image'),
+                                  children: <Widget>[
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        i = 3;
+                                        chooseImage(ImageSource.gallery);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From gallery'),
+                                    ),
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        i = 3;
+                                        chooseImage(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From camera'),
+                                    ),
+                                  ],
                                 ),
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    i=2;
-                                    chooseImage(
-                                        ImageSource.camera);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('From camera'),
-                                ),
-                              ],
-                            ),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: TextFormField(
-                      validator: (_) {
-                        if (Certificate==null) {
-                          return "Enter your Graduation certificate";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        enabled: false,
-                        errorStyle: TextStyle(color: Colors.red),
-                        labelText: 'Graduation certificate',
-                        labelStyle: Theme.of(context).textTheme.bodyMedium,
-                        suffixIcon: Certificate == null
-                            ? Icon(
-                                Icons.add,
-                              )
-                            : Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                              ),
-                        prefixIcon: Icon(Icons.upload_outlined),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (Record == null) {
+                              return "Enter your Academic Record";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            enabled: false,
+                            errorStyle: TextStyle(color: Colors.red),
+                            labelText: 'Academic Record',
+                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            suffixIcon: Record == null
+                                ? Icon(
+                                    Icons.add,
+                                  )
+                                : Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                  ),
+                            prefixIcon: Icon(Icons.upload_outlined),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Expanded(
-                            child: SimpleDialog(
-                              title: const Text('Choose Image'),
-                              children: <Widget>[
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    i=3;
-                                    chooseImage(ImageSource.gallery);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('From gallery'),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Expanded(
+                                child: SimpleDialog(
+                                  title: const Text('Choose Image'),
+                                  children: <Widget>[
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        i = 4;
+                                        chooseImage(ImageSource.gallery);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From gallery'),
+                                    ),
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        i = 4;
+                                        chooseImage(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From camera'),
+                                    ),
+                                  ],
                                 ),
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    i=3;
-                                    chooseImage(ImageSource.camera);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('From camera'),
-                                ),
-                              ],
-                            ),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: TextFormField(
-                      validator: (value) {
-                        if (Record==null) {
-                          return "Enter your Academic Record";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        enabled: false,
-                        errorStyle: TextStyle(color: Colors.red),
-                        labelText: 'Academic Record',
-                        labelStyle: Theme.of(context).textTheme.bodyMedium,
-                        suffixIcon: Record == null
-                            ? Icon(
-                                Icons.add,
-                              )
-                            : Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                              ),
-                        prefixIcon: Icon(Icons.upload_outlined),
+                        child: TextFormField(
+                          validator: (_) {
+                            if (CV == null) {
+                              return "Enter your CV";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            enabled: false,
+                            errorStyle: TextStyle(color: Colors.red),
+                            labelText: 'CV',
+                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            prefixIcon: Icon(Icons.upload_outlined),
+                            suffixIcon: CV == null
+                                ? Icon(
+                                    Icons.add,
+                                  )
+                                : Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                  ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Expanded(
-                            child: SimpleDialog(
-                              title: const Text('Choose Image'),
-                              children: <Widget>[
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    i=4;
-                                    chooseImage(ImageSource.gallery);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('From gallery'),
-                                ),
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    i=4;
-                                    chooseImage(ImageSource.camera);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('From camera'),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: TextFormField(
-                      validator: (_) {
-                        if (CV==null) {
-                          return "Enter your CV";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        enabled: false,
-                        errorStyle: TextStyle(color: Colors.red),
-                        labelText: 'CV',
-                        labelStyle: Theme.of(context).textTheme.bodyMedium,
-                        prefixIcon: Icon(Icons.upload_outlined),
-                        suffixIcon: CV == null
-                            ? Icon(
-                                Icons.add,
-                              )
-                            : Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                              ),
-                      ),
-                    ),
-                  ),
-                ),
-              ]),
-            )),
+                  ]),
+                )),
             TextButton(
               onPressed: () async {
                 const url =
@@ -575,13 +583,25 @@ int i=0;
                     ),
                   ),
                   onPressed: () async {
-                    var index = 0;
-                    var data = await ApiManager.getGrdExperiences();
-                    var delete = await ApiManager.delGrdDetailes(
-                        data.payload![index]!.id!);
-                    index++;
-                    if (delete == 200) {
+                    print(id);
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              title:
+                                  Center(child: CircularProgressIndicator()));
+                        });
+                    var delete = await ApiManager.delGrdDetailes(id);
+                    if (delete.statusCode== 200) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Deletion is Success')));
                       clearAll();
+                      Navigator.pop(context);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Some thing went wrong')));
+                      Navigator.pop(context);
                     }
                   },
                   child: Text('Delete',
@@ -646,24 +666,14 @@ int i=0;
   void storeData() async {
     print(phone.text);
     Details data = Details();
-   /* if (Academic == null)
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Academic certificate  not exist')));
-    if (Certificate == null)
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('graduation certificate not exist')));
-    if (Record == null)
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Academic records not exist')));
-    if (CV == null)
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Cv not exist')));
-    else*/ if (formKey.currentState!.validate()){
+    if (formKey.currentState!.validate()) {
       showDialog(
+          barrierDismissible: false,
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-                title: Center(child: CircularProgressIndicator()));});
+                title: Center(child: CircularProgressIndicator()));
+          });
       data = await ApiManager.storeGrddDetailes(
           dob.text,
           phone.text,
@@ -680,57 +690,59 @@ int i=0;
           courses.text,
           fildAward.text,
           awards.text);
-    if (data.success??false) {
-      Navigator.pop(context);
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(AppLocalizations.of(context)!.dialog_sucesse),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  AppLocalizations.of(context)!.ok,
-                  style: TextStyle(color: Colors.black),
+      if (data.success ?? false) {
+        Navigator.pop(context);
+        id = data.payload!.id ?? 0;
+        print(data.payload!.id);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Text(AppLocalizations.of(context)!.dialog_sucesse),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.ok,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
-              ),
-            ],
-          );
-        },
-      );
-    }
-    else {
-      Navigator.pop(context);
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Error occured"),
-            content: Column(
-              children: [
-                Text(data!.errors!.courses!.toString()),
-                Text(data!.errors!.scientificDegree!.toString()),
               ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  AppLocalizations.of(context)!.ok,
-                  style: TextStyle(color: Colors.black),
-                ),
+            );
+          },
+        );
+      } else {
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error occured"),
+              content: Column(
+                children: [
+                  Text(data!.errors!.courses!.toString()),
+                  Text(data!.errors!.scientificDegree!.toString()),
+                ],
               ),
-            ],
-          );
-        },
-      );
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.ok,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
-  }}
+  }
 
   void clearAll() {
     dob.clear();
@@ -738,6 +750,8 @@ int i=0;
     address.clear();
     _image = null;
     gradBatch.clear();
+    department.clear();
+    specialzation.clear();
     scientificDegree.clear();
     Academic = null;
     Certificate = null;
@@ -745,6 +759,8 @@ int i=0;
     gpa.clear();
     CV = null;
     courses.clear();
+    fildAward.clear();
+    fildCourses.clear();
     awards.clear();
   }
 
