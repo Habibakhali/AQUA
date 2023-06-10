@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/API/Models/graduated/details.dart';
+import 'package:project/graduated/personal%20setting/pref.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../API/api_manager.dart';
 import 'package:month_year_picker/month_year_picker.dart';
@@ -50,7 +51,31 @@ class _ProfileGrdState extends State<ProfileGrd> {
   File? Record;
   File? Certificate;
   int i = 0;
+  @override
+  void initState(){
+    super.initState();
+    dob.text=UserSimplePreferences.getBirthDate()??"";
+    phone.text=UserSimplePreferences.getPhone()??"";
+    address.text=UserSimplePreferences.getAddress()??"";
 
+    gradBatch.text=UserSimplePreferences.getBatch()??"";
+
+    department.text=UserSimplePreferences.getDepartment()??"";
+
+    specialzation.text=UserSimplePreferences.getSpecialization()??"";
+
+    scientificDegree.text=UserSimplePreferences.getScientificDeg()??"";
+
+    gpa.text=UserSimplePreferences.getGpa()??"";
+
+    fildCourses.text=UserSimplePreferences.getFieldCourse()??"";
+
+    courses.text=UserSimplePreferences.getCourse()??"";
+    fildAward.text=UserSimplePreferences.getFieldAwards()??"";
+    awards.text=UserSimplePreferences.getAwards()??"";
+
+
+  }
   Future pickImage(ImageSource source) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
@@ -619,7 +644,21 @@ class _ProfileGrdState extends State<ProfileGrd> {
                                 RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
-                    onPressed: () {
+                    onPressed: () async{
+                      await UserSimplePreferences.setDop(dob.text);
+
+                      await UserSimplePreferences.setPhone(phone.text);
+                      await UserSimplePreferences.setAddress(address.text);
+                      await UserSimplePreferences.setGradBatch(gradBatch.text);
+                      await UserSimplePreferences.setDepartment(department.text);
+                      await UserSimplePreferences.setSecialization(specialzation.text);
+                      await UserSimplePreferences.setScientificDeg(scientificDegree.text);
+                      await UserSimplePreferences.setGpa(gpa.text);
+                      await UserSimplePreferences.setFieldCourse(fildCourses.text);
+                      await UserSimplePreferences.setCourse(courses.text);
+                      await UserSimplePreferences.setFieldAwards(fildAward.text);
+                      await UserSimplePreferences.setAward(awards.text);
+
                       storeData();
                     },
                     child: Text(AppLocalizations.of(context)!.save,
