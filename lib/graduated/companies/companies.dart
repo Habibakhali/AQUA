@@ -43,15 +43,22 @@ class _GraduationCertificateState extends State<GraduationCertificate> {
     }
     pref.setStringList('companiesNamew', companiesNamew);
     pref.setStringList('companiesId', ids);
+    print(pref.getString('tokenGrd'));
   }
-late StateProvider pro;
+late SettingProvider pro;
   @override
   Widget build(BuildContext context) {
-    pro=Provider.of<StateProvider>(context);
+    pro=Provider.of<SettingProvider>(context);
     return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: (){
-              ShowBottonModal();
+              showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context, builder:(context) {
+                      return Padding(
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom>0?MediaQuery.of(context).viewInsets.bottom:1),
+                    child: ContentOfCompanies());
+              });
             },
             child: Icon(Icons.add),
           ),
@@ -103,13 +110,5 @@ late StateProvider pro;
         ],
       )
     );
-  }
-  void ShowBottonModal(){
-    showModalBottomSheet(
-        isScrollControlled: true,context: context, builder:(context) {
-      return Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: ContentOfCompanies());
-    });
   }
 }

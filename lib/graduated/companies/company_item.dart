@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/API/api_manager.dart';
+import 'package:project/graduated/companies/update_company.dart';
 import 'package:project/providers/state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../providers/setting_provider.dart';
 import 'content_companies.dart';
 
 class CompanyItem extends StatefulWidget {
@@ -19,10 +21,10 @@ class CompanyItem extends StatefulWidget {
 
 class _CompanyItemState extends State<CompanyItem> {
 
-  late StateProvider pro;
+  late SettingProvider pro;
   @override
   Widget build(BuildContext context) {
-    pro=Provider.of<StateProvider>(context);
+    pro=Provider.of<SettingProvider>(context);
     return Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),
@@ -40,6 +42,11 @@ class _CompanyItemState extends State<CompanyItem> {
                   child: Text(widget.name,
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 20))),
+              /*InkWell(
+                onTap: (){
+                  editCompaniesDetaiels();
+                },
+                child: Icon(Icons.edit,color: Colors.blue,),)*/
               InkWell(
                   onTap: () {
                     showDialog(
@@ -142,6 +149,17 @@ class _CompanyItemState extends State<CompanyItem> {
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
               child: ContentOfCompanies());
+        });
+  }
+  editCompaniesDetaiels(){
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: ContentOfedit(widget.name,widget.email,widget.address,widget.type,widget.id));
         });
   }
 }

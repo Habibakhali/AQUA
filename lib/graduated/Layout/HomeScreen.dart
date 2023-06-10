@@ -30,11 +30,7 @@ Future<bool> _onWillPop() async {
 }
 @override
 Widget build(BuildContext context) {
-  return ChangeNotifierProvider(
-    create: (BuildContext){
-      return StateProvider();
-    },
-    child: WillPopScope(
+  return  WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
@@ -69,7 +65,6 @@ Widget build(BuildContext context) {
         ),
         body: tabs[index],
       ),
-    ),
   );
 }
 

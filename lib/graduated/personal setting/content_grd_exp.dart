@@ -12,122 +12,112 @@ class ContentOfGrdEx extends StatefulWidget {
 }
 
 class _ContentOfGrdExState extends State<ContentOfGrdEx> {
-int i=0;
+  int i = 0;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initcompanyfun();
   }
-  List<String> campaniesName=[];
-  String dropdownValue='';
-  List<String> companiesId=[];
-  initcompanyfun()async{
-   final pref=await SharedPreferences.getInstance();
-   campaniesName=pref.getStringList('companiesNamew')??[];
-    dropdownValue = campaniesName[0];
-   companiesId=pref.getStringList('companiesId')??[];
-   setState(() {
 
-   });
+  List<String> campaniesName = [];
+  String dropdownValue = '';
+  List<String> companiesId = [];
+
+  initcompanyfun() async {
+    final pref = await SharedPreferences.getInstance();
+    campaniesName = pref.getStringList('companiesNamew') ?? [];
+    dropdownValue = campaniesName.first;
+    companiesId = pref.getStringList('companiesId') ?? [];
+    setState(() {
+      print(dropdownValue);
+      print(campaniesName);
+    });
   }
-  TextEditingController jobTitle=TextEditingController();
 
-  TextEditingController startDate=TextEditingController();
-
-  TextEditingController endDate=TextEditingController();
-
-  TextEditingController companyId=TextEditingController();
+  TextEditingController jobTitle = TextEditingController();
+  TextEditingController startDate = TextEditingController();
+  TextEditingController endDate = TextEditingController();
+  TextEditingController companyId = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-late StateProvider pro;
+  late SettingProvider pro;
+
   @override
   Widget build(BuildContext context) {
-    pro=Provider.of<StateProvider>(context);
-    return  Container(
-      padding: EdgeInsets.only(left: 16, top: 8, right: 16,bottom: 10),
-      child:
-      Form(
+    pro = Provider.of<SettingProvider>(context);
+    return Container(
+      padding: EdgeInsets.only(left: 16, top: 8, right: 16, bottom: 10),
+      child: Form(
         key: formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-              child:  Column(
-                  children: [
-                    Text('Your Experiance',style: TextStyle(fontSize: 20
-                    ),),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "job_title"
-                      ),
-                      validator: (value) {
-                        if(value == null || value.trim().isEmpty) {
-                          return 'please enter job title';
-                        }
-                        return null;
-                      },
-                      controller: jobTitle,
-
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Start date"
-                      ),
-                      validator: (value) {
-                        if(value == null || value.trim().isEmpty) {
-                          return 'please enter Start date';
-                        }
-                        return null;
-                      },
-                      controller: startDate,
-                      onTap: (){
-                        i=1;
-                        _selDatePicker();
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "End Date"
-                      ),
-                      validator: (value) {
-                        return null;
-                      },
-                      controller: endDate,
-                      onTap: (){
-                        i=2;
-                        _selDatePicker();
-                      },
-                    ),
-                  ]
-
-              ),
-
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Column(children: [
+                Text(
+                  'Your Experiance',
+                  style: TextStyle(fontSize: 20),
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: "job_title"),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'please enter job title';
+                    }
+                    return null;
+                  },
+                  controller: jobTitle,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: "Start date"),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'please enter Start date';
+                    }
+                    return null;
+                  },
+                  controller: startDate,
+                  onTap: () {
+                    i = 1;
+                    _selDatePicker();
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: "End Date"),
+                  validator: (value) {
+                    return null;
+                  },
+                  controller: endDate,
+                  onTap: () {
+                    i = 2;
+                    _selDatePicker();
+                  },
+                ),
+              ]),
             ),
             Container(
               padding: EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width,
               child: DropdownButton(
-                dropdownColor: Colors.white,
+                isExpanded: true,
                 value: dropdownValue,
                 icon: Icon(Icons.arrow_drop_down),
+                dropdownColor: Colors.white,
                 items: campaniesName.map((String value) {
                   return DropdownMenuItem(
                     value: value,
-                    child: Text(value,style: TextStyle(
-                      color: Colors.grey.shade700
-                    ),
-                    ),
+                    child: Text(value),
                   );
                 }).toList(),
-                // Step 5.
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownValue = newValue!;
@@ -144,11 +134,10 @@ late StateProvider pro;
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
                       elevation: MaterialStateProperty.all(1),
-                      shape:
-                      MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ))),
+                        borderRadius: BorderRadius.circular(18.0),
+                      ))),
                   onPressed: () {
                     grdExpr();
                   },
@@ -160,31 +149,29 @@ late StateProvider pro;
             ),
           ],
         ),
-
       ),
     );
   }
 
-  grdExpr()async{
-    int index=0;
-    for(int i=0;i<campaniesName.length;i++){
-      if(dropdownValue==campaniesName[i])
-        index=i;
+  grdExpr() async {
+    int index = 0;
+    for (int i = 0; i < campaniesName.length; i++) {
+      if (dropdownValue == campaniesName[i]) index = i;
     }
-  var data=await ApiManager.storeGraduateEperience(jobTitle.text,startDate.text,endDate.text,companiesId[index]);
-  if(dropdownValue=='Company\'s name')
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Select Company')));
-  if(data.statusCode==200){
-    pro.UpdateCompaniesState();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Your experiances is added')));
-  Navigator.pop(context);
+    var data = await ApiManager.storeGraduateEperience(
+        jobTitle.text, startDate.text, endDate.text, companiesId[index]);
+    if (data.statusCode == 200) {
+      pro.UpdateCompaniesState();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Your experiances is added')));
+      Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Some thing went wrong, try again')));
+      Navigator.pop(context);
+    }
   }
-else {
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Some thing went wrong, try again')));
-Navigator.pop(context);
-}
-  }
+
   void _selDatePicker() async {
     DateTime? pickedDate = await showDatePicker(
         context: context,
@@ -203,10 +190,12 @@ Navigator.pop(context);
       //You can format date as per your need
 
       setState(() {
-        if(i==2)
-        endDate.text = formattedDate;
-        else if(i==1)
-          startDate.text=formattedDate;//set foratted date to TextField value.
+        if (i == 2)
+          endDate.text = formattedDate;
+        else if (i == 1)
+          startDate.text =
+              formattedDate; //set foratted date to TextField value.
       });
-    }}
+    }
+  }
 }

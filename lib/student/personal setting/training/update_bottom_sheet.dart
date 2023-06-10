@@ -29,11 +29,11 @@ class _UpdateBottomSheetState extends State<UpdateBottomSheet> {
   var descriptionController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late StateProvider pro;
+  late SettingProvider pro;
   Widget build(BuildContext context) {
     titleController.text=widget.title;
     descriptionController.text=widget.description;
-    pro=Provider.of<StateProvider>(context);
+    pro=Provider.of<SettingProvider>(context);
     return Container(
         child: Form(
           key: formKey,

@@ -22,6 +22,13 @@ class SettingProvider extends ChangeNotifier{
     notifyListeners();
     return selection;
   }
+  UpdateCompaniesState(){
+    notifyListeners();
+  }
+  checkUpdateActivity( String activityState){
+    if(activityState =='del'||activityState=='up'||activityState=='post')
+      notifyListeners();
+  }
   void ConnectionState()async{
    var r=await InternetConnectionChecker().hasConnection;
    result =r;

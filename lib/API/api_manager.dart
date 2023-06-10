@@ -855,26 +855,20 @@ async{
     print(response.statusCode);
     return response;
   }
-  static Future<void> updateCompanies(String Name, String Email, String Address,String Type)
-  async{
+  static Future<http.Response> updateCompanies(String Name, String Email, String Address,String Type,int id) async{
     final pref=await SharedPreferences.getInstance();
-    var url=Uri.https(base,'/api/companies');
-    http.Response response=await http.post(url,headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "Authorization": "Bearer ${pref.getString('token')}"
-
+    var url=Uri.https(base,'/api/companies/$id');
+    http.Response response=await http.put(url,headers: {
+      "Authorization": "Bearer ${pref.getString('tokenGrd')}"
     },
         body: jsonEncode({
           "name":Name,
           "email":Email,
           "address":Address,
           "type":Type,
-
         }));
-
-    print('refresh ===============> ${response.statusCode}');
-    var json=jsonDecode(response.body);
+    print(response.body);
+    return response;
   }
 
   static Future<getCompaniesDate>getCompanies()async{

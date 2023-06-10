@@ -216,7 +216,7 @@ List<int> fgh=[];
                                                       Theme.of(context)
                                                           .secondaryHeaderColor,
                                                   children: [
-                                                    InkWell(
+                                                    /*InkWell(
                                                         child: Row(
                                                           children: [
                                                             Text(AppLocalizations
@@ -234,7 +234,7 @@ List<int> fgh=[];
                                                         }),
                                                     SizedBox(
                                                       height: 8,
-                                                    ),
+                                                    ),*/
                                                     InkWell(
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

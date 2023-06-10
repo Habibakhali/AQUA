@@ -4,6 +4,8 @@ import 'package:project/providers/state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/setting_provider.dart';
+
 class ExprItem extends StatefulWidget {
   String name;
   String address;
@@ -19,9 +21,9 @@ class ExprItem extends StatefulWidget {
 class _ExprItemState extends State<ExprItem> {
 
   @override
-late StateProvider pro;
+late SettingProvider pro;
   Widget build(BuildContext context) {
-    pro=Provider.of<StateProvider>(context);
+    pro=Provider.of<SettingProvider>(context);
     return Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),

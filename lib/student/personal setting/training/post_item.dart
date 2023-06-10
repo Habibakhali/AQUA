@@ -24,9 +24,9 @@ class PostItem extends StatefulWidget {
 
 class _PostItemState extends State<PostItem> {
   @override
-  late StateProvider pro;
+  late SettingProvider pro;
   Widget build(BuildContext context) {
-    pro=Provider.of<StateProvider>(context);
+    pro=Provider.of<SettingProvider>(context);
     return Container(
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.all(12),

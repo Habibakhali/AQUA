@@ -26,25 +26,22 @@ List<String>id=[];
   void initState() {
     // TODO: implement initState
     super.initState();
-   // iiiyt();
+    iiiyt();
   }
 iiiyt() async{
   final pref=await SharedPreferences.getInstance();
   campaniesName=pref.getStringList('companiesNamew')??[];
   companiesId=pref.getStringList('companiesId')??[];
   var data=await ApiManager.getGrdExperiences();
-  for(int i=0;i<campaniesName.length;i++){
-      if(companiesId[i]==data.payload![i].companyId)
-        idName.insert(idName.length, campaniesName[i]);
-  }
-;}
+  for(int j=0;j<data.payload!.length;j++){
+         idName.insert(idName.length, campaniesName[companiesId.indexOf(data.payload![j].companyId.toString())]);
+      }
+    }
 @override
+late SettingProvider pro;
 Widget build(BuildContext context) {
-  return ChangeNotifierProvider<StateProvider>(
-    create: (_){
-      return StateProvider();
-    },
-    child: Scaffold(
+  pro=Provider.of<SettingProvider>(context);
+  return  Scaffold(
        floatingActionButton: FloatingActionButton(
          onPressed:(){
            showModalwllw();
@@ -70,14 +67,17 @@ Widget build(BuildContext context) {
                  else {
                    var data = snapShot.data;
                    if (data!.payload!.isNotEmpty) {
+                     fn();
+
                      return ListView.builder(
                          itemCount: snapShot.data!.payload!.length!,
                          itemBuilder:(context,index){
+                           print(index);
                            return ExprItem(
                                data.payload![index]!.jobTitle!,
                                data.payload![index]!.startDate!,
-                             data.payload![index]!.endDate??"0",
-                              'vodavon',
+                             data.payload![index]!.endDate??'0',
+                             idName[index],
                              data.payload![index]!.id!
                            );
                          });
@@ -96,8 +96,18 @@ Widget build(BuildContext context) {
              ),
            ),
          ],
-       )),
+       )
   );
+  }
+  fn()async{
+    final pref=await SharedPreferences.getInstance();
+    campaniesName=pref.getStringList('companiesNamew')??[];
+    companiesId=pref.getStringList('companiesId')??[];
+    var data=await ApiManager.getGrdExperiences();
+    for(int j=0;j<data.payload!.length;j++){
+      idName.insert(j, campaniesName[companiesId.indexOf(data.payload![j].companyId.toString())]);
+      print(idName[j]);
+    }
   }
   showModalwllw(){
     showModalBottomSheet(

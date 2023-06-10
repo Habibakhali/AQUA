@@ -4,7 +4,10 @@ import 'package:project/providers/state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/setting_provider.dart';
+
 class ContentOfCompanies extends StatefulWidget {
+
   @override
   State<ContentOfCompanies> createState() => _ContentOfCompaniesState();
 }
@@ -20,10 +23,11 @@ class _ContentOfCompaniesState extends State<ContentOfCompanies> {
 
   TextEditingController type = TextEditingController();
 
-  late StateProvider pro;
+  late SettingProvider pro;
+
   @override
   Widget build(BuildContext context) {
-    pro=Provider.of<StateProvider>(context);
+    pro=Provider.of<SettingProvider>(context);
     return Container(
       padding: EdgeInsets.only(top: 10),
       child: Form(
@@ -101,9 +105,9 @@ class _ContentOfCompaniesState extends State<ContentOfCompanies> {
                     if(formKey.currentState!.validate()){
                       var data = await ApiManager.storeCompanies(name.text, email.text, address.text, type.text);
                       if (data.statusCode == 200) {
-                        pro.UpdateCompaniesState();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Store companies data is success')));
                         Navigator.pop(context);
+ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Store companies data is success')));
+                        pro.UpdateCompaniesState();
                       }
                       else {
                         Navigator.pop(context);

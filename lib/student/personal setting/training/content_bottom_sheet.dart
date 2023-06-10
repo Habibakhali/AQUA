@@ -27,10 +27,10 @@ class _ContentBottomSheetState extends State<ContentBottomSheet> {
 
   var description = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late StateProvider pro;
+  late SettingProvider pro;
   @override
   Widget build(BuildContext context) {
-     pro=Provider.of<StateProvider>(context);
+     pro=Provider.of<SettingProvider>(context);
     return Container(
         child: Form(
       key: formKey,
