@@ -9,8 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project/API/Models/graduated/details.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../API/api_manager.dart';
-import 'package:month_year_picker/month_year_picker.dart';
-import '../../MyDesign/buildTextField.dart';
+
 
 class ProfileGrd extends StatefulWidget {
   static const String routeName = 'profgrd';
@@ -146,26 +145,24 @@ class _ProfileGrdState extends State<ProfileGrd> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return Expanded(
-                                  child: SimpleDialog(
-                                    title: const Text('Choose Image'),
-                                    children: <Widget>[
-                                      SimpleDialogOption(
-                                        onPressed: () {
-                                          pickImage(ImageSource.gallery);
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('From gallery'),
-                                      ),
-                                      SimpleDialogOption(
-                                        onPressed: () {
-                                          pickImage(ImageSource.camera);
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('From camera'),
-                                      ),
-                                    ],
-                                  ),
+                                return SimpleDialog(
+                                  title: const Text('Choose Image'),
+                                  children: <Widget>[
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        pickImage(ImageSource.gallery);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From gallery'),
+                                    ),
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        pickImage(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('From camera'),
+                                    ),
+                                  ],
                                 );
                               },
                             );
@@ -239,7 +236,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
                     buildTextField(
                         "scientific degree",
                         "Enter scientific degree",
-                        TextInputType.number,
+                        TextInputType.text,
                         scientificDegree,
                         "please enter scientific degree"),
                     buildTextField("gpa", "Enter your gpa",
@@ -384,28 +381,26 @@ class _ProfileGrdState extends State<ProfileGrd> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return Expanded(
-                                child: SimpleDialog(
-                                  title: const Text('Choose Image'),
-                                  children: <Widget>[
-                                    SimpleDialogOption(
-                                      onPressed: () {
-                                        i = 2;
-                                        chooseImage(ImageSource.gallery);
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('From gallery'),
-                                    ),
-                                    SimpleDialogOption(
-                                      onPressed: () {
-                                        i = 2;
-                                        chooseImage(ImageSource.camera);
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('From camera'),
-                                    ),
-                                  ],
-                                ),
+                              return SimpleDialog(
+                                title: const Text('Choose Image'),
+                                children: <Widget>[
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      i = 2;
+                                      chooseImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From gallery'),
+                                  ),
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      i = 2;
+                                      chooseImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From camera'),
+                                  ),
+                                ],
                               );
                             },
                           );
@@ -442,28 +437,26 @@ class _ProfileGrdState extends State<ProfileGrd> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return Expanded(
-                                child: SimpleDialog(
-                                  title: const Text('Choose Image'),
-                                  children: <Widget>[
-                                    SimpleDialogOption(
-                                      onPressed: () {
-                                        i = 3;
-                                        chooseImage(ImageSource.gallery);
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('From gallery'),
-                                    ),
-                                    SimpleDialogOption(
-                                      onPressed: () {
-                                        i = 3;
-                                        chooseImage(ImageSource.camera);
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('From camera'),
-                                    ),
-                                  ],
-                                ),
+                              return SimpleDialog(
+                                title: const Text('Choose Image'),
+                                children: <Widget>[
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      i = 3;
+                                      chooseImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From gallery'),
+                                  ),
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      i = 3;
+                                      chooseImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From camera'),
+                                  ),
+                                ],
                               );
                             },
                           );
@@ -500,28 +493,26 @@ class _ProfileGrdState extends State<ProfileGrd> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return Expanded(
-                                child: SimpleDialog(
-                                  title: const Text('Choose Image'),
-                                  children: <Widget>[
-                                    SimpleDialogOption(
-                                      onPressed: () {
-                                        i = 4;
-                                        chooseImage(ImageSource.gallery);
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('From gallery'),
-                                    ),
-                                    SimpleDialogOption(
-                                      onPressed: () {
-                                        i = 4;
-                                        chooseImage(ImageSource.camera);
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('From camera'),
-                                    ),
-                                  ],
-                                ),
+                              return SimpleDialog(
+                                title: const Text('Choose Image'),
+                                children: <Widget>[
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      i = 4;
+                                      chooseImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From gallery'),
+                                  ),
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      i = 4;
+                                      chooseImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('From camera'),
+                                  ),
+                                ],
                               );
                             },
                           );
@@ -553,22 +544,6 @@ class _ProfileGrdState extends State<ProfileGrd> {
                     ),
                   ]),
                 )),
-            TextButton(
-              onPressed: () async {
-                const url =
-                    'https://docs.google.com/forms/d/e/1FAIpQLSc9AXGfkkO0AJzTdPPh5iQwpKEs0O51FW96BAHemQ8pcdg91A/viewform';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-              child: Text(
-                AppLocalizations.of(context)!.qa,
-                style: Theme.of(context).textTheme.headlineMedium,
-                //textAlign: TextAlign.center,
-              ),
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -722,8 +697,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
               title: Text("Error occured"),
               content: Column(
                 children: [
-                  Text(data!.errors!.courses!.toString()),
-                  Text(data!.errors!.scientificDegree!.toString()),
+                  Text('some thing went wrong'),
                 ],
               ),
               actions: [
@@ -732,7 +706,7 @@ class _ProfileGrdState extends State<ProfileGrd> {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    AppLocalizations.of(context)!.ok,
+                  'ok',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),

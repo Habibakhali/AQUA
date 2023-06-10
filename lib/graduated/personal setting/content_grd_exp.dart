@@ -115,7 +115,7 @@ class _ContentOfGrdExState extends State<ContentOfGrdEx> {
                 items: campaniesName.map((String value) {
                   return DropdownMenuItem(
                     value: value,
-                    child: Text(value),
+                    child: Text(value,style: TextStyle(color: Colors.grey.shade700),),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
